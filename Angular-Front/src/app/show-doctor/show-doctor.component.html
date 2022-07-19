@@ -1,0 +1,23 @@
+<h1 id="tableLabel">Doctor Data</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<p *ngIf="!doctors"><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
+
+<table *ngIf="doctors">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Title</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let doctor of doctors">
+      <td>{{ doctor.id }}</td>
+      <td>{{ doctor.name }}</td>
+      <td>{{ doctor.title }}</td>
+
+    </tr>
+  </tbody>
+</table>

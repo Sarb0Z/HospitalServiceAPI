@@ -10,10 +10,12 @@ using System.Threading.Tasks;
 using HospitalServiceAPI.Models;
 using Newtonsoft.Json;
 
+
 namespace HospitalServiceAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class DiagnosisController
     {
         private readonly IConfiguration _configuration;
