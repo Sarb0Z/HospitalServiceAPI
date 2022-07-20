@@ -14,6 +14,15 @@ import { MatTabsModule } from '@angular/material/tabs'
 import { MatAutocompleteModule } from '@angular/material/autocomplete'
 import { MatTableModule } from '@angular/material/table'
 import { DragDropModule } from '@angular/cdk/drag-drop'
+import {MatListModule} from '@angular/material/list';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatCardModule} from '@angular/material/card';
+
+import { FlexLayoutModule } from '@angular/flex-layout';
+
+
+
+
 
 @NgModule({
   declarations: [],
@@ -30,7 +39,11 @@ import { DragDropModule } from '@angular/cdk/drag-drop'
     MatTabsModule,
     MatAutocompleteModule,
     MatTableModule,
-    DragDropModule
+    DragDropModule,
+    MatListModule,
+    MatGridListModule,
+    MatCardModule,
+    FlexLayoutModule
   ],
   imports: [
     CommonModule

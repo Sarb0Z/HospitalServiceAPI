@@ -1,23 +1,71 @@
-<h1 id="tableLabel">Doctor Data</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
+<button
+  mat-button
+  type="button"
+  class="btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#exampleModal"
+  (click)="AddDoctor()"
+  data-keyborad="false"
+>
+  Add Doctor
+</button>
 
-<p *ngIf="!doctors"><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
-
-<table *ngIf="doctors">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Title</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let doctor of doctors">
-      <td>{{ doctor.id }}</td>
-      <td>{{ doctor.name }}</td>
-      <td>{{ doctor.title }}</td>
-
-    </tr>
-  </tbody>
-</table>
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ modalTitle }}</h5>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="closeClick()"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <app-add-edit-doctor [doctor]="doctor" *ngIf="activateAddEditDoctorCom">
+        </app-add-edit-doctor>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-generic-list [list]="doctorList">
+  <ng-container content>
+    <div class="movies-container">
+      <div *ngFor="let doctor of doctorList" class="movie-container">
+        <mat-toolbar color="primary"> Doctor Details </mat-toolbar>
+        <div class="content">
+          <mat-card class="mat-elevation-z4">
+            <mat-card-header>
+              <mat-card-title>Name: {{ doctor.doctor_name }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p>Designation: {{ doctor.title | uppercase }}</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button type="button" data-bs-toggle="modal"
+              data-bs-target="#exampleModal" (click)="EditDoctor(doctor)">EDIT</button>
+              <button mat-button (click)="deleteClick(doctor)" color="warn">
+                DELETE
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</app-generic-list>

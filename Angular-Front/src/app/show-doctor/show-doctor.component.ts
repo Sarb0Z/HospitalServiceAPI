@@ -1,28 +1,63 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { SharedService } from '../shared.service';
 
 @Component({
   selector: 'app-show-doctor',
   templateUrl: './show-doctor.component.html',
   styleUrls: ['./show-doctor.component.css']
 })
-export class ShowDoctorComponent {
-  public doctors?: DoctorData[];
-  constructor(http: HttpClient) {
-    http.get<DoctorData[]>('/api/Doctor').subscribe(result => {
-      this.doctors = result;
-    }, error => console.error(error));
+export class ShowDoctorComponent implements OnInit {
+  doctorList: any = [];
+  modalTitle: any;
+  activateAddEditDoctorCom: boolean = false;
+  doctor: any;
+
+  constructor(private sharedService: SharedService) { }
+
+  ngOnInit(): void {
+    this.refreshDoctorList();
   }
-  title = 'Angular-Front';
+  refreshDoctorList() {
+    this.sharedService.getDoctorList().subscribe(data => {
+      this.doctorList = data;
+      this.doctorList = JSON.parse(this.doctorList);
+      
+    });
+  }
 
+  AddDoctor() {
+    this.doctor = {
+      id: 0,
+      doctor_name: "",
+      title: ""
+    }
+    this.modalTitle = "Add Doctor";
+    this.activateAddEditDoctorCom = true;
+  }
+
+  EditDoctor(item: any) {
+    this.doctor = item;
+    this.activateAddEditDoctorCom = true;
+    this.modalTitle = "Update Doctor";
+  }
+
+  deleteClick(item: any) {
+    if (confirm('Are you sure??')) {
+      this.sharedService.deleteDoctor(item.id).subscribe(data => {
+        alert(data.toString());
+        this.refreshDoctorList();
+      })
+    }
+  }
+
+  closeClick() {
+    this.activateAddEditDoctorCom = false;
+    this.refreshDoctorList();
+  }
 
 
 }
-interface DoctorData {
-  id: number;
-  name: string;
-  title: string;
-}
+
 
 
 

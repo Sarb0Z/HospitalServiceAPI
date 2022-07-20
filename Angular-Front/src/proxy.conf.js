@@ -5,7 +5,8 @@ const PROXY_CONFIG = [
       "/api/Doctor",
       "/api/Patient",
       "/api/Visit",
-      "/api/Diagnosis"
+      "/api/Diagnosis",
+      "/api/Receipt"
     ],
     target: 'https://localhost:5000',
     secure: false
