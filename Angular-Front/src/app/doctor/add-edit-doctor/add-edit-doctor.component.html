@@ -14,7 +14,7 @@
     </div>
 </div>
 
-<button (click)="addDoctor()" class="btn btn-primary">
+<button (click)="addDoctor()"  *ngIf="doctor.id==0" class="btn btn-primary">
     Add
 </button>
 

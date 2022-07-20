@@ -1,16 +1,16 @@
 <div class="form-group row">
-    <label class="col-sm-2">Patient Name</label>
+    <label class="col-sm-2">Patient ID</label>
     <div class="col-sm-10">
-        <input type="text" class="form-control" [(ngModel)]="patient_name"
-        placeholder="Enter Full Name">
+        <input type="text" class="form-control" [(ngModel)]="patient_id"
+        placeholder="Enter ID">
     </div>
 </div>
 
 <div class="form-group row">
-    <label class="col-sm-2">Doctor Name</label>
+    <label class="col-sm-2">Doctor ID</label>
     <div class="col-sm-10">
-        <input type="text" class="form-control" [(ngModel)]="doctor_name"
-        placeholder="Enter Name">
+        <input type="text" class="form-control" [(ngModel)]="doctor_id"
+        placeholder="Enter ID">
     </div>
 </div>
 
@@ -30,7 +30,7 @@
     </div>
 </div>
 
-<button (click)="addVisit()" class="btn btn-primary">
+<button (click)="addVisit()" *ngIf="visit.id==0"class="btn btn-primary">
     Add
 </button>
 

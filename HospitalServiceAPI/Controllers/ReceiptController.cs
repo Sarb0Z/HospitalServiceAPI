@@ -11,6 +11,8 @@ using HospitalServiceAPI.Models;
 using System.Text.Json;
 using Newtonsoft.Json;
 
+
+
 namespace HospitalServiceAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -23,10 +25,10 @@ namespace HospitalServiceAPI.Controllers
             _configuration = configuration;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
         public JsonResult Get(int id)
         {
-            string query = @"Select id, amount, details from dbo.Receipt where id = " + id;
+            string query = @"Select id, details, amount from dbo.Receipt where id = " + id;
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("HospitalAppCon");
             SqlDataReader myReader;

@@ -24,7 +24,7 @@
 
 
 
-<button (click)="addPatient()" class="btn btn-primary">
+<button (click)="addPatient()" *ngIf="patient.id==0"  class="btn btn-primary">
     Add
 </button>
 

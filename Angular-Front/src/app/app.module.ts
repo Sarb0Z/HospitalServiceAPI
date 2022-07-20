@@ -24,6 +24,7 @@ import { AddEditPatientComponent } from './patient/add-edit-patient/add-edit-pat
 import { SharedService } from './shared.service';
 import { AddEditVisitComponent } from './visits/add-edit-visit/add-edit-visit.component';
 import { ShowReceiptComponent } from './receipt/show-receipt/show-receipt.component';
+import { SearchPatientComponent } from './patient/search-patient/search-patient.component';
 
 
 
@@ -31,8 +32,9 @@ const routes: Routes = [
   { path: 'home', component: AppComponent },
   { path: 'doctor', component: ShowDoctorComponent },
   { path: 'patient', component: ShowPatientComponent },
-  { path: 'visits', component: VisitsComponent }
-
+  { path: 'visits', component: VisitsComponent },
+  { path: 'diagnosis', component: DiagnosisComponent },
+  { path: 'searchpatient', component: SearchPatientComponent },
 
 ];
 
@@ -52,7 +54,8 @@ const routes: Routes = [
     AddEditDoctorComponent,
     AddEditPatientComponent,
     AddEditVisitComponent,
-    ShowReceiptComponent
+    ShowReceiptComponent,
+    SearchPatientComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, BrowserAnimationsModule, MaterialModule, FormsModule,

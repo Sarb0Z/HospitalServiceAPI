@@ -9,8 +9,8 @@ import { SharedService } from 'src/app/shared.service';
 export class AddEditVisitComponent implements OnInit {
   @Input() visit:any;
   id:number=0;
-  doctor_name: string ="";
-  patient_name: string = "";
+  doctor_id: number = 0;
+  patient_id: number = 0;
   purpose: string ="";
   timing:Date=new Date();
 
@@ -18,16 +18,16 @@ export class AddEditVisitComponent implements OnInit {
 
   ngOnInit(): void {
     this.id=this.visit.id;
-    this.doctor_name = this.visit.doctor_name;
-    this.patient_name = this.visit.patient_name;
+    this.doctor_id = this.visit.doctor_id;
+    this.patient_id = this.visit.patient_id;
     this.timing = this.visit.timing;
     this.purpose = this.visit.purpose;
   }
 
   addVisit(){
     var val = {
-      doctor_name:this.doctor_name,
-      patient:this.patient_name,
+      doctor_id:this.doctor_id,
+      patient_id:this.patient_id,
       purpose:this.purpose,
       timing:this.timing
     
@@ -40,8 +40,8 @@ export class AddEditVisitComponent implements OnInit {
   updateVisit(){
     var val = {
       id:this.visit.id,
-      doctor_name:this.doctor_name,
-      patient_name:this.patient_name,
+      doctor_id:this.doctor_id,
+      patient_id:this.patient_id,
       purpose:this.purpose,
       timing:this.timing
     };

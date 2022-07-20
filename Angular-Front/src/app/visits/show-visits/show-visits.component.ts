@@ -13,7 +13,9 @@ export class ShowVisitsComponent implements OnInit {
   visit: any;
 
   activateReceiptCom: boolean = false;
-  receiptData:any;
+  receiptID: number = 0;
+  receiptData: any;
+
 
   constructor(private sharedService: SharedService) { }
 
@@ -44,6 +46,7 @@ export class ShowVisitsComponent implements OnInit {
     this.visit = item;
     this.activateAddEditVisitCom = true;
     this.modalTitle = "Update Visit";
+    this.refreshVisitList();
   }
 
   deleteClick(item: any) {
@@ -57,17 +60,15 @@ export class ShowVisitsComponent implements OnInit {
 
   closeClick() {
     this.activateAddEditVisitCom = false;
-    this.refreshVisitList();
+    this.activateReceiptCom = false;
   }
 
-  showReceipt(id:any){
-    this.sharedService.getReceipt(id).subscribe(data => {
-      this.receiptData=data;
-      this.refreshVisitList();
-      this.activateAddEditVisitCom=true;
-
-    })
+  showReceipt(ID:number) {
+    this.receiptID = ID;
+    this.activateReceiptCom = true;
+    this.modalTitle="Showing Receipt"
 
   }
+
 
 }

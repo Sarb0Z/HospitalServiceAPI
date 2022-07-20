@@ -1,16 +1,5 @@
 
-<button
-  mat-button
-  type="button"
-  class="btn btn-primary"
-  data-bs-toggle="modal"
-  data-bs-target="#exampleModal"
-  (click)="AddDoctor()"
-  data-keyborad="false"
->
-  Add Doctor
-</button>
-
+<div>
 <div
   class="modal fade"
   id="exampleModal"
@@ -38,7 +27,7 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
         </button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" (click)="refreshDoctorList()" data-bs-dismiss="modal">Save changes</button>
       </div>
     </div>
   </div>
@@ -47,11 +36,11 @@
   <ng-container content>
     <div class="movies-container">
       <div *ngFor="let doctor of doctorList" class="movie-container">
-        <mat-toolbar color="primary"> Doctor Details </mat-toolbar>
+        <mat-toolbar color="primary"> Doctor# {{doctor.id}} Details </mat-toolbar>
         <div class="content">
           <mat-card class="mat-elevation-z4">
             <mat-card-header>
-              <mat-card-title>Name: {{ doctor.doctor_name }}</mat-card-title>
+              <mat-card-title>Name: {{ doctor.doctor_name | uppercase}}</mat-card-title>
             </mat-card-header>
             <mat-card-content>
               <p>Designation: {{ doctor.title | uppercase }}</p>
@@ -69,3 +58,18 @@
     </div>
   </ng-container>
 </app-generic-list>
+
+
+
+<button
+  mat-button
+  type="button"
+  data-bs-toggle="modal"
+  data-bs-target="#exampleModal"
+  (click)="AddDoctor()"
+  data-keyboard="false"
+  class="btn2"
+>
+  Add Doctor
+</button>
+</div>

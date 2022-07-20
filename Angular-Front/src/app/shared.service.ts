@@ -46,7 +46,7 @@ export class SharedService {
     return this.http.delete('/api/Visit/' + id);
   }
 
-  getReceipt(id:any){
-    return this.http.get('api/Receipt/' + id);
+  getReceipt(id: number): Observable<any> {
+    return this.http.get<any>(`/api/Receipt?id=${id}`);
   }
 }
