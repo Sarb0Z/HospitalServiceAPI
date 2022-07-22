@@ -12,7 +12,8 @@ export class AddDoctorComponent implements OnInit {
   @Output('refreshDoctorList') refreshDoctorList: EventEmitter<any> =
     new EventEmitter();
   @Output('closeClick') closeClick: EventEmitter<any> =
-    new EventEmitter();  
+    new EventEmitter();
+
 
   id: number = 0;
   doctor_name: string = '';
@@ -21,6 +22,7 @@ export class AddDoctorComponent implements OnInit {
   constructor(private service: SharedService) {}
 
   ngOnInit(): void {
+
     this.id = this.doctor.id;
     this.doctor_name = this.doctor.doctor_name;
     this.title = this.doctor.title;

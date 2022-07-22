@@ -10,8 +10,7 @@ using System.Threading.Tasks;
 using HospitalServiceAPI.Models;
 using System.Text.Json;
 using Newtonsoft.Json;
-
-
+using HospitalServiceAPI.Utilities;
 
 namespace HospitalServiceAPI.Controllers
 {
@@ -29,24 +28,9 @@ namespace HospitalServiceAPI.Controllers
         public JsonResult Get()
         {
             string query = @"Select id, doctor_name, title from dbo.Doctor";
-            DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString("HospitalAppCon");
-            SqlDataReader myReader;
-            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
-            {
-                myCon.Open();
-                using (SqlCommand myCommand = new SqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
+            ServerConnect newCon = new ServerConnect(_configuration);
 
-                    myReader.Close();
-                    myCon.Close();
-                }
-            }
-            string temp = JsonConvert.SerializeObject(table);
-
-            return new JsonResult(temp);
+            return newCon.GetData(query);
 
         }
 
@@ -56,21 +40,9 @@ namespace HospitalServiceAPI.Controllers
         {
             string query = @"Insert into dbo.Doctor values
                 ('" + objDoctor.doctor_name + "','" + objDoctor.title + "')";
-            DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString("HospitalAppCon");
-            SqlDataReader myReader;
-            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
-            {
-                myCon.Open();
-                using (SqlCommand myCommand = new SqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
+            ServerConnect newCon = new ServerConnect(_configuration);
 
-                    myReader.Close();
-                    myCon.Close();
-                }
-            }
+            newCon.GetData(query);
 
             return new JsonResult("Added Successfully");
         }
@@ -81,21 +53,9 @@ namespace HospitalServiceAPI.Controllers
             string query = @"Update dbo.Doctor set
                 doctor_name = '" + objDoctor.doctor_name + @"',
                 title='" + objDoctor.title + "' where id = " + objDoctor.id;
-            DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString("HospitalAppCon");
-            SqlDataReader myReader;
-            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
-            {
-                myCon.Open();
-                using (SqlCommand myCommand = new SqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
+            ServerConnect newCon = new ServerConnect(_configuration);
 
-                    myReader.Close();
-                    myCon.Close();
-                }
-            }
+            newCon.GetData(query);
 
             return new JsonResult("Updated Successfully");
         }
@@ -104,21 +64,9 @@ namespace HospitalServiceAPI.Controllers
         public JsonResult Delete(int id)
         {
             string query = @"Delete from dbo.Doctor where id = " + id;
-            DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString("HospitalAppCon");
-            SqlDataReader myReader;
-            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
-            {
-                myCon.Open();
-                using (SqlCommand myCommand = new SqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
+            ServerConnect newCon = new ServerConnect(_configuration);
 
-                    myReader.Close();
-                    myCon.Close();
-                }
-            }
+            newCon.GetData(query);
 
             return new JsonResult("Deleted Successfully");
         }

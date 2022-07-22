@@ -9,9 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HospitalServiceAPI.Models;
 using Newtonsoft.Json;
-
-
-
+using HospitalServiceAPI.Utilities;
 
 namespace HospitalServiceAPI.Controllers
 {
@@ -28,24 +26,9 @@ namespace HospitalServiceAPI.Controllers
         public JsonResult Get(string cnic)
         {
             string query = @"Select patient_name, cnic, dob, timing, purpose, result, doctor_name from dbo.patient_diagnosis where cnic = '" + cnic + "'";
-            DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString("HospitalAppCon");
-            SqlDataReader myReader;
-            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
-            {
-                myCon.Open();
-                using (SqlCommand myCommand = new SqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
+            ServerConnect newCon = new ServerConnect(_configuration);
 
-                    myReader.Close();
-                    myCon.Close();
-                }
-            }
-            string temp = JsonConvert.SerializeObject(table);
-
-            return new JsonResult(temp);
+            return newCon.GetData(query);
 
         }
     }
