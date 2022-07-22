@@ -11,24 +11,22 @@ using HospitalServiceAPI.Models;
 using Newtonsoft.Json;
 
 
-
-
 namespace HospitalServiceAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VisitController: ControllerBase
+    public class PatientDetailsController: ControllerBase
     {
         private readonly IConfiguration _configuration;
-        public VisitController(IConfiguration configuration)
+        public PatientDetailsController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
         [HttpGet]
-        public JsonResult Get()
+        public JsonResult Get(int id)
         {
-            string query = @"Select id, timing, purpose, patient_id, doctor_id from dbo.Visit";
+            string query = @"Select patient_id, doctor_id, blood_type, bone_density, no_of_visits from dbo.patient_details where patient_id = " + id;
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("HospitalAppCon");
             SqlDataReader myReader;
@@ -51,12 +49,10 @@ namespace HospitalServiceAPI.Controllers
         }
 
         [HttpPost]
-        public JsonResult Post(Visit objVisit)
+        public JsonResult Post(PatientDetails objPatientDetails)
         {
-            string sqlFormattedDate = objVisit.timing.ToString("yyyy-MM-dd HH:mm:ss.fff");
-
-            string query = @"Insert into dbo.Visit values
-                ('" + sqlFormattedDate + "','" + objVisit.purpose + "','" + objVisit.patient_id + "','" + objVisit.doctor_id + "')";
+            string query = @"Insert into dbo.patient_details values
+                ('" + objPatientDetails.patient_id + "','" + objPatientDetails.doctor_id + "','" + objPatientDetails.blood_type + "','" + objPatientDetails.bone_density + "','" + objPatientDetails.no_of_visits + "')";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("HospitalAppCon");
             SqlDataReader myReader;
@@ -77,15 +73,14 @@ namespace HospitalServiceAPI.Controllers
         }
 
         [HttpPut]
-        public JsonResult Put(Visit objVisit)
+        public JsonResult Put(PatientDetails objPatientDetails)
         {
-            string sqlFormattedDate = objVisit.timing.ToString("yyyy-MM-dd HH:mm:ss.fff");
-
-            string query = @"Update dbo.Visit set
-                timing = '" + sqlFormattedDate + @"',
-                purpose='" + objVisit.purpose + @"',
-                patient_id='" + objVisit.patient_id + @"',
-                doctor_id='" + objVisit.doctor_id + "' where id = " + objVisit.id;
+            string query = @"Update dbo.patient_details set
+                patient_id = '" + objPatientDetails.patient_id + @"',
+                doctor_id='" + objPatientDetails.doctor_id + @"',
+                blood_type='" + objPatientDetails.blood_type + @"',
+                bone_density='" + objPatientDetails.bone_density + @"',
+                no_of_visits='" + objPatientDetails.no_of_visits+ "' where patient_id = " + objPatientDetails.patient_id;
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("HospitalAppCon");
             SqlDataReader myReader;
@@ -108,7 +103,7 @@ namespace HospitalServiceAPI.Controllers
         [HttpDelete("{id}")]
         public JsonResult Delete(int id)
         {
-            string query = @"Delete from dbo.Visit where id = " + id;
+            string query = @"Delete from dbo.patient_details where id = " + id;
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("HospitalAppCon");
             SqlDataReader myReader;

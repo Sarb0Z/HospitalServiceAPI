@@ -1,0 +1,69 @@
+<div>
+  <div
+    class="modal fade"
+    id="addModal"
+    tabindex="-1"
+    aria-labelledby="addModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="addModalLabel">Add Doctor</h1>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="closeClick.emit()"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-body">
+            <div class="form-group row">
+              <label class="col-sm-2">FullName</label>
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="doctor_name"
+                  placeholder="Enter Full Name"
+                />
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-2">Title</label>
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="title"
+                  placeholder="Enter Title"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              (click)="closeClick.emit()"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="addDoctor()"
+              data-bs-dismiss="modal"
+            >
+              Save changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

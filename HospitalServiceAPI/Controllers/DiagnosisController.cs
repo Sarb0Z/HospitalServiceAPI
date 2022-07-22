@@ -16,7 +16,7 @@ namespace HospitalServiceAPI.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-    public class DiagnosisController
+    public class DiagnosisController: ControllerBase
     {
         private readonly IConfiguration _configuration;
         public DiagnosisController(IConfiguration configuration)

@@ -1,0 +1,87 @@
+<div
+  class="modal fade"
+  id="editModal"
+  tabindex="-1"
+  aria-labelledby="editModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="editModalLabel">Edit Visit</h1>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="closeClick.emit()"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2">Patient ID</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="patient_id"
+            placeholder="Enter ID"
+          />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2">Doctor ID</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="doctor_id"
+            placeholder="Enter ID"
+          />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2">Date of Visit</label>
+        <div class="col-sm-10">
+          <input
+            type="date"
+            class="form-control"
+            [(ngModel)]="timing"
+            placeholder="Enter date"
+          />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2">Purpose</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="purpose"
+            placeholder="Enter Purpose of Visit"
+          />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="closeClick.emit()"
+          data-bs-dismiss="modal"
+        >
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="updateVisit()"
+          data-bs-dismiss="modal"
+        >
+          Save changes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

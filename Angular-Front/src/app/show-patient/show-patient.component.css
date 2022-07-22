@@ -6,3 +6,21 @@ h4 {
     font-size: larger;
     margin-left: 1%;
 }
+
+.table-container{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.table {
+    flex: 1 1 auto;
+    width: 100%;
+    position: relative;
+}
+
+.rows{
+    justify-content: center;
+    align-items: center;
+}

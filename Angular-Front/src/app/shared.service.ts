@@ -49,4 +49,25 @@ export class SharedService {
   getReceipt(id: number): Observable<any> {
     return this.http.get<any>(`/api/Receipt?id=${id}`);
   }
+  getVisitPage(): Observable<any[]> {
+    return this.http.get<any>('/api/VisitPage');
+  }
+  getPatientDetails(id:number): Observable<any[]> {
+    return this.http.get<any>(`/api/PatientDetails?id=${id}`);
+  }
+  addPatientDetails(val: any) {
+    return this.http.post('/api/PatientDetails', val);
+  }
+  updatePatientDetails(val: any) {
+    return this.http.put('/api/PatientDetails', val);
+  }
+  deletePatientDetails(id: any) {
+    return this.http.delete('/api/PatientDetails/' + id);
+  }
+  getPatientDiagnosis(cnic: string): Observable<any> {
+    return this.http.get<any>(`/api/PatientDiagnosis?cnic=${cnic}`);
+  }
+
+
+
 }

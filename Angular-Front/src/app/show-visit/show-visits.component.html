@@ -1,0 +1,114 @@
+<button
+  mat-button
+  type="button"
+  data-bs-toggle="modal"
+  data-bs-target="#addModal"
+  (click)="AddVisit()"
+  data-keyborad="false"
+  class="btn1"
+>
+  Add Visit
+</button>
+
+<app-add-visit
+  [visit]="visit"
+  (closeClick)="closeClick()"
+  (refreshVList)="refreshVisitList()"
+>
+</app-add-visit>
+<app-edit-visit
+  [visit]="visit"
+  (closeClick)="closeClick()"
+  (refreshVList)="refreshVisitList()"
+>
+</app-edit-visit>
+
+<ng-container matColumnDef="id">
+  <th mat-header-cell *matHeaderCellDef>Id</th>
+  <td mat-cell *matCellDef="let patient">
+    {{ patient.id }}
+  </td>
+</ng-container>
+<app-generic-list [list]="visitList">
+  <ng-container content>
+    <div class="table-container">
+      <table mat-table [dataSource]="visitList" class="mat-elevation-z8 table">
+        <mat-toolbar color="primary"> Visit Details </mat-toolbar>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>Id</th>
+          <td mat-cell *matCellDef="let visit">
+            {{ visit.id }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="p_name">
+          <th mat-header-cell *matHeaderCellDef>Patient Name</th>
+          <td mat-cell *matCellDef="let visit">
+            {{ visit.patient_name }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="timing">
+          <th mat-header-cell *matHeaderCellDef>Date</th>
+          <td mat-cell *matCellDef="let visit">
+            {{ visit.timing | date: "dd/MM/yyyy" }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="purpose">
+          <th mat-header-cell *matHeaderCellDef>Purpose of Visit</th>
+          <td mat-cell *matCellDef="let visit">
+            {{ visit.purpose }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="d_name">
+          <th mat-header-cell *matHeaderCellDef>Doctor Name</th>
+          <td mat-cell *matCellDef="let visit">
+            {{ visit.doctor_name }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="action1">
+          <th mat-header-cell *matHeaderCellDef>Edit</th>
+          <td mat-cell *matCellDef="let visit">
+            <button
+              mat-button
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#editModal"
+              (click)="EditVisit(visit)"
+            >
+              EDIT
+            </button>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="action2">
+          <th mat-header-cell *matHeaderCellDef>Delete</th>
+          <td mat-cell *matCellDef="let visit">
+            <button mat-button (click)="deleteClick(visit)" color="warn">
+              DELETE
+            </button>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="action3">
+          <th mat-header-cell *matHeaderCellDef>Receipt</th>
+          <td mat-cell *matCellDef="let visit">
+            <button
+              mat-button
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#editModal"
+              (click)="showReceipt(visit.id)"
+            >
+              <mat-icon>receipt</mat-icon>
+              Receipt
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr
+          mat-row
+          *matRowDef="let myRowData; columns: columnsToDisplay"
+          class="rows"
+        ></tr>
+      </table>
+    </div>
+  </ng-container>
+</app-generic-list>
