@@ -10,7 +10,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PatientDetailsComponent implements OnInit {
 
-  patientDetails: any;
+  patientDetails: any = "";
+  patientData: any;
   dataFlag:boolean=false;
   
 
@@ -30,11 +31,16 @@ export class PatientDetailsComponent implements OnInit {
 
   saveChanges(){
     this.dataFlag=false;
-    this.sharedService.getPatientDetails(this.form.value.id).subscribe(data => {
-      this.patientDetails = data;
-      this.patientDetails=JSON.parse(this.patientDetails);
+    this.sharedService.getPatient(this.form.value.id).subscribe(data=>{
+      this.patientData=data;
+      this.patientData=JSON.parse(this.patientData);
+    
       
-      if (this.patientDetails){
+      if (this.patientData){
+        this.sharedService.getPatientDetails(this.form.value.id).subscribe(data => {
+          this.patientDetails = data;
+          this.patientDetails=JSON.parse(this.patientDetails);
+        })
         this.dataFlag=true;
       }
       

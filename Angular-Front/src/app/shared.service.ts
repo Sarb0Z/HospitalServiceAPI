@@ -55,6 +55,9 @@ export class SharedService {
   getPatientDetails(id:number): Observable<any[]> {
     return this.http.get<any>(`/api/PatientDetails?id=${id}`);
   }
+  getPatient(id:number) {
+    return this.http.get('/api/Patient/'+id);
+  }
   addPatientDetails(val: any) {
     return this.http.post('/api/PatientDetails', val);
   }
@@ -66,6 +69,24 @@ export class SharedService {
   }
   getPatientDiagnosis(cnic: string): Observable<any> {
     return this.http.get<any>(`/api/PatientDiagnosis?cnic=${cnic}`);
+  }
+  getPrescription(cnic: string): Observable<any> {
+    return this.http.get<any>(`/api/PatientPrescription?cnic=${cnic}`);
+  }
+  addPrescription(val:any){
+    return this.http.post('/api/Prescription', val);
+  }
+  updatePrescription(val: any) {
+    return this.http.put('/api/Prescription', val);
+  }
+  deletePrescription(id: any) {
+    return this.http.delete('/api/Prescription/' + id);
+  }
+  getMedicine(): Observable<any[]> {
+    return this.http.get<any>('/api/Medicine');
+  }
+  getTest(): Observable<any[]> {
+    return this.http.get<any>('/api/Test');
   }
 
 

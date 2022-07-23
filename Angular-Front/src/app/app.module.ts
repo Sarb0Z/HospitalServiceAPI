@@ -26,11 +26,16 @@ import { AddDoctorComponent } from './doctor/add-doctor/add-doctor.component';
 import { EditDoctorComponent } from './doctor/edit-doctor/edit-doctor.component';
 import { AddPatientComponent } from './patient/add-patient/add-patient.component';
 import { EditPatientComponent } from './patient/edit-patient/edit-patient.component';
+import { AddVisitComponent } from './visits/add-visit/add-visit.component';
+import { EditVisitComponent } from './visits/edit-visit/edit-visit.component';
+import { ShowPrescriptionComponent } from './prescription/show-prescription/show-prescription.component';
 
 
 import { SharedService } from './shared.service';
-import { AddVisitComponent } from './visits/add-visit/add-visit.component';
-import { EditVisitComponent } from './visits/edit-visit/edit-visit.component';
+import { UpdatePrescriptionComponent } from './prescription/update-prescription/update-prescription.component';
+import { AddPrescriptionComponent } from './prescription/add-prescription/add-prescription.component';
+import { DeletePrescriptionComponent } from './prescription/delete-prescription/delete-prescription.component';
+
 
 
 
@@ -66,7 +71,11 @@ const routes: Routes = [
     AddPatientComponent,
     EditPatientComponent,
     AddVisitComponent,
-    EditVisitComponent
+    EditVisitComponent,
+    ShowPrescriptionComponent,
+    UpdatePrescriptionComponent,
+    AddPrescriptionComponent,
+    DeletePrescriptionComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, BrowserAnimationsModule, MaterialModule, FormsModule, ReactiveFormsModule,

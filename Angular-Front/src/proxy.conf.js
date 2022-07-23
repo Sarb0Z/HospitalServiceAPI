@@ -9,7 +9,11 @@ const PROXY_CONFIG = [
       "/api/Receipt",
       "/api/VisitPage",
       "/api/PatientDetails",
-      "/api/PatientDiagnosis"
+      "/api/PatientDiagnosis",
+      "/api/Prescription",
+      "/api/Medicine",
+      "/api/Test",
+      "/api/PatientPrescription"
     ],
     target: 'https://localhost:5000',
     secure: false

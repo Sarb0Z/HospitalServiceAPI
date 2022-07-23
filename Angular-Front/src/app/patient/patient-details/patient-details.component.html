@@ -1,3 +1,4 @@
+
 <div class="form-container">
     <h2>Enter Required Information</h2>
   <form (submit)="saveChanges()" [formGroup]="form">
@@ -17,16 +18,19 @@
   </form>
   <mat-card *ngIf="dataFlag">
     <mat-card-title>
-      {{patientDetails[0].patient_id}}
+      {{patientData[0].patient_name}}
     </mat-card-title>
     <mat-divider></mat-divider>
     <mat-card-content>
+      <h5>Date of Birth: {{patientData[0].dob | date:'dd-MM-yyyy'}} </h5>
       <h5>Doctor ID: {{patientDetails[0].doctor_id}}</h5>
       <h5>Blood Type: {{patientDetails[0].blood_type}}</h5>
       <h5>Bone Density: {{patientDetails[0].bone_density}}</h5>
       <h5>Number of Visits: {{patientDetails[0].no_of_visits}}</h5>
     </mat-card-content>
-  
+    <mat-card-footer>
+      <app-show-prescription [cnic]="patientData[0].cnic"></app-show-prescription>
+    </mat-card-footer>
   </mat-card>
   </div>
   
