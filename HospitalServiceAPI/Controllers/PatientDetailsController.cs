@@ -26,7 +26,7 @@ namespace HospitalServiceAPI.Controllers
         [HttpGet]
         public JsonResult Get(int id)
         {
-            string query = @"Select patient_id, doctor_id, blood_type, bone_density, no_of_visits from dbo.patient_details where patient_id = " + id;
+            string query = @"Select details_id, patient_id, blood_type, bone_density from dbo.patient_details where patient_id = " + id;
             ServerConnect newCon = new ServerConnect(_configuration);
 
             return newCon.GetData(query);
@@ -36,7 +36,7 @@ namespace HospitalServiceAPI.Controllers
         public JsonResult Post(PatientDetails objPatientDetails)
         {
             string query = @"Insert into dbo.patient_details values
-                ('" + objPatientDetails.patient_id + "','" + objPatientDetails.doctor_id + "','" + objPatientDetails.blood_type + "','" + objPatientDetails.bone_density + "','" + objPatientDetails.no_of_visits + "')";
+                ('" + objPatientDetails.patient_id +"','" + objPatientDetails.blood_type + "','" + objPatientDetails.bone_density + "')";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("HospitalAppCon");
             SqlDataReader myReader;
@@ -61,10 +61,8 @@ namespace HospitalServiceAPI.Controllers
         {
             string query = @"Update dbo.patient_details set
                 patient_id = '" + objPatientDetails.patient_id + @"',
-                doctor_id='" + objPatientDetails.doctor_id + @"',
                 blood_type='" + objPatientDetails.blood_type + @"',
-                bone_density='" + objPatientDetails.bone_density + @"',
-                no_of_visits='" + objPatientDetails.no_of_visits+ "' where patient_id = " + objPatientDetails.patient_id;
+                bone_density='" + objPatientDetails.bone_density + "' where details_id = " + objPatientDetails.details_id;
             ServerConnect newCon = new ServerConnect(_configuration);
 
             newCon.GetData(query);
@@ -75,7 +73,7 @@ namespace HospitalServiceAPI.Controllers
         [HttpDelete("{id}")]
         public JsonResult Delete(int id)
         {
-            string query = @"Delete from dbo.patient_details where id = " + id;
+            string query = @"Delete from dbo.patient_details where details_id = " + id;
             ServerConnect newCon = new ServerConnect(_configuration);
 
             newCon.GetData(query);

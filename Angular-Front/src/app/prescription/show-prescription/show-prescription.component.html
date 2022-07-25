@@ -1,7 +1,6 @@
-<p>show-prescription works!</p>
-<button (click)="showPrescription()">
-    press
+<button mat-button (click)="showPrescription()">
+    SHOW
 </button>
 <mat-card>
-    <h5>{{prescriptionData[0].recommendation}}</h5>
+    <h5>{{prescriptionData | json }}</h5>
 </mat-card>

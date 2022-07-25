@@ -8,10 +8,12 @@ import { SharedService } from 'src/app/shared.service';
 })
 export class ShowVisitsComponent implements OnInit {
   visitList: any = [];
-
   visit: any;
 
   activateReceiptCom: boolean = false;
+  toggleAdd:boolean=false;
+  toggleEdit:boolean=false;
+
   receiptID: number = 0;
   receiptData: any;
 
@@ -35,10 +37,12 @@ export class ShowVisitsComponent implements OnInit {
       patient_name: '',
       doctor_name: '',
     };
+    this.toggleAdd=true;
   }
 
   EditVisit(item: any) {
     this.visit = item;
+    this.toggleEdit=true;
   }
 
   deleteClick(item: any) {
@@ -48,10 +52,15 @@ export class ShowVisitsComponent implements OnInit {
         this.refreshVisitList();
       });
     }
+    this.toggleAdd=this.toggleEdit=false;
+
   }
 
   closeClick() {
     this.activateReceiptCom = false;
+    this.refreshVisitList();
+    this.toggleAdd=this.toggleEdit=false;
+
   }
 
   showReceipt(ID: number) {

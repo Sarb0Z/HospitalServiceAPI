@@ -9,7 +9,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 
-
 import { AppComponent } from './app.component';
 import { ShowDoctorComponent } from './show-doctor/show-doctor.component';
 import { ShowPatientComponent } from './show-patient/show-patient.component';
@@ -18,7 +17,7 @@ import { VisitsComponent } from './visits/visits.component';
 import { ShowVisitsComponent } from './show-visit/show-visits.component';
 import { PatientDetailsComponent } from './patient/patient-details/patient-details.component';
 import { DiagnosisComponent } from './diagnosis/diagnosis.component';
-import { ShowDiagnosisComponent } from './diagnosis/show-diagnosis/show-diagnosis.component';
+import { ShowDiagnosisComponent } from './show-diagnosis/show-diagnosis.component';
 import { MenuComponent } from './menu/menu.component';
 import { ShowReceiptComponent } from './receipt/show-receipt/show-receipt.component';
 import { SearchPatientComponent } from './patient/search-patient/search-patient.component';
@@ -35,6 +34,8 @@ import { SharedService } from './shared.service';
 import { UpdatePrescriptionComponent } from './prescription/update-prescription/update-prescription.component';
 import { AddPrescriptionComponent } from './prescription/add-prescription/add-prescription.component';
 import { DeletePrescriptionComponent } from './prescription/delete-prescription/delete-prescription.component';
+import { EditDetailsComponent } from './patient/edit-details/edit-details.component';
+import { AddDetailsComponent } from './patient/add-details/add-details.component';
 
 
 
@@ -75,7 +76,9 @@ const routes: Routes = [
     ShowPrescriptionComponent,
     UpdatePrescriptionComponent,
     AddPrescriptionComponent,
-    DeletePrescriptionComponent
+    DeletePrescriptionComponent,
+    EditDetailsComponent,
+    AddDetailsComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, BrowserAnimationsModule, MaterialModule, FormsModule, ReactiveFormsModule,

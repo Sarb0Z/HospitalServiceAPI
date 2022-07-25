@@ -16,21 +16,26 @@
     <a mat-stroked-button >Cancel</a>
   </div>
 </form>
-<app-generic-list list="patientDiagnosisList" >
+
+<app-generic-list list="patientDiagnosisList" *ngIf="dataFlag">
   <ng-container content>
     <div *ngFor="let patientDiagnosis of patientDiagnosisList">
-      <mat-card >
-        <mat-card-title>
+      <mat-card class="card" style="width: 18rem;">
+        <div class="card-body">
+        <mat-card-title class="card-title">
           {{patientDiagnosis.patient_name}}
         </mat-card-title>
         <mat-divider></mat-divider>
-        <mat-card-content>
+        <h6 class="card-subtitle mb-2 text-muted">Patient's Date of Birth: {{patientDiagnosis.dob | date: 'dd-MM-yyyy'}}</h6>
+        <mat-card-content class="card-text">
           <h5>Doctor's Name: {{patientDiagnosis.doctor_name}}</h5>
-          <h5>Patient's Date of Birth: {{patientDiagnosis.dob | date: 'dd-MM-yyyy'}}</h5>
           <h5>Purpose of Visit: {{patientDiagnosis.purpose}}</h5>
           <h5>Doctor's Diagnosis: {{patientDiagnosis.result}}</h5>
         </mat-card-content>
-      
+        <mat-card-footer>
+          <a href="#" class="card-link">Edit Diagnosis</a>
+        </mat-card-footer>
+      </div>
       </mat-card>
     </div>
   </ng-container>

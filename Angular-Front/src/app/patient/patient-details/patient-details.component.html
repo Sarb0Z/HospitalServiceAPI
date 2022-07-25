@@ -1,36 +1,89 @@
+<app-edit-details
+  *ngIf="toggleEdit"
+  (closeClick)="closeClick()"
+  [patient]="patientData[0]"
+  [visitID]="patientDetails[0].details_id"
+></app-edit-details>
+<app-add-details
+  *ngIf="toggleAdd"
+  (closeClick)="closeClick()"
+  [patient]="patientData[0]"
+></app-add-details>
 
 <div class="form-container">
-    <h2>Enter Required Information</h2>
+  <h2>Enter Required Information</h2>
   <form (submit)="saveChanges()" [formGroup]="form">
     <mat-form-field appearance="outline" required>
       <mat-label>ID</mat-label>
-      <input matInput formControlName="id"/>
+      <input matInput formControlName="id" />
       <mat-error>The id field is required</mat-error>
     </mat-form-field>
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" required>
       <mat-label>CNIC</mat-label>
-      <input matInput formControlName="cnic"/>
+      <input matInput formControlName="cnic" />
+      <mat-error>The cnic field is required</mat-error>
+
     </mat-form-field>
     <div>
-      <button mat-flat-button color="primary" [disabled]="form.invalid">Get Details</button>
-      <a mat-stroked-button >Cancel</a>
+      <button mat-flat-button color="primary" [disabled]="form.invalid">
+        Get Details
+      </button>
+      <a mat-stroked-button>Cancel</a>
     </div>
   </form>
-  <mat-card *ngIf="dataFlag">
-    <mat-card-title>
-      {{patientData[0].patient_name}}
+</div>
+
+<mat-card class="card card-container" style="width: 18rem" *ngIf="dataFlag">
+  <div class="card-body">
+    <mat-card-title class="card-title">
+      {{ patientData[0].patient_name }}
     </mat-card-title>
+    <h6 class="card-subtitle mb-2 text-muted">
+      Date of Birth: {{ patientData[0].dob | date: "dd-MM-yyyy" }}
+    </h6>
     <mat-divider></mat-divider>
-    <mat-card-content>
-      <h5>Date of Birth: {{patientData[0].dob | date:'dd-MM-yyyy'}} </h5>
-      <h5>Doctor ID: {{patientDetails[0].doctor_id}}</h5>
-      <h5>Blood Type: {{patientDetails[0].blood_type}}</h5>
-      <h5>Bone Density: {{patientDetails[0].bone_density}}</h5>
-      <h5>Number of Visits: {{patientDetails[0].no_of_visits}}</h5>
+    <mat-card-content class="card-text" *ngIf="detailsFlag">
+      <h5>Blood Type: {{ patientDetails[0].blood_type }}</h5>
+      <h5>Bone Density: {{ patientDetails[0].bone_density }}</h5>
     </mat-card-content>
+    <mat-divider></mat-divider>
     <mat-card-footer>
-      <app-show-prescription [cnic]="patientData[0].cnic"></app-show-prescription>
+      <button
+        mat-button
+        (click)="addDetails()"
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#addModal"
+      >
+        ADD
+      </button>
+      <button
+        mat-button
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#editModal"
+        (click)="editDetails()"
+      >
+        EDIT
+      </button>
+      <h3 class="card-title">Prescriptions</h3>
+      <mat-divider></mat-divider>
+      <app-add-prescription
+        (closeClick)="closeClick()"
+        [patient]="patientData[0]"
+      ></app-add-prescription>
+      <button
+        mat-button
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#addPrescriptionModal"
+      >
+        ADD
+      </button>
+      <app-show-prescription
+        *ngIf="patientData"
+        [cnic]="patientData[0].cnic"
+      ></app-show-prescription>
     </mat-card-footer>
-  </mat-card>
   </div>
-  
+</mat-card>

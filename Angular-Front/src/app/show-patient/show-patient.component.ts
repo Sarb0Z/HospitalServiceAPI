@@ -8,8 +8,9 @@ import { SharedService } from '../shared.service';
 })
 export class ShowPatientComponent implements OnInit {
   patientList: any = [];
-
   patient: any;
+  toggleAdd:boolean=false;
+  toggleEdit:boolean=false;
 
   constructor(private sharedService: SharedService) {}
 
@@ -30,10 +31,12 @@ export class ShowPatientComponent implements OnInit {
       cnic: '',
       dob: new Date()
     };
+    this.toggleAdd=true;
   }
 
   EditPatient(item: any) {
     this.patient = item;
+    this.toggleEdit=true;
   }
 
   deleteClick(item: any) {
@@ -43,10 +46,14 @@ export class ShowPatientComponent implements OnInit {
         this.refreshPatientList();
       });
     }
+    this.toggleAdd=this.toggleEdit=false;
+
   }
 
   closeClick() {
     this.refreshPatientList();
+    this.toggleAdd=this.toggleEdit=false;
+
   }
   columnsToDisplay = ['id', 'patient_name', 'cnic', 'dob', 'Action1', 'Action2'];
 }

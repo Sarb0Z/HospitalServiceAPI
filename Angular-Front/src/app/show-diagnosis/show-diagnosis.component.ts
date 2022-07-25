@@ -11,7 +11,6 @@ import { SharedService } from 'src/app/shared.service';
 export class ShowDiagnosisComponent implements OnInit {
   patientDiagnosisList: any = [];
   dataFlag:boolean=false;
-  
 
   constructor(private formBuilder: FormBuilder, private sharedService: SharedService) { }
 
@@ -39,6 +38,7 @@ export class ShowDiagnosisComponent implements OnInit {
       }
       
     });
+
 
 
   }

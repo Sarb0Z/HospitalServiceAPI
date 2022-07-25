@@ -8,9 +8,9 @@ import { SharedService } from '../shared.service';
 })
 export class ShowDoctorComponent implements OnInit {
   doctorList: any = [];
-
   doctor: any;
-
+  toggleAdd:boolean=false;
+  toggleEdit:boolean=false;
   constructor(private sharedService: SharedService) {}
 
   ngOnInit(): void {
@@ -29,10 +29,12 @@ export class ShowDoctorComponent implements OnInit {
       doctor_name: '',
       title: '',
     };
+    this.toggleAdd=true;
   }
 
   EditDoctor(item: any) {
     this.doctor = item;
+    this.toggleEdit=true;
   }
 
   deleteClick(item: any) {
@@ -42,9 +44,12 @@ export class ShowDoctorComponent implements OnInit {
         this.refreshDoctorList();
       });
     }
+    this.toggleAdd=this.toggleEdit=false;
   }
 
   closeClick() {
     this.refreshDoctorList();
+    this.toggleAdd=this.toggleEdit=false;
+
   }
 }

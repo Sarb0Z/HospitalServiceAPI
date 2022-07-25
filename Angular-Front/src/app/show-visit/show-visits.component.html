@@ -11,12 +11,14 @@
 </button>
 
 <app-add-visit
+  *ngIf="toggleAdd"
   [visit]="visit"
   (closeClick)="closeClick()"
   (refreshVList)="refreshVisitList()"
 >
 </app-add-visit>
 <app-edit-visit
+  *ngIf="toggleEdit"
   [visit]="visit"
   (closeClick)="closeClick()"
   (refreshVList)="refreshVisitList()"

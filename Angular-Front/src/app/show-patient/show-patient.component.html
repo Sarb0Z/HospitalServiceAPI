@@ -10,12 +10,14 @@
   Add Patient
 </button>
 <app-add-patient
+  *ngIf="toggleAdd"
   [patient]="patient"
   (refreshPatientList)="refreshPatientList()"
   (closeClick)="closeClick()"
 >
 </app-add-patient>
 <app-edit-patient
+*ngIf="toggleEdit"
   [patient]="patient"
   (refreshPatientList)="refreshPatientList()"
   (closeClick)="closeClick()"

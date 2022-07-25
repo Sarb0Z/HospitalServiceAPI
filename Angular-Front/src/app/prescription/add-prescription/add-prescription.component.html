@@ -1,1 +1,139 @@
-<p>add-prescription works!</p>
+
+<div
+  class="modal fade"
+  id="addPrescriptionModal"
+  tabindex="-1"
+  aria-labelledby="addPrescriptionModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="addPrescriptionModalLabel">Add Prescription</h1>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="closeClick.emit()"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <!-- <div class="modal-body">
+        <form [formGroup]="medicineForm" >
+        <h2>Medicine Name</h2>
+        <div formArrayName="medicine_name">
+            <div *ngFor="let medicines of medicineNames.controls; let pointIndex=index" [formGroupName]="pointIndex">
+        
+                <select formControlName="medicine_name">
+                    <option disabled>Select Medicine</option>
+                    <option>Choose medicine</option>
+                    <option *ngFor="let medicine of medicineList">{{medicine.medicine_name}}</option>
+                  </select>
+                <button type="button" (click)="deleteMedicineNames(pointIndex)">Delete Medicine </button>
+            </div>
+            <button type="button" (click)="addMedicineNames()">Add Medicine </button>
+
+        </div>
+        </form>
+        {{ this.medicineForm.value | json }}
+        <form [formGroup]="testForm">
+
+            <h2>Test Name</h2>
+            <div formArrayName="test_name">
+                <div *ngFor="let test of testNames.controls; let pointIndex=index" [formGroupName]="pointIndex">
+            
+                    <select formControlName="test">
+                        <option disabled>Select Test</option>
+                        <option>Choose Test</option>
+                        <option *ngFor="let test of testList">{{test.test_name}}</option>
+                    </select>
+                    <button type="button" (click)="deleteTestNames(pointIndex)">Delete Test</button>
+
+                </div>
+                <button type="button" (click)="addTestNames()">Add Test</button>
+
+            </div>
+        </form>
+        {{ this.testForm.value | json }}
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+            (click)="AddPrescription()"
+          >
+            Save changes
+          </button>
+        </div>
+      </div> -->
+
+      <form [formGroup]="patientDetail" (ngSubmit)="AddPrescription()">
+        <div class="modal-body">
+          <div class="form-group row">
+            <label class="col-sm-2">Medicine Name</label>
+            <select formControlName="medicine" class="form-control">
+              <option disabled>Select Medicine</option>
+              <option>Choose medicine</option>
+              <option *ngFor="let medicine of medicineList">
+                {{ medicine.medicine_name }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2">Test Name</label>
+            <select formControlName="test" class="form-control">
+              <option disabled>Select Test</option>
+              <option>Choose test</option>
+              <option *ngFor="let test of testList">
+                {{ test.test_name }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2">Doctor ID</label>
+            <div class="col-sm-10">
+              <input
+                type="number"
+                class="form-control"
+                formControlName="doctor_id"
+                placeholder="Enter Doctor ID"
+              />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-2">Recommendations</label>
+            <div class="col-sm-10">
+              <input
+                type="text"
+                class="form-control"
+                formControlName="recommendation"
+                placeholder="Enter recommendation"
+              />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2">Intake Amount</label>
+            <div class="col-sm-10">
+              <input
+                type="number"
+                class="form-control"
+                formControlName="intake_amount"
+                placeholder="Enter amount"
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              Save changes
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
