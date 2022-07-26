@@ -115,7 +115,7 @@ create view [patient_diagnosis]
 as
 select p.patient_name, p.cnic, p.dob, di.visit, di.result, d.doctor_name
 from patient p, diagnosis di, doctor d
-where p.id=di.id and di.doctor=d.id
+where p.id=di.patient_id and di.doctor=d.id
 
 create view [patient_prescription]
 as
