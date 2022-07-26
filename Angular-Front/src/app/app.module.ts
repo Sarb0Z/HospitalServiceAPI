@@ -7,6 +7,7 @@ import { MaterialModule } from './material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 import { AppComponent } from './app.component';
@@ -82,10 +83,10 @@ const routes: Routes = [
     EditDetailsComponent,
     AddDetailsComponent,
     EditDiagnosisComponent,
-    AddDiagnosisComponent
+    AddDiagnosisComponent,
   ],
   imports: [
-    BrowserModule, HttpClientModule, BrowserAnimationsModule, MaterialModule, FormsModule, ReactiveFormsModule,
+    BrowserModule, HttpClientModule, BrowserAnimationsModule, MaterialModule, FormsModule, ReactiveFormsModule, FlexLayoutModule,
     RouterModule.forRoot(routes)
   ],
   providers: [SharedService],
