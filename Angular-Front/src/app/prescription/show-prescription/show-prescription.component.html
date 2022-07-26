@@ -4,7 +4,7 @@
 <!-- <mat-card>
     <h5>{{prescriptionData | json }}</h5>
 </mat-card> -->
-<app-generic-list [list]="prescriptionData">
+<app-generic-list [list]="prescriptionData" *ngIf="clicked">
     <ng-container content>
       <div class="table-container">
         <mat-toolbar color="primary"> Prescriptions </mat-toolbar>

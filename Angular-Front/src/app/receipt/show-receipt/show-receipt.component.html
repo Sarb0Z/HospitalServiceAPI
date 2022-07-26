@@ -1,7 +1,33 @@
-<div>
-  <mat-card-title>Receipt</mat-card-title>
-  <mat-divider></mat-divider>
-  <h5>Visit ID: {{ id }}</h5>
-  <h5>Amount: {{ amount | currency }}</h5>
-  <h5>Details: {{ details }}</h5>
+<div
+  class="modal fade"
+  id="receiptModal"
+  tabindex="-1"
+  aria-labelledby="receiptModalLabel"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="receiptModalLabel">
+          Receipt# {{ receiptID }}
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="closeClick.emit()"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <h3>Visit ID: {{ id }}</h3>
+        <h3>Amount: {{ amount | currency }}</h3>
+        <h3>Details: {{ details }}</h3>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -88,6 +88,12 @@ export class SharedService {
   getTest(): Observable<any[]> {
     return this.http.get<any>('/api/Test');
   }
+  addDiagnosis(val:any){
+    return this.http.post('api/Diagnosis', val);
+  }
+  updateDiagnosis(val:any){
+    return this.http.put('api/Diagnosis', val);
+  }
 
 
 

@@ -27,7 +27,7 @@ namespace HospitalServiceAPI.Controllers
         [HttpGet]
         public JsonResult Get()
         {
-            string query = @"Select id, doctor, visit, result from dbo.Diagnosis";
+            string query = @"Select id, doctor, visit, result, patient_id from dbo.Diagnosis";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("HospitalAppCon");
             SqlDataReader myReader;
@@ -53,7 +53,7 @@ namespace HospitalServiceAPI.Controllers
         public JsonResult Post(Diagnosis objDiagnosis)
         {
             string query = @"Insert into dbo.Diagnosis values
-                ('" + objDiagnosis.doctor + "','" + objDiagnosis.visit + "','" + objDiagnosis.result + "')";
+                ('" + objDiagnosis.doctor + "','" + objDiagnosis.visit + "','" + objDiagnosis.result + "','" + objDiagnosis.patient_id + "')";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("HospitalAppCon");
             SqlDataReader myReader;
@@ -79,7 +79,8 @@ namespace HospitalServiceAPI.Controllers
             string query = @"Update dbo.Diagnosis set
                 doctor = '" + objDiagnosis.doctor + @"',
                 visit='" + objDiagnosis.visit + @"',
-                result='" + objDiagnosis.result + "' where id = " + objDiagnosis.id;
+                result='" + objDiagnosis.result+ @"',
+                patient_id='" + objDiagnosis.patient_id + "' where id = " + objDiagnosis.id;
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("HospitalAppCon");
             SqlDataReader myReader;

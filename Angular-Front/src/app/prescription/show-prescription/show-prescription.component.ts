@@ -10,6 +10,7 @@ export class ShowPrescriptionComponent implements OnInit {
   @Input() cnic: string = ""
   prescriptionData:any;
   patientList:any;
+  clicked:boolean=false;
 
   constructor(private service: SharedService) {
 
@@ -19,7 +20,7 @@ export class ShowPrescriptionComponent implements OnInit {
 
   }
   showPrescription(){
-
+    this.clicked=!this.clicked;
     this.service.getPrescription(this.cnic).subscribe((data)=>{
       this.prescriptionData=data;
       this.prescriptionData=JSON.parse(this.prescriptionData);

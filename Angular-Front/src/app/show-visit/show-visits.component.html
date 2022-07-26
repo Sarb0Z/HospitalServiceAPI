@@ -24,6 +24,13 @@
   (refreshVList)="refreshVisitList()"
 >
 </app-edit-visit>
+<app-show-receipt
+  *ngIf="activateReceiptCom"
+  [receiptID]="receiptID"
+  (closeClick)="closeClick()">
+
+</app-show-receipt>
+
 
 <ng-container matColumnDef="id">
   <th mat-header-cell *matHeaderCellDef>Id</th>
@@ -95,7 +102,7 @@
               mat-button
               type="button"
               data-bs-toggle="modal"
-              data-bs-target="#editModal"
+              data-bs-target="#receiptModal"
               (click)="showReceipt(visit.id)"
             >
               <mat-icon>receipt</mat-icon>

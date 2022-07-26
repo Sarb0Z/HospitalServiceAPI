@@ -7,5 +7,7 @@
         public int visit { get; set; }
         public string? result {  get; set; }
 
+        public int patient_id { get; set; }
+
     }
 }

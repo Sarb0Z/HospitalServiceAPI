@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
 
 @Component({
@@ -8,6 +8,8 @@ import { SharedService } from 'src/app/shared.service';
 })
 export class ShowReceiptComponent implements OnInit {
   @Input() receiptID: number = 0;
+  @Output('closeClick') closeClick: EventEmitter<any> = new EventEmitter();
+
   id: number = 0;
   receiptData: any;
   details:string="";

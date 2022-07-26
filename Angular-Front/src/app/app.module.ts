@@ -36,6 +36,8 @@ import { AddPrescriptionComponent } from './prescription/add-prescription/add-pr
 import { DeletePrescriptionComponent } from './prescription/delete-prescription/delete-prescription.component';
 import { EditDetailsComponent } from './patient/edit-details/edit-details.component';
 import { AddDetailsComponent } from './patient/add-details/add-details.component';
+import { EditDiagnosisComponent } from './diagnosis/edit-diagnosis/edit-diagnosis.component';
+import { AddDiagnosisComponent } from './diagnosis/add-diagnosis/add-diagnosis.component';
 
 
 
@@ -78,7 +80,9 @@ const routes: Routes = [
     AddPrescriptionComponent,
     DeletePrescriptionComponent,
     EditDetailsComponent,
-    AddDetailsComponent
+    AddDetailsComponent,
+    EditDiagnosisComponent,
+    AddDiagnosisComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, BrowserAnimationsModule, MaterialModule, FormsModule, ReactiveFormsModule,

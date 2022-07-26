@@ -17,6 +17,7 @@ export class ShowVisitsComponent implements OnInit {
   receiptID: number = 0;
   receiptData: any;
 
+  
   constructor(private sharedService: SharedService) {}
 
   ngOnInit(): void {
@@ -41,6 +42,7 @@ export class ShowVisitsComponent implements OnInit {
   }
 
   EditVisit(item: any) {
+     
     this.visit = item;
     this.toggleEdit=true;
   }

@@ -11,13 +11,17 @@ import { SharedService } from 'src/app/shared.service';
 export class ShowDiagnosisComponent implements OnInit {
   patientDiagnosisList: any = [];
   dataFlag:boolean=false;
+  patientID:number=0;
+
+  toggleAdd:boolean=false;
+  toggleEdit:boolean=false;
 
   constructor(private formBuilder: FormBuilder, private sharedService: SharedService) { }
 
   form!: FormGroup
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      name: ['' , {
+      id: ['' , {
         validators: [Validators.required]
       }],
       cnic: ['' , {
@@ -35,11 +39,22 @@ export class ShowDiagnosisComponent implements OnInit {
       this.patientDiagnosisList=JSON.parse(this.patientDiagnosisList);
       if (this.patientDiagnosisList){
         this.dataFlag=true;
+        this.toggleAdd=true;
       }
       
     });
+  }
+  AddDiagnosis(){
+    console.log(this.form.value.id);
+    this.patientID=this.form.value.id;
+    this.toggleAdd=true;
 
+  }
+  EditDiagnosis(){
 
+  }
+  closeClick() {
+    this.saveChanges();
 
   }
 }
