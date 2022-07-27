@@ -37,7 +37,30 @@ namespace HospitalServiceAPI.Utilities
             return new JsonResult(temp);
 
         }
-       
-            
+
+        public JsonResult GetDataWithParam(string query, SqlParameter[] param)
+        {
+            SqlDataReader myReader;
+
+            using (SqlConnection myCon = new SqlConnection(this.sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myCommand.Parameters.Add(param);
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
+            string temp = JsonConvert.SerializeObject(table);
+
+            return new JsonResult(temp);
+
+        }
+
+
     }
 }

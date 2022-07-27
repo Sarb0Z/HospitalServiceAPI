@@ -123,6 +123,206 @@ select p.cnic, p.patient_name, d.doctor_name, m.medicine_name, m.supplier_name, 
 from patient p, doctor d, medicines m, prescription pr
 where pr.patient_id=p.id and pr.medicine_id=m.id and pr.doctor_id=d.id
 
+--PROCEDURES
+
+
+--patient
+
+create procedure GET_FROM_PATIENT
+as
+Select id, patient_name, cnic, dob from dbo.Patient
+
+create procedure GET_FROM_PATIENT_WITH_ID 
+@id int 
+as
+Select id, patient_name, cnic, dob from dbo.Patient
+where id=@id
+
+create procedure POST_TO_PATIENT
+@patient_name varchar(40), @cnic varchar(15), @dob date
+as
+Insert into dbo.Patient values (@patient_name, @cnic, @dob)
+
+create procedure UPDATE_PATIENT
+@id int, @patient_name varchar(40), @cnic varchar(15), @dob date
+as
+update dbo.Patient set
+                patient_name = @patient_name,
+                cnic= @cnic,
+                dob= @dob where id = @id
+
+create procedure DELETE_PATIENT
+@id int
+as
+Delete from dbo.Patient where id = @id
+
+--doctor
+
+create procedure GET_FROM_DOCTOR
+as
+Select id, doctor_name, title from dbo.Doctor
+
+create procedure POST_TO_DOCTOR
+@doctor_name varchar(40), @title varchar(30)
+as
+Insert into dbo.Doctor values
+                (@doctor_name,@title)
+
+create procedure UPDATE_DOCTOR
+@id int, @doctor_name varchar(40), @title varchar(30)
+as
+Update dbo.Doctor set
+                doctor_name = @doctor_name,
+                title=@title where id = @id;
+
+create procedure DELETE_DOCTOR
+@id int
+as
+Delete from dbo.Doctor where id = @id
+
+--visit
+
+create procedure GET_FROM_VISIT
+as
+Select id, timing, purpose, patient_id, doctor_id from dbo.Visit
+
+create procedure POST_TO_VISIT
+@timing date, @purpose varchar(100), @patient_id int, @doctor_id int
+as
+Insert into dbo.Visit values
+                (@timing,@purpose,@purpose,@doctor_id)
+
+create procedure UPDATE_VISIT
+@id int, @timing date, @purpose varchar(100), @patient_id int, @doctor_id int
+as
+Update dbo.Visit set
+                timing = @timing,
+                purpose=@purpose,
+                patient_id=@patient_id,
+                doctor_id=@doctor_id where id = @id
+
+create procedure DELETE_VISIT
+@id int
+as
+Delete from dbo.Visit where id = @id
+
+--diagnosis
+
+create procedure GET_FROM_DIAGNOSIS
+as
+Select id, doctor, visit, result, patient_id from dbo.Diagnosis
+
+create procedure POST_TO_DIAGNOSIS
+@doctor int, @visit int, @result varchar(100), @patient_id int
+as
+Insert into dbo.Diagnosis values
+                (@doctor,@visit,@result,@patient_id)
+
+create procedure UPDATE_DIAGNOSIS
+@id int, @doctor int, @visit int, @result varchar(100), @patient_id int
+as
+Update dbo.Diagnosis set
+				doctor = @doctor,
+                visit= @visit,
+                result=@result,
+                patient_id=@patient_id where id = @id
+
+create procedure DELETE_DIAGNOSIS
+@id int
+as
+Delete from dbo.Diagnosis where id = @id
+
+
+--patient details
+create procedure GET_FROM_PATIENT_DETAILS_WITH_ID 
+@id int 
+as
+Select details_id, patient_id, blood_type, bone_density from dbo.patient_details where patient_id = @id
+
+create procedure POST_TO_PATIENT_DETAILS
+@patient_id int, @blood_type varchar(3), @bone_density float
+as
+Insert into dbo.patient_details values
+                (@patient_id,@blood_type,@bone_density)
+
+create procedure UPDATE_PATIENT_DETAILS
+@details_id int, @patient_id int, @blood_type varchar(3), @bone_density float
+as
+Update dbo.patient_details set
+                patient_id = @patient_id,
+                blood_type=@blood_type,
+                bone_density=@bone_density where details_id = @details_id
+
+create procedure DELETE_PATIENT_DETAILS
+@details_id int
+as
+Delete from dbo.patient_details where details_id = @details_id
+
+--prescription
+
+create procedure POST_TO_PRESCRIPTION
+@patient_id int, @medicine_id int, @recommendation varchar(100), @intake_amount int, @doctor_id int
+as
+Insert into dbo.Prescription values
+                (@patient_id,@medicine_id,@recommendation,@intake_amount,@doctor_id)
+
+create procedure UPDATE_PRESCRIPTION
+@id int, @patient_id int, @medicine_id int, @recommendation varchar(100), @intake_amount int, @doctor_id int
+as
+Update dbo.prescription set
+                patient_id = @patient_id,
+                medicine_id=@medicine_id,
+                recommendation=@recommendation,
+                intake_amount=@intake_amount,
+				doctor_id=@doctor_id where id = @id
+
+create procedure DELETE_PRESCRIPTION
+@id int
+as
+Delete from dbo.prescription where id = @id
+
+
+-- medicines
+
+create procedure GET_MEDICINE
+as
+Select id, medicine_name, supplier_name, price  from dbo.medicines
+
+--tests
+
+create procedure GET_TEST
+as
+Select id, test_name, test_description, price  from dbo.tests
+
+--receipt
+
+create procedure GET_RECEIPT_WITH_ID
+@id int
+as
+Select id, details, amount from dbo.Receipt where id = @id
+
+--PATIENT DIAGNOSIS
+
+create procedure GET_PATIENT_DIAGNOSIS_VIEW
+@cnic varchar(15)
+as
+Select patient_name, cnic, dob, timing, purpose, result, doctor_name from dbo.patient_diagnosis where cnic = @cnic
+
+--PATIENT PRESCRIPTION
+
+create procedure GET_PATIENT_PRESCRIPTION_VIEW
+@cnic varchar(15)
+as
+select cnic, patient_name, doctor_name, medicine_name, supplier_name, recommendation, intake_amount from dbo.patient_prescription where cnic = @cnic
+
+
+--VISIT_DETAILS
+
+create procedure GET_VISIT_DETAILS_VIEW
+as
+Select id, doctor_name, patient_name, timing, purpose from dbo.visit_details
+
+
 select * from doctor
 select * from patient 
 select * from visit
