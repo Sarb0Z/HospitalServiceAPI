@@ -1,43 +1,10 @@
-<button
-  mat-button
-  type="button"
-  data-bs-toggle="modal"
-  data-bs-target="#addModal"
-  (click)="AddVisit()"
-  data-keyborad="false"
-  class="btn1"
->
-  Add Visit
-</button>
 
 <app-add-visit
-  *ngIf="toggleAdd"
-  [visit]="visit"
-  (closeClick)="closeClick()"
-  (refreshVList)="refreshVisitList()"
+(closeClick)="closeClick()"
+(refreshVList)="refreshVisitList()"
 >
 </app-add-visit>
-<app-edit-visit
-  *ngIf="toggleEdit"
-  [visit]="visit"
-  (closeClick)="closeClick()"
-  (refreshVList)="refreshVisitList()"
->
-</app-edit-visit>
-<app-show-receipt
-  *ngIf="activateReceiptCom"
-  [receiptID]="receiptID"
-  (closeClick)="closeClick()">
 
-</app-show-receipt>
-
-
-<ng-container matColumnDef="id">
-  <th mat-header-cell *matHeaderCellDef>Id</th>
-  <td mat-cell *matCellDef="let patient">
-    {{ patient.id }}
-  </td>
-</ng-container>
 <app-generic-list [list]="visitList">
   <ng-container content>
     <div class="table-container">
@@ -45,69 +12,61 @@
         <mat-toolbar color="primary"> Visit Details </mat-toolbar>
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef>Id</th>
-          <td mat-cell *matCellDef="let visit">
-            {{ visit.id }}
+          <td mat-cell *matCellDef="let element">
+            {{ element.id }}
           </td>
         </ng-container>
         <ng-container matColumnDef="p_name">
           <th mat-header-cell *matHeaderCellDef>Patient Name</th>
-          <td mat-cell *matCellDef="let visit">
-            {{ visit.patient_name }}
+          <td mat-cell *matCellDef="let element">
+            {{ element.patient_name }}
           </td>
         </ng-container>
         <ng-container matColumnDef="timing">
           <th mat-header-cell *matHeaderCellDef>Date</th>
-          <td mat-cell *matCellDef="let visit">
-            {{ visit.timing | date: "dd/MM/yyyy" }}
+          <td mat-cell *matCellDef="let element">
+            {{ element.timing | date: "dd/MM/yyyy" }}
           </td>
         </ng-container>
         <ng-container matColumnDef="purpose">
           <th mat-header-cell *matHeaderCellDef>Purpose of Visit</th>
-          <td mat-cell *matCellDef="let visit">
-            {{ visit.purpose }}
+          <td mat-cell *matCellDef="let element">
+            {{ element.purpose }}
           </td>
         </ng-container>
         <ng-container matColumnDef="d_name">
           <th mat-header-cell *matHeaderCellDef>Doctor Name</th>
-          <td mat-cell *matCellDef="let visit">
-            {{ visit.doctor_name }}
+          <td mat-cell *matCellDef="let element">
+            {{ element.doctor_name }}
           </td>
         </ng-container>
         <ng-container matColumnDef="action1">
           <th mat-header-cell *matHeaderCellDef>Edit</th>
-          <td mat-cell *matCellDef="let visit">
-            <button
-              mat-button
-              type="button"
-              data-bs-toggle="modal"
-              data-bs-target="#editModal"
-              (click)="EditVisit(visit)"
+          <td mat-cell *matCellDef="let element">
+            <app-edit-visit
+              [visit]="element"
+              (closeClick)="closeClick()"
+              (refreshVList)="refreshVisitList()"
             >
-              EDIT
-            </button>
+            </app-edit-visit>
           </td>
         </ng-container>
         <ng-container matColumnDef="action2">
           <th mat-header-cell *matHeaderCellDef>Delete</th>
-          <td mat-cell *matCellDef="let visit">
-            <button mat-button (click)="deleteClick(visit)" color="warn">
+          <td mat-cell *matCellDef="let element">
+            <button mat-button (click)="deleteClick(element)" color="warn">
               DELETE
             </button>
           </td>
         </ng-container>
         <ng-container matColumnDef="action3">
           <th mat-header-cell *matHeaderCellDef>Receipt</th>
-          <td mat-cell *matCellDef="let visit">
-            <button
-              mat-button
-              type="button"
-              data-bs-toggle="modal"
-              data-bs-target="#receiptModal"
-              (click)="showReceipt(visit.id)"
+          <td mat-cell *matCellDef="let element">
+            <app-show-receipt
+              [receiptID]="element.id"
+              (closeClick)="closeClick()"
             >
-              <mat-icon>receipt</mat-icon>
-              Receipt
-            </button>
+            </app-show-receipt>
           </td>
         </ng-container>
 

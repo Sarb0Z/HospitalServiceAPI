@@ -1,7 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SharedService } from 'src/app/shared.service';
+import { SharedService } from 'src/app/Services/shared.service';
 
 @Component({
   selector: 'app-show-diagnosis',

@@ -1,6 +1,4 @@
 import { HttpClientModule } from '@angular/common/http';
-
-
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MaterialModule } from './material/material.module';
@@ -29,9 +27,6 @@ import { EditPatientComponent } from './patient/edit-patient/edit-patient.compon
 import { AddVisitComponent } from './visits/add-visit/add-visit.component';
 import { EditVisitComponent } from './visits/edit-visit/edit-visit.component';
 import { ShowPrescriptionComponent } from './prescription/show-prescription/show-prescription.component';
-
-
-import { SharedService } from './shared.service';
 import { UpdatePrescriptionComponent } from './prescription/update-prescription/update-prescription.component';
 import { AddPrescriptionComponent } from './prescription/add-prescription/add-prescription.component';
 import { DeletePrescriptionComponent } from './prescription/delete-prescription/delete-prescription.component';
@@ -40,6 +35,8 @@ import { AddDetailsComponent } from './patient/add-details/add-details.component
 import { EditDiagnosisComponent } from './diagnosis/edit-diagnosis/edit-diagnosis.component';
 import { AddDiagnosisComponent } from './diagnosis/add-diagnosis/add-diagnosis.component';
 
+import { SharedService } from './Services/shared.service';
+import { ShowDetailsComponent } from './patient/show-details/show-details.component';
 
 
 
@@ -84,6 +81,7 @@ const routes: Routes = [
     AddDetailsComponent,
     EditDiagnosisComponent,
     AddDiagnosisComponent,
+    ShowDetailsComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule, BrowserAnimationsModule, MaterialModule, FormsModule, ReactiveFormsModule, FlexLayoutModule,

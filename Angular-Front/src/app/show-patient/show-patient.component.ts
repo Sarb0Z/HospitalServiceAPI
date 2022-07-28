@@ -1,7 +1,7 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
-import { SharedService } from '../shared.service';
+import { SharedService } from '../Services/shared.service';
 import {MatTableDataSource} from '@angular/material/table';
 
 @Component({

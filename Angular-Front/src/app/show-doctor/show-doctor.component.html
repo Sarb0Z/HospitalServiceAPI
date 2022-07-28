@@ -1,31 +1,13 @@
 <div>
-  <button
-    mat-button
-    type="button"
-    data-bs-toggle="modal"
-    data-bs-target="#addModal"
-    (click)="AddDoctor()"
-    data-keyboard="false"
-    class="btn1"
-  >
-    Add Doctor
-  </button>
+
   <app-add-doctor
-    *ngIf="toggleAdd"
     [doctor]="doctor"
     (refreshDoctorList)="refreshDoctorList()"
     (closeClick)="closeClick()"
-
   >
   </app-add-doctor>
   <!-- the app edit doctor component causes some sort of rendering issue. please investigate this. -->
-  <app-edit-doctor
-    *ngIf="toggleEdit"
-    [doctor]="doctor"
-    (refreshDoctorList)="refreshDoctorList()"
-    (closeClick)="closeClick()"
-  >
-  </app-edit-doctor>
+
   <app-generic-list [list]="doctorList">
     <ng-container content>
       <div class="movies-container">
@@ -44,15 +26,12 @@
                 <p>Designation: {{ doctor.title | uppercase }}</p>
               </mat-card-content>
               <mat-card-actions>
-                <button
-                  mat-button
-                  type="button"
-                  data-bs-toggle="modal"
-                  data-bs-target="#editModal"
-                  (click)="EditDoctor(doctor)"
+                <app-edit-doctor
+                  [doctor]="doctor"
+                  (refreshDoctorList)="refreshDoctorList()"
+                  (closeClick)="closeClick()"
                 >
-                  EDIT
-                </button>
+                </app-edit-doctor>
                 <button mat-button (click)="deleteClick(doctor)" color="warn">
                   DELETE
                 </button>

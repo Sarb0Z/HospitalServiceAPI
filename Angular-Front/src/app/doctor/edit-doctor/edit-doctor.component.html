@@ -1,7 +1,15 @@
+<button
+mat-button
+type="button"
+data-bs-toggle="modal"
+[attr.data-bs-target]="'#editModal'+id"
+>
+EDIT
+</button>
 <div>
   <div
     class="modal fade"
-    id="editModal"
+    [attr.id]="'editModal'+id"
     tabindex="-1"
     aria-labelledby="editModalLabel"
     aria-hidden="true"
