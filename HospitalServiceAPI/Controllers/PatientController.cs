@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using HospitalServiceAPI.Models;
 using Newtonsoft.Json;
 using HospitalServiceAPI.Utilities;
-using System.Data.Common;
 
 namespace HospitalServiceAPI.Controllers
 {
@@ -32,13 +31,11 @@ namespace HospitalServiceAPI.Controllers
 
             return newCon.GetData(query);
         }
-        [HttpGet("GetById/{id}")]
+        [HttpGet("{id}")]
         public JsonResult Get(int id)
         {
-            //SqlParameter[] sql = new SqlParameter[1];
-            //int i = 0;
-            //sql[i++] = new SqlParameter("@id", SqlDbType.Int, id);
-            string query = @"exec GET_FROM_PATIENT_WITH_ID @id";
+            string query = @"Select id, patient_name, cnic, dob from dbo.Patient where id = " + id;
+            ServerConnect newCon = new ServerConnect(_configuration);
 
             //string query = @"Select id, patient_name, cnic, dob from dbo.Patient where id = " + id;
 
@@ -71,7 +68,7 @@ namespace HospitalServiceAPI.Controllers
         }
 
         [HttpGet("GetByName/{name}")]
-        public JsonResult Get(string name, string cnic)
+        public JsonResult Get(string name, string? cnic)
         {
             //SqlParameter[] sql = new SqlParameter[1];
             //int i = 0;

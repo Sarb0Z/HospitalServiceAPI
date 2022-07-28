@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedService } from '../shared.service';
+import { SharedService } from '../Services/shared.service';
 
 @Component({
   selector: 'app-show-doctor',

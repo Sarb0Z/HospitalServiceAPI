@@ -1,9 +1,3 @@
-<app-edit-details
-  *ngIf="toggleEdit"
-  (closeClick)="closeClick()"
-  [patient]="patientData[0]"
-  [visitID]="patientDetails[0].details_id"
-></app-edit-details>
 <app-add-details
   *ngIf="toggleAdd"
   (closeClick)="closeClick()"
@@ -11,16 +5,15 @@
 ></app-add-details>
 
 <div class="form-container">
-  <h2>Enter Required Information</h2>
+  <h2>Enter Search Details</h2>
   <form (submit)="saveChanges()" [formGroup]="form">
-    <mat-form-field appearance="outline" >
+    <mat-form-field appearance="outline">
       <mat-label>Name</mat-label>
       <input matInput formControlName="name" />
     </mat-form-field>
-    <mat-form-field appearance="outline" >
+    <mat-form-field appearance="outline">
       <mat-label>CNIC</mat-label>
       <input matInput formControlName="cnic" />
-
     </mat-form-field>
     <div>
       <button mat-flat-button color="primary" [disabled]="form.invalid">
@@ -30,61 +23,60 @@
     </div>
   </form>
 </div>
-<app-generic-list [list]="patientData">
+<app-generic-list [list]="patient">
   <ng-container content>
-    <div class="movies-container">
-      <div *ngFor="let patient of patientData" class="movie-container">
-<mat-card class="card card-container" style="width: 38rem" *ngIf="dataFlag">
-  <div class="card-body">
-    <mat-card-title class="card-title">
-      {{ patient.patient_name }}
-    </mat-card-title>
-    <h6 class="card-subtitle mb-2 text-muted">
-      Date of Birth: {{ patientData[0].dob | date: "dd-MM-yyyy" }}
-    </h6>
-    <mat-divider></mat-divider>
-    <mat-card-content class="card-text" *ngIf="detailsFlag">
-      <h5>Blood Type: {{ patientDetails[0].blood_type }}</h5>
-      <h5>Bone Density: {{ patientDetails[0].bone_density }}</h5>
-    </mat-card-content>
-    <mat-divider></mat-divider>
-    <mat-card-footer>
-      <button
-        mat-button
-        (click)="addDetails()"
-        type="button"
-        data-bs-toggle="modal"
-        data-bs-target="#addModal"
-      >
-        ADD
-      </button>
-      <button
-        mat-button
-        type="button"
-        data-bs-toggle="modal"
-        data-bs-target="#editModal"
-        (click)="editDetails()"
-      >
-        EDIT
-      </button>
-      <h3 class="card-title">Prescriptions</h3>
-      <mat-divider></mat-divider>
-      <app-add-prescription
-        (closeClick)="closeClick()"
-        [patient]="patientData[0]"
-      ></app-add-prescription>
-      <button
-        mat-button
-        type="button"
-        data-bs-toggle="modal"
-        data-bs-target="#addPrescriptionModal"
-      >
-        ADD
-      </button>
-      <app-show-prescription
-        *ngIf="patientData"
-        [cnic]="patientData[0].cnic"
-      ></app-show-prescription>
-    </mat-card-footer>
-  </div>
-</mat-card>
+    <div class="table-container">
+      <table mat-table [dataSource]="patient" class="mat-elevation-z8 table">
+        <mat-toolbar color="primary"> Patient Details </mat-toolbar>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.patient_name }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="dob">
+          <th mat-header-cell *matHeaderCellDef>DOB</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.dob | date: "dd/MM/yyyy" }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="cnic">
+          <th mat-header-cell *matHeaderCellDef>CNIC</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.cnic }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="action1">
+          <th mat-header-cell *matHeaderCellDef>Details</th>
+          <td mat-cell *matCellDef="let element">
+            <app-show-details (closeClick)="closeClick()" [patient]="element">
+            </app-show-details>
+            <app-edit-details
+              (closeClick)="closeClick()"
+              [patient]="element"
+            ></app-edit-details>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="action2">
+          <th mat-header-cell *matHeaderCellDef>Prescriptions</th>
+          <td mat-cell *matCellDef="let element">
+            <app-show-prescription
+              (closeClick)="closeClick()"
+              [cnic]="element.cnic"
+            ></app-show-prescription>
+            <app-add-prescription
+              (closeClick)="closeClick()"
+              [patientID]="element.id"
+            ></app-add-prescription>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr
+          mat-row
+          *matRowDef="let myRowData; columns: columnsToDisplay"
+          class="rows"
+        ></tr>
+      </table>
+    </div>
+  </ng-container>
+</app-generic-list>
