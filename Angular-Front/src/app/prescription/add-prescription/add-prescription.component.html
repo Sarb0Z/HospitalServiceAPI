@@ -1,14 +1,7 @@
-<button
-mat-button
-type="button"
-data-bs-toggle="modal"
-[attr.data-bs-target]="'#addPrescriptionModal' + patientID"
->
-ADD
-</button>
+
 <div
   class="modal fade"
-  [attr.id]="'addPrescriptionModal'+patientID"
+  id="addPrescriptionModal"
   tabindex="-1"
   aria-labelledby="addPrescriptionModalLabel"
   aria-hidden="true"

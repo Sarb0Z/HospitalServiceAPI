@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { SharedService } from 'src/app/Services/shared.service';
+import { FormBuilder } from '@angular/forms';
+import { SharedService } from 'src/app/shared.service';
 
 
 @Component({
@@ -10,8 +10,11 @@ import { SharedService } from 'src/app/Services/shared.service';
 })
 export class EditDetailsComponent implements OnInit {
   @Input() patient:any;
-  id:number=0;
-  patientDetail!: FormGroup;
+  @Input() visitID:number = 0;
+  patientDetail: any = this.form.group({
+    blood_type: '',
+    bone_density: 0,
+  })
 
   @Output('closeClick') closeClick: EventEmitter<any> = new EventEmitter();
 
@@ -20,16 +23,11 @@ export class EditDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.form.group({
-      blood_type: this.patient.blood_type,
-      bone_density: this.patient.bone_density,
-    })
-    this.id=this.patient.id;
-
+    console.log(this.patient);
   }
   updatePatientDetails(){
     var val = {
-      details_id:this.patient.detailsID,
+      details_id:this.visitID,
       patient_id: this.patient.id,
       blood_type: this.patientDetail.value.blood_type,
       bone_density: this.patientDetail.value.bone_density,

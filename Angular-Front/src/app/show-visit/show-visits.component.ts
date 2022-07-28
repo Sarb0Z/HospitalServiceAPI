@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedService } from 'src/app/Services/shared.service';
+import { SharedService } from 'src/app/shared.service';
 
 @Component({
   selector: 'app-show-visits',
@@ -65,6 +65,10 @@ export class ShowVisitsComponent implements OnInit {
 
   }
 
+  showReceipt(ID: number) {
+    this.receiptID = ID;
+    this.activateReceiptCom = true;
+  }
   columnsToDisplay = ['id', 'p_name', 'timing', 'purpose', 'd_name', 'action1', 'action2', 'action3'];
 
 }

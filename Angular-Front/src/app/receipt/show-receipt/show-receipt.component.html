@@ -1,16 +1,6 @@
-<button
-  mat-button
-  type="button"
-  data-bs-toggle="modal"
-  [attr.data-bs-target]="'#receiptModal'+receiptID"
->
-  <mat-icon>receipt</mat-icon>
-  Receipt
-</button>
-
 <div
   class="modal fade"
-  [attr.id]="'receiptModal'+receiptID"
+  id="receiptModal"
   tabindex="-1"
   aria-labelledby="receiptModalLabel"
 >
