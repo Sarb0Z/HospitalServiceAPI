@@ -13,15 +13,13 @@
 <div class="form-container">
   <h2>Enter Required Information</h2>
   <form (submit)="saveChanges()" [formGroup]="form">
-    <mat-form-field appearance="outline" required>
-      <mat-label>ID</mat-label>
-      <input matInput formControlName="id" />
-      <mat-error>The id field is required</mat-error>
+    <mat-form-field appearance="outline" >
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" />
     </mat-form-field>
-    <mat-form-field appearance="outline" required>
+    <mat-form-field appearance="outline" >
       <mat-label>CNIC</mat-label>
       <input matInput formControlName="cnic" />
-      <mat-error>The cnic field is required</mat-error>
 
     </mat-form-field>
     <div>
@@ -32,11 +30,14 @@
     </div>
   </form>
 </div>
-
+<app-generic-list [list]="patientData">
+  <ng-container content>
+    <div class="movies-container">
+      <div *ngFor="let patient of patientData" class="movie-container">
 <mat-card class="card card-container" style="width: 38rem" *ngIf="dataFlag">
   <div class="card-body">
     <mat-card-title class="card-title">
-      {{ patientData[0].patient_name }}
+      {{ patient.patient_name }}
     </mat-card-title>
     <h6 class="card-subtitle mb-2 text-muted">
       Date of Birth: {{ patientData[0].dob | date: "dd-MM-yyyy" }}

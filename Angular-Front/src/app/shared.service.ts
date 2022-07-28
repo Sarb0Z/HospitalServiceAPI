@@ -56,7 +56,10 @@ export class SharedService {
     return this.http.get<any>(`/api/PatientDetails?id=${id}`);
   }
   getPatient(id:number) {
-    return this.http.get('/api/Patient/'+id);
+    return this.http.get('/api/Patient/GetById/'+id);
+  }
+  getPatientByNameOrCnic(name:string, cnic:string) {
+    return this.http.get(`/api/Patient/GetByName/'${name}?cnic=${cnic}`);
   }
   addPatientDetails(val: any) {
     return this.http.post('/api/PatientDetails', val);

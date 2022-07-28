@@ -26,18 +26,9 @@ export class PatientDetailsComponent implements OnInit {
   form!: FormGroup;
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      id: [
-        ,
-        {
-          validators: [Validators.required],
-        },
-      ],
-      cnic: [ ''
-        ,
-        {
-          validators: [Validators.required],
-        },
-      ],
+      name: '',
+      cnic: ''
+
     });
   }
 
@@ -45,13 +36,15 @@ export class PatientDetailsComponent implements OnInit {
     this.dataFlag = false;
     this.detailsFlag=false;
 
-    this.sharedService.getPatient(this.form.value.id).subscribe((data) => {
+
+    this.sharedService.getPatientByNameOrCnic(this.form.value.name, this.form.value.cnic)
+    .subscribe((data) => {
       this.patientData = data;
       this.patientData = JSON.parse(this.patientData);
 
       if (this.patientData) {
         this.sharedService
-          .getPatientDetails(this.form.value.id)
+          .getPatientDetails(this.patientData.id)
           .subscribe((data) => {
             this.patientDetails = data;
             this.patientDetails = JSON.parse(this.patientDetails);

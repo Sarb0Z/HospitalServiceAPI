@@ -26,7 +26,7 @@ namespace HospitalServiceAPI.Controllers
         [HttpGet]
         public JsonResult Get()
         {
-            string query = @"Select id, doctor_name, patient_name, timing, purpose from dbo.visit_details";
+            string query = @"exec GET_VISIT_DETAILS_VIEW";
             ServerConnect newCon = new ServerConnect(_configuration);
 
             return newCon.GetData(query);

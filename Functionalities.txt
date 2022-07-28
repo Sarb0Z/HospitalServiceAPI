@@ -9,6 +9,11 @@ Functionalities:
 
 Objectives:
 
+(Current)
+1)Search for patients using name OR cnic and check their details.
+2)Same for diagnosis
+3)When querying table, row doesn't render at the top.
+(Long term)
 1)Fetch data from database using stored procedures
 2)Add search and sort to tables
 3)Fix double click bug.
