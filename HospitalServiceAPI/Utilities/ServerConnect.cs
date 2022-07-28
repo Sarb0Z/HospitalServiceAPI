@@ -2,7 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Data.Common;
 
 namespace HospitalServiceAPI.Utilities
 {
@@ -10,6 +10,7 @@ namespace HospitalServiceAPI.Utilities
     {
         private DataTable table;
         private string sqlDataSource;
+
         public ServerConnect(IConfiguration _configuration)
         {
             table = new DataTable();
@@ -47,7 +48,10 @@ namespace HospitalServiceAPI.Utilities
                 myCon.Open();
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
-                    myCommand.Parameters.Add(param);
+                    foreach (SqlParameter parameter in param)
+                    {
+                        myCommand.Parameters.AddWithValue(query, parameter);
+                    }
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
 

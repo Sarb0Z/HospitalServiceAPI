@@ -27,7 +27,7 @@ namespace HospitalServiceAPI.Controllers
         [HttpGet]
         public JsonResult Get()
         {
-            string query = @"Select id, doctor, visit, result, patient_id from dbo.Diagnosis";
+            string query = @"exec GET_FROM_DIAGNOSIS";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("HospitalAppCon");
             SqlDataReader myReader;

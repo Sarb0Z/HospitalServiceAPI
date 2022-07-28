@@ -71,7 +71,7 @@ namespace HospitalServiceAPI.Controllers
         }
 
         [HttpGet("GetByName/{name}")]
-        public JsonResult Get(string name, string? cnic)
+        public JsonResult Get(string name, string cnic)
         {
             //SqlParameter[] sql = new SqlParameter[1];
             //int i = 0;
