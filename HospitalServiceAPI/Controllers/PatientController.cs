@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using HospitalServiceAPI.Models;
 using Newtonsoft.Json;
 using HospitalServiceAPI.Utilities;
+using System.Data.Common;
 
 namespace HospitalServiceAPI.Controllers
 {
@@ -31,13 +32,82 @@ namespace HospitalServiceAPI.Controllers
 
             return newCon.GetData(query);
         }
-        [HttpGet("{id}")]
+        [HttpGet("GetById/{id}")]
         public JsonResult Get(int id)
         {
-            string query = @"Select id, patient_name, cnic, dob from dbo.Patient where id = " + id;
-            ServerConnect newCon = new ServerConnect(_configuration);
+            //SqlParameter[] sql = new SqlParameter[1];
+            //int i = 0;
+            //sql[i++] = new SqlParameter("@id", SqlDbType.Int, id);
+            string query = @"exec GET_FROM_PATIENT_WITH_ID @id";
 
-            return newCon.GetData(query);
+            //string query = @"Select id, patient_name, cnic, dob from dbo.Patient where id = " + id;
+
+            //ServerConnect newCon = new ServerConnect(_configuration);
+
+            //return newCon.GetDataWithParam(query, sql);
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("HospitalAppCon");
+            SqlDataReader myReader;
+
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myCommand.Parameters.Add("@id", SqlDbType.Int);
+                    myCommand.Parameters["@id"].Value = id;
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
+            string temp = JsonConvert.SerializeObject(table);
+            return new JsonResult(temp);
+
+        }
+
+        [HttpGet("GetByName/{name}")]
+        public JsonResult Get(string name, string? cnic)
+        {
+            //SqlParameter[] sql = new SqlParameter[1];
+            //int i = 0;
+            //sql[i++] = new SqlParameter("@id", SqlDbType.Int, id);
+            string query = @"exec GET_FROM_PATIENT_WITH_NAME_OR_CNIC @name, @cnic";
+
+            //string query = @"Select id, patient_name, cnic, dob from dbo.Patient where id = " + id;
+
+            //ServerConnect newCon = new ServerConnect(_configuration);
+
+            //return newCon.GetDataWithParam(query, sql);
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("HospitalAppCon");
+            SqlDataReader myReader;
+
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myCommand.Parameters.Add("@name", SqlDbType.VarChar);
+                    myCommand.Parameters["@name"].Value = name;
+                    myCommand.Parameters.Add("@cnic", SqlDbType.VarChar);
+                    myCommand.Parameters["@cnic"].Value = cnic;
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
+            string temp = JsonConvert.SerializeObject(table);
+            return new JsonResult(temp);
+
         }
 
         [HttpPost]

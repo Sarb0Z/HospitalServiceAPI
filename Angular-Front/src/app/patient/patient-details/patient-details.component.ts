@@ -1,7 +1,8 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SharedService } from 'src/app/shared.service';
+import { SharedService } from 'src/app/Services/shared.service';
 
 import { Component, OnInit } from '@angular/core';
+import { Patient } from '../patient';
 
 @Component({
   selector: 'app-patient-details',
@@ -11,12 +12,12 @@ import { Component, OnInit } from '@angular/core';
 export class PatientDetailsComponent implements OnInit {
   patientDetails: any;
   patientData: any;
-  prescriptionData:any;
+  prescriptionData: any;
 
-  dataFlag: boolean = false;
-  detailsFlag:boolean=false;
-  toggleEdit:boolean=false;
-  toggleAdd:boolean=false;
+  toggleEdit: boolean = false;
+  toggleAdd: boolean = false;
+
+  patient: Patient[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,59 +27,66 @@ export class PatientDetailsComponent implements OnInit {
   form!: FormGroup;
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      id: [
-        ,
-        {
-          validators: [Validators.required],
-        },
-      ],
-      cnic: [ ''
-        ,
-        {
-          validators: [Validators.required],
-        },
-      ],
+      name: '',
+      cnic: '',
     });
   }
 
   saveChanges() {
-    this.dataFlag = false;
-    this.detailsFlag=false;
+    this.patient = [];
 
-    this.sharedService.getPatient(this.form.value.id).subscribe((data) => {
-      this.patientData = data;
-      this.patientData = JSON.parse(this.patientData);
+    this.getPatientListByNameOrCnic(this.form.value.name, this.form.value.cnic);
+    if (this.patientData) {
+      for (const key in this.patientData) {
+        this.getPatientDetails(this.patientData[key].id);
 
-      if (this.patientData) {
-        this.sharedService
-          .getPatientDetails(this.form.value.id)
-          .subscribe((data) => {
-            this.patientDetails = data;
-            this.patientDetails = JSON.parse(this.patientDetails);
-            if (this.patientDetails){
-              this.detailsFlag=true;
-            }
-          });
-        this.sharedService.getPrescription(this.form.value.cnic).subscribe((data)=>{
-          this.prescriptionData=data;
-          this.prescriptionData=JSON.parse(this.prescriptionData);
-          console.log(this.prescriptionData);
-        })  
-        this.dataFlag = true;
+        let curPatient: Patient = {
+          id: this.patientData[key].id,
+          detailsID: this.patientDetails[0].details_id,
+          patient_name: this.patientData[key].patient_name,
+          cnic: this.patientData[key].cnic,
+          dob: this.patientData[key].dob,
+          blood_type: this.patientDetails[0].blood_type,
+          bone_density: this.patientDetails[0].bone_density,
+        };
+
+        this.patient.push(curPatient);
       }
-    });
+    }
   }
 
   closeClick() {
-    this.dataFlag=this.detailsFlag=false;
-    this.toggleAdd=this.toggleEdit=false;
+    this.toggleAdd = this.toggleEdit = false;
     this.saveChanges();
   }
 
   editDetails() {
-    this.toggleEdit=true;
+    this.toggleEdit = true;
   }
   addDetails() {
-    this.toggleAdd=true;
+    this.toggleAdd = true;
   }
+  getPrescription(cnic: string) {
+    this.sharedService.getPrescription(cnic).subscribe((data) => {
+      this.prescriptionData = data;
+      this.prescriptionData = JSON.parse(this.prescriptionData);
+      console.log(this.prescriptionData);
+    });
+  }
+  getPatientDetails(id: number) {
+    this.sharedService.getPatientDetails(id).subscribe((data) => {
+      this.patientDetails = data;
+      this.patientDetails = JSON.parse(this.patientDetails);
+      console.log(id);
+      console.log(this.patientDetails);
+    });
+  }
+  getPatientListByNameOrCnic(name: string, cnic: string) {
+    this.sharedService.getPatientByNameOrCnic(name, cnic).subscribe((data) => {
+      this.patientData = data;
+      this.patientData = JSON.parse(this.patientData);
+    });
+  }
+
+  columnsToDisplay = ['name', 'dob', 'cnic', 'action1', 'action2'];
 }
