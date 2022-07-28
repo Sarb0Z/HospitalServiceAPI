@@ -1,10 +1,27 @@
-
+<button
+  mat-button
+  type="button"
+  data-bs-toggle="modal"
+  data-bs-target="#addModal"
+  (click)="AddPatient()"
+  data-keyboard="false"
+  class="btn1"
+>
+  Add Patient
+</button>
 <app-add-patient
+  *ngIf="toggleAdd"
   [patient]="patient"
   (refreshPatientList)="refreshPatientList()"
   (closeClick)="closeClick()"
 >
 </app-add-patient>
+<app-edit-patient
+*ngIf="toggleEdit"
+  [patient]="patient"
+  (refreshPatientList)="refreshPatientList()"
+  (closeClick)="closeClick()"
+></app-edit-patient>
 
 <app-generic-list [list]="patientList">
   <ng-container content>
@@ -12,11 +29,7 @@
       <mat-toolbar color="primary"> Patient Details </mat-toolbar>
       <div fxLayout fxLayoutAlign="center center">
         <mat-form-field fxFlex="40%">
-          <input
-            matInput
-            (keyup)="applyFilter($any($event.target).value)"
-            placeholder="Filter"
-          />
+          <input matInput (keyup)="applyFilter($any($event.target).value)" placeholder="Filter">
         </mat-form-field>
       </div>
 
@@ -24,24 +37,16 @@
         mat-table
         [dataSource]="dataSource"
         class="mat-elevation-z8 table"
-        matSort
-        (matSortChange)="announceSortChange($event)"
+        matSort (matSortChange)="announceSortChange($event)"
       >
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
           <td mat-cell *matCellDef="let patient">
-            {{ patient.id }}
+            {{ patient.id  }}
           </td>
         </ng-container>
         <ng-container matColumnDef="patient_name">
-          <th
-            mat-header-cell
-            *matHeaderCellDef
-            mat-sort-header
-            sortActionDescription="Sort by name"
-          >
-            Name
-          </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">Name</th>
           <td mat-cell *matCellDef="let patient">
             {{ patient.patient_name | uppercase }}
           </td>
@@ -51,7 +56,7 @@
           <td mat-cell *matCellDef="let patient">{{ patient.cnic }}</td>
         </ng-container>
         <ng-container matColumnDef="dob">
-          <th mat-header-cell *matHeaderCellDef>Date of Birth</th>
+          <th mat-header-cell *matHeaderCellDef >Date of Birth</th>
           <td mat-cell *matCellDef="let patient">
             {{ patient.dob | date: "dd/MM/yyyy" }}
           </td>
@@ -59,11 +64,15 @@
         <ng-container matColumnDef="Action1">
           <th mat-header-cell *matHeaderCellDef>Edit Data</th>
           <td mat-cell *matCellDef="let patient">
-            <app-edit-patient
-              [patient]="patient"
-              (refreshPatientList)="refreshPatientList()"
-              (closeClick)="closeClick()"
-            ></app-edit-patient>
+            <button
+              mat-button
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#editModal"
+              (click)="EditPatient(patient)"
+            >
+              EDIT
+            </button>
           </td>
         </ng-container>
         <ng-container matColumnDef="Action2">

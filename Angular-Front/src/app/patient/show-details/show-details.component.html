@@ -1,0 +1,42 @@
+<button
+  mat-button
+  type="button"
+  data-bs-toggle="modal"
+  [attr.data-bs-target]="'#showModal' + patient.id"
+>
+  SHOW
+</button>
+<div
+  class="modal fade"
+  [attr.id]="'showModal' + patient.id"
+  tabindex="-1"
+  aria-labelledby="editModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="editModalLabel">Patient Details</h1>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="closeClick.emit()"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <mat-card>
+            <h3>Blood Type: {{ patient.blood_type }}</h3>
+            <h3>Bone Density: {{ patient.bone_density }}</h3>
+        </mat-card>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

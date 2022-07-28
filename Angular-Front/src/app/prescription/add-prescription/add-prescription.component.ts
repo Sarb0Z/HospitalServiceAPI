@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
-import { Patient } from 'src/app/patient/patient';
-import { SharedService } from 'src/app/Services/shared.service';
+import { SharedService } from 'src/app/shared.service';
 
 @Component({
   selector: 'app-add-prescription',
@@ -9,7 +8,7 @@ import { SharedService } from 'src/app/Services/shared.service';
   styleUrls: ['./add-prescription.component.css']
 })
 export class AddPrescriptionComponent implements OnInit {
-  @Input() patientID: number = 0;
+  @Input() patient: any;
   @Output('closeClick') closeClick: EventEmitter<any> = new EventEmitter();
 
   medicineList: any = [];
@@ -78,7 +77,7 @@ export class AddPrescriptionComponent implements OnInit {
 
     var med_id=obj.id;
     var val = {
-      patient_id:this.patientID,
+      patient_id:this.patient.id,
       doctor_id:this.patientDetail.value.doctor_id,
       medicine_id:med_id,
       recommendation:this.patientDetail.value.recommendation,

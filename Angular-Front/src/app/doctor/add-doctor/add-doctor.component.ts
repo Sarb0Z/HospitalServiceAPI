@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { SharedService } from 'src/app/Services/shared.service';
+import { SharedService } from 'src/app/shared.service';
 
 @Component({
   selector: 'app-add-doctor',
