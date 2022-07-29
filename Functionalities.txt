@@ -16,9 +16,10 @@ Objectives:
 (Long term)
 1)Fetch data from database using stored procedures{--done for get}
 2)Add search and sort to tables
-3)Fix double click bug (fixed) (---new bug now)
+3)Fix double click bug (fixed) {-}
 
 Additional:
 
 1)Authentication
 2)Web tokens
+

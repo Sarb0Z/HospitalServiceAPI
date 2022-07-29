@@ -1,0 +1,85 @@
+<!-- <app-add-details
+  (closeClick)="closeClick()"
+  [patient]="patientData[0]"
+></app-add-details> -->
+
+<div class="form-container">
+  <h2>Enter Search Details</h2>
+  <form (ngSubmit)="refreshList()" [formGroup]="form">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" />
+      <mat-error>Invalid Name</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>CNIC</mat-label>
+      <input matInput formControlName="cnic" />
+      <mat-error>Invalid Cnic</mat-error>
+
+    </mat-form-field>
+    <div>
+      <button mat-flat-button  type="submit" color="primary" [disabled]="form.invalid">
+        Get Details
+      </button>
+      <a mat-stroked-button>Cancel</a>
+    </div>
+  </form>
+</div>
+<ng-container content>
+  <div class="table-container" >
+    <app-generic-list list="patient">
+
+    </app-generic-list>
+    <table mat-table [dataSource]="patient" class="mat-elevation-z8 table">
+      <mat-toolbar color="primary"> Patient Details </mat-toolbar>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.patient_name }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="dob">
+        <th mat-header-cell *matHeaderCellDef>DOB</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.dob | date: "dd/MM/yyyy" }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="cnic">
+        <th mat-header-cell *matHeaderCellDef>CNIC</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.cnic }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="action1">
+        <th mat-header-cell *matHeaderCellDef>Details</th>
+        <td mat-cell *matCellDef="let element">
+          <app-show-details (closeClick)="closeClick()" [patient]="element">
+          </app-show-details>
+          <app-edit-details
+            (closeClick)="closeClick()"
+            [patient]="element"
+          ></app-edit-details>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="action2">
+        <th mat-header-cell *matHeaderCellDef>Prescriptions</th>
+        <td mat-cell *matCellDef="let element">
+          <app-show-prescription
+            (closeClick)="closeClick()"
+            [cnic]="element.cnic"
+          ></app-show-prescription>
+          <app-add-prescription
+            (closeClick)="closeClick()"
+            [patientID]="element.id"
+          ></app-add-prescription>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr
+        mat-row
+        *matRowDef="let myRowData; columns: columnsToDisplay"
+        class="rows"
+      ></tr>
+    </table>
+  </div>
+</ng-container>

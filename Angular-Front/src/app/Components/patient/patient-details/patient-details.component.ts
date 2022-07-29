@@ -1,8 +1,13 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { SharedService } from 'src/app/Services/shared.service';
 
 import { Component, OnInit } from '@angular/core';
-import { Patient } from '../patient';
+import { Patient } from '../../../Interfaces/patient';
 
 @Component({
   selector: 'app-patient-details',
@@ -14,21 +19,50 @@ export class PatientDetailsComponent implements OnInit {
   patientData: any;
   prescriptionData: any;
 
-  toggleEdit: boolean = false;
-  toggleAdd: boolean = false;
 
   patient: Patient[] = [];
+  form: FormGroup = new FormGroup({
+    name: new FormControl(''),
+    cnic: new FormControl(''),
+  });
 
   constructor(
     private formBuilder: FormBuilder,
     private sharedService: SharedService
   ) {}
 
-  form!: FormGroup;
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      name: '',
-      cnic: '',
+      name: ['', Validators.maxLength(40)],
+      cnic: ['', Validators.maxLength(15)],
+    });
+
+    this.initChanges();
+
+  }
+  refreshList(){
+    this.saveChanges();
+  }
+  initChanges() {
+    this.sharedService.getPatientList().subscribe((data) => {
+      this.patientData = data;
+      this.patientData = JSON.parse(this.patientData);
+      if (this.patientData) {
+        for (const key in this.patientData) {
+          this.getPatientDetails(this.patientData[key].id);
+          let curPatient: Patient = {
+            id: this.patientData[key].id,
+            detailsID: this.patientDetails[0].details_id,
+            patient_name: this.patientData[key].patient_name,
+            cnic: this.patientData[key].cnic,
+            dob: this.patientData[key].dob,
+            blood_type: this.patientDetails[0].blood_type,
+            bone_density: this.patientDetails[0].bone_density,
+          };
+
+          this.patient.push(curPatient);
+        }
+      }
     });
   }
 
@@ -39,7 +73,7 @@ export class PatientDetailsComponent implements OnInit {
     if (this.patientData) {
       for (const key in this.patientData) {
         this.getPatientDetails(this.patientData[key].id);
-
+        console.log(this.patientDetails);
         let curPatient: Patient = {
           id: this.patientData[key].id,
           detailsID: this.patientDetails[0].details_id,
@@ -56,16 +90,10 @@ export class PatientDetailsComponent implements OnInit {
   }
 
   closeClick() {
-    this.toggleAdd = this.toggleEdit = false;
     this.saveChanges();
+
   }
 
-  editDetails() {
-    this.toggleEdit = true;
-  }
-  addDetails() {
-    this.toggleAdd = true;
-  }
   getPrescription(cnic: string) {
     this.sharedService.getPrescription(cnic).subscribe((data) => {
       this.prescriptionData = data;
@@ -77,8 +105,8 @@ export class PatientDetailsComponent implements OnInit {
     this.sharedService.getPatientDetails(id).subscribe((data) => {
       this.patientDetails = data;
       this.patientDetails = JSON.parse(this.patientDetails);
-      console.log(id);
-      console.log(this.patientDetails);
+      // console.log(id);
+      // console.log(this.patientDetails[0]);
     });
   }
   getPatientListByNameOrCnic(name: string, cnic: string) {

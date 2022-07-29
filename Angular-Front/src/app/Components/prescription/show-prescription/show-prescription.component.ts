@@ -24,12 +24,9 @@ export class ShowPrescriptionComponent implements OnInit {
     this.service.getPrescription(this.cnic).subscribe((data) => {
       this.prescriptionData = data;
       this.prescriptionData = JSON.parse(this.prescriptionData);
-      console.log(this.prescriptionData);
     });
   }
   columnsToDisplay = [
-    'cnic',
-    'patient_name',
     'doctor_name',
     'medicine_name',
     'supplier_name',

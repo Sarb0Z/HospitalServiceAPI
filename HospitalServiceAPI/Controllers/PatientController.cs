@@ -67,13 +67,20 @@ namespace HospitalServiceAPI.Controllers
 
         }
 
-        [HttpGet("GetByName/{name}")]
-        public JsonResult Get(string name, string? cnic)
+        [HttpGet("GetByName")]
+        public JsonResult Get(string? name, string? cnic)
         {
             //SqlParameter[] sql = new SqlParameter[1];
             //int i = 0;
             //sql[i++] = new SqlParameter("@id", SqlDbType.Int, id);
-            string query = @"exec GET_FROM_PATIENT_WITH_NAME_OR_CNIC @name, @cnic";
+            string query = @"exec GET_FROM_PATIENT_WITH_NAME_OR_CNIC ";
+            if (name != null && cnic != null)
+                query += "@name, @cnic";
+            else if (cnic != null)
+                query += "@cnic";
+            else if (name != null)
+                query += "@name";
+          
 
             //string query = @"Select id, patient_name, cnic, dob from dbo.Patient where id = " + id;
 
@@ -90,10 +97,17 @@ namespace HospitalServiceAPI.Controllers
                 myCon.Open();
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
-                    myCommand.Parameters.Add("@name", SqlDbType.VarChar);
-                    myCommand.Parameters["@name"].Value = name;
-                    myCommand.Parameters.Add("@cnic", SqlDbType.VarChar);
-                    myCommand.Parameters["@cnic"].Value = cnic;
+                    if (name != null)
+                    {
+                        myCommand.Parameters.Add("@name", SqlDbType.VarChar);
+                        myCommand.Parameters["@name"].Value = name;
+                    }
+                    if (cnic != null)
+                    {
+                        myCommand.Parameters.Add("@cnic", SqlDbType.VarChar);
+                        myCommand.Parameters["@cnic"].Value = cnic;
+                    }
+
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);

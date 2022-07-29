@@ -1,7 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { MaterialModule } from './material/material.module';
+import { MaterialModule } from './MaterialUI/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
@@ -9,36 +9,35 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 import { AppComponent } from './app.component';
-import { ShowDoctorComponent } from './show-doctor/show-doctor.component';
-import { ShowPatientComponent } from './show-patient/show-patient.component';
-import { GenericListComponent } from './utilities/generic-list/generic-list.component';
-import { VisitsComponent } from './visits/visits.component';
-import { ShowVisitsComponent } from './show-visit/show-visits.component';
-import { PatientDetailsComponent } from './patient/patient-details/patient-details.component';
-import { DiagnosisComponent } from './diagnosis/diagnosis.component';
-import { ShowDiagnosisComponent } from './show-diagnosis/show-diagnosis.component';
-import { MenuComponent } from './menu/menu.component';
-import { ShowReceiptComponent } from './receipt/show-receipt/show-receipt.component';
-import { SearchPatientComponent } from './patient/search-patient/search-patient.component';
-import { AddDoctorComponent } from './doctor/add-doctor/add-doctor.component';
-import { EditDoctorComponent } from './doctor/edit-doctor/edit-doctor.component';
-import { AddPatientComponent } from './patient/add-patient/add-patient.component';
-import { EditPatientComponent } from './patient/edit-patient/edit-patient.component';
-import { AddVisitComponent } from './visits/add-visit/add-visit.component';
-import { EditVisitComponent } from './visits/edit-visit/edit-visit.component';
-import { ShowPrescriptionComponent } from './prescription/show-prescription/show-prescription.component';
-import { UpdatePrescriptionComponent } from './prescription/update-prescription/update-prescription.component';
-import { AddPrescriptionComponent } from './prescription/add-prescription/add-prescription.component';
-import { DeletePrescriptionComponent } from './prescription/delete-prescription/delete-prescription.component';
-import { EditDetailsComponent } from './patient/edit-details/edit-details.component';
-import { AddDetailsComponent } from './patient/add-details/add-details.component';
-import { EditDiagnosisComponent } from './diagnosis/edit-diagnosis/edit-diagnosis.component';
-import { AddDiagnosisComponent } from './diagnosis/add-diagnosis/add-diagnosis.component';
+import { ShowDoctorComponent } from './Pages/show-doctor/show-doctor.component';
+import { ShowPatientComponent } from './Pages/show-patient/show-patient.component';
+import { GenericListComponent } from './Utilities/generic-list/generic-list.component';
+import { VisitsComponent } from './Components/visits/visits.component';
+import { ShowVisitsComponent } from './Pages/show-visit/show-visits.component';
+import { PatientDetailsComponent } from './Components/patient/patient-details/patient-details.component';
+import { DiagnosisComponent } from './Components/diagnosis/diagnosis.component';
+import { ShowDiagnosisComponent } from './Pages/show-diagnosis/show-diagnosis.component';
+import { MenuComponent } from './Menu/menu.component';
+import { ShowReceiptComponent } from './Components/receipt/show-receipt/show-receipt.component';
+import { SearchPatientComponent } from './Components/patient/search-patient/search-patient.component';
+import { AddDoctorComponent } from './Components/doctor/add-doctor/add-doctor.component';
+import { EditDoctorComponent } from './Components/doctor/edit-doctor/edit-doctor.component';
+import { AddPatientComponent } from './Components/patient/add-patient/add-patient.component';
+import { EditPatientComponent } from './Components/patient/edit-patient/edit-patient.component';
+import { AddVisitComponent } from './Components/visits/add-visit/add-visit.component';
+import { EditVisitComponent } from './Components/visits/edit-visit/edit-visit.component';
+import { ShowPrescriptionComponent } from './Components/prescription/show-prescription/show-prescription.component';
+import { UpdatePrescriptionComponent } from './Components/prescription/update-prescription/update-prescription.component';
+import { AddPrescriptionComponent } from './Components/prescription/add-prescription/add-prescription.component';
+import { DeletePrescriptionComponent } from './Components/prescription/delete-prescription/delete-prescription.component';
+import { EditDetailsComponent } from './Components/patient/edit-details/edit-details.component';
+import { AddDetailsComponent } from './Components/patient/add-details/add-details.component';
+import { EditDiagnosisComponent } from './Components/diagnosis/edit-diagnosis/edit-diagnosis.component';
+import { AddDiagnosisComponent } from './Components/diagnosis/add-diagnosis/add-diagnosis.component';
+import { ShowDetailsComponent } from './Components/patient/show-details/show-details.component';
+
 
 import { SharedService } from './Services/shared.service';
-import { ShowDetailsComponent } from './patient/show-details/show-details.component';
-
-
 
 
 const routes: Routes = [

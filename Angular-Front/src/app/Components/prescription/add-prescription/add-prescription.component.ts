@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
-import { Patient } from 'src/app/patient/patient';
 import { SharedService } from 'src/app/Services/shared.service';
+import { Patient } from '../../../Interfaces/patient';
 
 @Component({
   selector: 'app-add-prescription',
