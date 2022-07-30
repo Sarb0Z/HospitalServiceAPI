@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SharedService } from 'src/app/Services/shared.service';
+import { PrescriptionApiService } from 'src/app/Services/prescription-api.service';
 
 @Component({
   selector: 'app-show-prescription',
@@ -14,14 +14,16 @@ export class ShowPrescriptionComponent implements OnInit {
   patientList: any;
   clicked: boolean = false;
 
-  constructor(private service: SharedService) {}
+  prescription: string = 'Prescriptions';
+
+  constructor(private prescriptionService: PrescriptionApiService) {}
 
   ngOnInit(): void {
     this.showPrescription();
   }
   showPrescription() {
     this.clicked = !this.clicked;
-    this.service.getPrescription(this.cnic).subscribe((data) => {
+    this.prescriptionService.getPrescription(this.cnic).subscribe((data) => {
       this.prescriptionData = data;
       this.prescriptionData = JSON.parse(this.prescriptionData);
     });

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { SharedService } from 'src/app/Services/shared.service';
+import { PatientApiService } from 'src/app/Services/patient-api.service';
 
 @Component({
   selector: 'app-edit-patient',
@@ -17,7 +17,9 @@ export class EditPatientComponent implements OnInit {
   cnic: string = '';
   dob: Date = new Date();
 
-  constructor(private service: SharedService) {}
+  modalTitle: string = 'Edit Patient';
+
+  constructor(private patientService: PatientApiService) {}
 
   ngOnInit(): void {
     this.refreshModalData();
@@ -31,13 +33,13 @@ export class EditPatientComponent implements OnInit {
       cnic: this.cnic,
       dob: this.dob,
     };
-    this.service.updatePatient(val).subscribe((res) => {
+    this.patientService.updatePatient(val).subscribe((res) => {
       alert(res.toString());
       this.refreshPatientList.emit();
     });
   }
 
-  refreshModalData(){
+  refreshModalData() {
     this.id = this.patient.id;
     this.patient_name = this.patient.patient_name;
     this.cnic = this.patient.cnic;

@@ -21,7 +21,6 @@ export class ShowReceiptComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.receiptID;
     this.showReceipt();
-    console.log(this.id);
 
 
   }

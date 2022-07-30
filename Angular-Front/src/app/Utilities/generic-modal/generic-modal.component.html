@@ -1,0 +1,48 @@
+<div
+  class="modal fade"
+  [attr.id]="modalID"
+  tabindex="-1"
+  aria-labelledby="addModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="addModalLabel">{{modalTitle}}</h1>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="closeClick.emit()"
+          data-bs-toggle="modal"
+          [attr.data-bs-dismiss]="modalID"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <ng-container >
+          <ng-content select="[content]"></ng-content>
+        </ng-container>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-toggle="modal"
+            [attr.data-bs-dismiss]="modalID"
+            (click)="closeClick.emit()"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            (click)="doAction.emit()"
+            [attr.data-bs-dismiss]="modalID"
+          >
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

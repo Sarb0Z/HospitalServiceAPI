@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedService } from 'src/app/Services/shared.service';
+import { VisitApiService } from 'src/app/Services/visit-api.service';
 
 @Component({
   selector: 'app-show-visits',
@@ -18,13 +18,13 @@ export class ShowVisitsComponent implements OnInit {
   receiptData: any;
 
   
-  constructor(private sharedService: SharedService) {}
+  constructor(private visitService: VisitApiService) {}
 
   ngOnInit(): void {
     this.refreshVisitList();
   }
   refreshVisitList() {
-    this.sharedService.getVisitPage().subscribe((data) => {
+    this.visitService.getVisitPage().subscribe((data) => {
       this.visitList = data;
       this.visitList = JSON.parse(this.visitList);
     });
@@ -49,7 +49,7 @@ export class ShowVisitsComponent implements OnInit {
 
   deleteClick(item: any) {
     if (confirm('Are you sure??')) {
-      this.sharedService.deleteVisit(item.id).subscribe((data) => {
+      this.visitService.deleteVisit(item.id).subscribe((data) => {
         alert(data.toString());
         this.refreshVisitList();
       });

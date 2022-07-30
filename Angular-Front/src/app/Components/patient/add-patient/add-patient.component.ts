@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { SharedService } from 'src/app/Services/shared.service';
+import { PatientApiService } from 'src/app/Services/patient-api.service';
 
 @Component({
   selector: 'app-add-patient',
@@ -17,7 +17,7 @@ export class AddPatientComponent implements OnInit {
   cnic: string = '';
   dob: Date = new Date();
 
-  constructor(private service: SharedService) {}
+  constructor(private patientService: PatientApiService) {}
 
   ngOnInit(): void {
     this.id = this.patient.id;
@@ -28,12 +28,12 @@ export class AddPatientComponent implements OnInit {
 
   addPatient() {
     var val = {
-      id:this.id,
+      id: this.id,
       patient_name: this.patient_name,
       cnic: this.cnic,
       dob: this.dob,
     };
-    this.service.addPatient(val).subscribe((res) => {
+    this.patientService.addPatient(val).subscribe((res) => {
       alert(res.toString());
       this.refreshPatientList.emit();
     });

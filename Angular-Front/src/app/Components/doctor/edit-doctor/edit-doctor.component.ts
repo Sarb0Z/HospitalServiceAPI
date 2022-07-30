@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { SharedService } from 'src/app/Services/shared.service';
+import { DoctorApiService } from 'src/app/Services/doctor-api.service';
 
 @Component({
   selector: 'app-edit-doctor',
@@ -16,7 +16,9 @@ export class EditDoctorComponent implements OnInit {
   doctor_name: string = '';
   title: string = '';
 
-  constructor(private service: SharedService) {}
+  modalTitle:string="Edit Doctor"
+
+  constructor(private doctorService: DoctorApiService) {}
 
   ngOnInit(): void {
     this.id = this.doctor.id;
@@ -30,7 +32,7 @@ export class EditDoctorComponent implements OnInit {
       doctor_name: this.doctor_name,
       title: this.title,
     };
-    this.service.updateDoctor(val).subscribe((res) => {
+    this.doctorService.updateDoctor(val).subscribe((res) => {
       alert(res.toString());
       this.refreshDoctorList.emit();
     });

@@ -2,7 +2,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import { SharedService } from 'src/app/Services/shared.service';
+import { PatientApiService } from 'src/app/Services/patient-api.service';
 
 @Component({
   selector: 'app-show-patient',
@@ -17,7 +17,7 @@ export class ShowPatientComponent implements OnInit, AfterViewInit {
 
   dataSource:any;
 
-  constructor(private sharedService: SharedService, private _liveAnnouncer: LiveAnnouncer) {}
+  constructor(private patientService: PatientApiService, private _liveAnnouncer: LiveAnnouncer) {}
   @ViewChild(MatSort) sort?: MatSort;
 
   ngAfterViewInit() {
@@ -28,7 +28,7 @@ export class ShowPatientComponent implements OnInit, AfterViewInit {
     this.refreshPatientList();
   }
   refreshPatientList() {
-    this.sharedService.getPatientList().subscribe((data) => {
+    this.patientService.getPatientList().subscribe((data) => {
       this.patientList = data;
       this.patientList = JSON.parse(this.patientList);
       this.dataSource = new MatTableDataSource(this.patientList);
@@ -52,7 +52,7 @@ export class ShowPatientComponent implements OnInit, AfterViewInit {
 
   deleteClick(item: any) {
     if (confirm('Are you sure??')) {
-      this.sharedService.deletePatient(item.id).subscribe((data) => {
+      this.patientService.deletePatient(item.id).subscribe((data) => {
         alert(data.toString());
         this.refreshPatientList();
       });

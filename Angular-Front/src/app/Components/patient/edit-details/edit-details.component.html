@@ -1,73 +1,41 @@
 <button
-mat-button
-type="button"
-data-bs-toggle="modal"
-[attr.data-bs-target]="'#editModal'+id"
+  mat-button
+  type="button"
+  data-bs-toggle="modal"
+  [attr.data-bs-target]="'#editModal' + id"
 >
-EDIT
+  EDIT
 </button>
-<div
-  class="modal fade"
-  [attr.id]="'editModal'+id"
-  tabindex="-1"
-  aria-labelledby="editModalLabel"
-  aria-hidden="true"
+<app-generic-modal
+  [modalID]="'editModal' + id"
+  [modalTitle]="modalTitle"
+  (closeClick)="(closeClick)"
+  (doAction)="updatePatientDetails()"
 >
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title" id="editModalLabel">Edit Patient Details</h1>
-        <button
-          type="button"
-          class="btn-close"
-          (click)="closeClick.emit()"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-          <form [formGroup]="patientDetail" >
-
-            <div class="form-group row">
-              <label class="col-sm-2">Blood Type</label>
-              <div class="col-sm-10">
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="blood_type"
-                  placeholder="Enter Blood Type"
-                />
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-sm-2">Bone Density</label>
-              <div class="col-sm-10">
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="bone_density"
-                  placeholder="Enter Bone Density"
-                />
-              </div>
-            </div>
-    
-          </form>
-
+  <ng-container content>
+    <form [formGroup]="patientDetail">
+      <div class="form-group row">
+        <label class="col-sm-2">Blood Type</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            class="form-control"
+            formControlName="blood_type"
+            placeholder="Enter Blood Type"
+          />
         </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
-        </button>
-        <button
-          type="click"
-          class="btn btn-primary"
-          data-bs-dismiss="modal"
-          data-bs-target="#editModal"
-          (click)="updatePatientDetails()"
-        >
-          Save changes
-        </button>
       </div>
-    </div>
-  </div>
-</div>
+      <div class="form-group row">
+        <label class="col-sm-2">Bone Density</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            class="form-control"
+            formControlName="bone_density"
+            placeholder="Enter Bone Density"
+          />
+        </div>
+      </div>
+    </form>
+  </ng-container>
+</app-generic-modal>

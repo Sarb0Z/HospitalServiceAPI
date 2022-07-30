@@ -31,13 +31,13 @@ import { UpdatePrescriptionComponent } from './Components/prescription/update-pr
 import { AddPrescriptionComponent } from './Components/prescription/add-prescription/add-prescription.component';
 import { DeletePrescriptionComponent } from './Components/prescription/delete-prescription/delete-prescription.component';
 import { EditDetailsComponent } from './Components/patient/edit-details/edit-details.component';
-import { AddDetailsComponent } from './Components/patient/add-details/add-details.component';
 import { EditDiagnosisComponent } from './Components/diagnosis/edit-diagnosis/edit-diagnosis.component';
 import { AddDiagnosisComponent } from './Components/diagnosis/add-diagnosis/add-diagnosis.component';
 import { ShowDetailsComponent } from './Components/patient/show-details/show-details.component';
 
 
 import { SharedService } from './Services/shared.service';
+import { GenericModalComponent } from './Utilities/generic-modal/generic-modal.component';
 
 
 const routes: Routes = [
@@ -77,10 +77,10 @@ const routes: Routes = [
     AddPrescriptionComponent,
     DeletePrescriptionComponent,
     EditDetailsComponent,
-    AddDetailsComponent,
     EditDiagnosisComponent,
     AddDiagnosisComponent,
     ShowDetailsComponent,
+    GenericModalComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule, BrowserAnimationsModule, MaterialModule, FormsModule, ReactiveFormsModule, FlexLayoutModule,

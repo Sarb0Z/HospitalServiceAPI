@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { SharedService } from 'src/app/Services/shared.service';
+import { PrescriptionApiService } from 'src/app/Services/prescription-api.service';
 
 @Component({
   selector: 'app-update-prescription',
@@ -9,13 +10,18 @@ import { SharedService } from 'src/app/Services/shared.service';
 })
 export class UpdatePrescriptionComponent implements OnInit {
   @Input() prescriptionData: any;
-  @Input() patientID: number = 0;
   @Output('closeClick') closeClick: EventEmitter<any> = new EventEmitter();
 
   medicineList: any = [];
   testList: any = [];
   patientDetail: any;
-  constructor(public form: FormBuilder, private service: SharedService) {}
+
+  modalTitle: string = 'Edit Prescription';
+  constructor(
+    public form: FormBuilder,
+    private service: SharedService,
+    private prescriptionService: PrescriptionApiService
+  ) {}
 
   medicineForm!: FormGroup;
   testForm!: FormGroup;
@@ -82,14 +88,14 @@ export class UpdatePrescriptionComponent implements OnInit {
 
     var med_id = obj.id;
     var val = {
-      id:this.prescriptionData.id,
+      id: this.prescriptionData.id,
       patient_id: this.prescriptionData.patient_id,
       doctor_id: this.patientDetail.value.doctor_id,
       medicine_id: med_id,
       recommendation: this.patientDetail.value.recommendation,
       intake_amount: this.patientDetail.value.intake_amount,
     };
-    this.service.updatePrescription(val).subscribe((res) => {
+    this.prescriptionService.updatePrescription(val).subscribe((res) => {
       alert(res.toString());
       this.closeClick.emit();
     });

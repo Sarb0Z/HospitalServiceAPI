@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedService } from 'src/app/Services/shared.service';
+import { DoctorApiService } from 'src/app/Services/doctor-api.service';
 
 @Component({
   selector: 'app-show-doctor',
@@ -11,13 +11,13 @@ export class ShowDoctorComponent implements OnInit {
   doctor: any;
   toggleAdd:boolean=false;
   toggleEdit:boolean=false;
-  constructor(private sharedService: SharedService) {}
+  constructor(private doctorService: DoctorApiService) {}
 
   ngOnInit(): void {
     this.refreshDoctorList();
   }
   refreshDoctorList() {
-    this.sharedService.getDoctorList().subscribe((data) => {
+    this.doctorService.getDoctorList().subscribe((data) => {
       this.doctorList = data;
       this.doctorList = JSON.parse(this.doctorList);
     });
@@ -39,7 +39,7 @@ export class ShowDoctorComponent implements OnInit {
 
   deleteClick(item: any) {
     if (confirm('Are you sure??')) {
-      this.sharedService.deleteDoctor(item.id).subscribe((data) => {
+      this.doctorService.deleteDoctor(item.id).subscribe((data) => {
         alert(data.toString());
         this.refreshDoctorList();
       });

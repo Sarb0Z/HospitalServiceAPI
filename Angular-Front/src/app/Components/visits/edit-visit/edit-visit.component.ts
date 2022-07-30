@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { SharedService } from 'src/app/Services/shared.service';
+import { VisitApiService } from 'src/app/Services/visit-api.service';
 
 @Component({
   selector: 'app-edit-visit',
@@ -18,7 +18,7 @@ export class EditVisitComponent implements OnInit {
   purpose: string = '';
   timing: Date = new Date();
 
-  constructor(private service: SharedService) {}
+  constructor(private visitService: VisitApiService) {}
 
   ngOnInit(): void {
     this.id = this.visit.id;
@@ -36,7 +36,7 @@ export class EditVisitComponent implements OnInit {
       purpose: this.purpose,
       timing: this.timing,
     };
-    this.service.updateVisit(val).subscribe((res) => {
+    this.visitService.updateVisit(val).subscribe((res) => {
       alert(res.toString());
       this.refreshVisitList.emit();
     });

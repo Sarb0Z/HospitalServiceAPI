@@ -4,10 +4,11 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { SharedService } from 'src/app/Services/shared.service';
+import { PatientApiService } from 'src/app/Services/patient-api.service';
+import { PrescriptionApiService } from 'src/app/Services/prescription-api.service';
 
 import { Component, OnInit } from '@angular/core';
-import { Patient } from '../../../Interfaces/patient';
+import { PatientFull } from '../../../Interfaces/patientFull';
 
 @Component({
   selector: 'app-patient-details',
@@ -20,7 +21,7 @@ export class PatientDetailsComponent implements OnInit {
   prescriptionData: any;
 
 
-  patient: Patient[] = [];
+  patient: PatientFull[] = [];
   form: FormGroup = new FormGroup({
     name: new FormControl(''),
     cnic: new FormControl(''),
@@ -28,7 +29,8 @@ export class PatientDetailsComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private sharedService: SharedService
+    private patientService: PatientApiService,
+    private prescriptionService: PrescriptionApiService
   ) {}
 
   ngOnInit(): void {
@@ -44,13 +46,13 @@ export class PatientDetailsComponent implements OnInit {
     this.saveChanges();
   }
   initChanges() {
-    this.sharedService.getPatientList().subscribe((data) => {
+    this.patientService.getPatientList().subscribe((data) => {
       this.patientData = data;
       this.patientData = JSON.parse(this.patientData);
       if (this.patientData) {
         for (const key in this.patientData) {
           this.getPatientDetails(this.patientData[key].id);
-          let curPatient: Patient = {
+          let curPatient: PatientFull = {
             id: this.patientData[key].id,
             detailsID: this.patientDetails[0].details_id,
             patient_name: this.patientData[key].patient_name,
@@ -73,8 +75,7 @@ export class PatientDetailsComponent implements OnInit {
     if (this.patientData) {
       for (const key in this.patientData) {
         this.getPatientDetails(this.patientData[key].id);
-        console.log(this.patientDetails);
-        let curPatient: Patient = {
+        let curPatient: PatientFull = {
           id: this.patientData[key].id,
           detailsID: this.patientDetails[0].details_id,
           patient_name: this.patientData[key].patient_name,
@@ -95,14 +96,14 @@ export class PatientDetailsComponent implements OnInit {
   }
 
   getPrescription(cnic: string) {
-    this.sharedService.getPrescription(cnic).subscribe((data) => {
+    this.prescriptionService.getPrescription(cnic).subscribe((data) => {
       this.prescriptionData = data;
       this.prescriptionData = JSON.parse(this.prescriptionData);
       console.log(this.prescriptionData);
     });
   }
   getPatientDetails(id: number) {
-    this.sharedService.getPatientDetails(id).subscribe((data) => {
+    this.patientService.getPatientDetails(id).subscribe((data) => {
       this.patientDetails = data;
       this.patientDetails = JSON.parse(this.patientDetails);
       // console.log(id);
@@ -110,7 +111,7 @@ export class PatientDetailsComponent implements OnInit {
     });
   }
   getPatientListByNameOrCnic(name: string, cnic: string) {
-    this.sharedService.getPatientByNameOrCnic(name, cnic).subscribe((data) => {
+    this.patientService.getPatientByNameOrCnic(name, cnic).subscribe((data) => {
       this.patientData = data;
       this.patientData = JSON.parse(this.patientData);
     });

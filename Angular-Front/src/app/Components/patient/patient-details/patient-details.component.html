@@ -15,10 +15,14 @@
       <mat-label>CNIC</mat-label>
       <input matInput formControlName="cnic" />
       <mat-error>Invalid Cnic</mat-error>
-
     </mat-form-field>
     <div>
-      <button mat-flat-button  type="submit" color="primary" [disabled]="form.invalid">
+      <button
+        mat-flat-button
+        type="submit"
+        color="primary"
+        [disabled]="form.invalid"
+      >
         Get Details
       </button>
       <a mat-stroked-button>Cancel</a>
@@ -26,10 +30,7 @@
   </form>
 </div>
 <ng-container content>
-  <div class="table-container" >
-    <app-generic-list list="patient">
-
-    </app-generic-list>
+  <div class="table-container">
     <table mat-table [dataSource]="patient" class="mat-elevation-z8 table">
       <mat-toolbar color="primary"> Patient Details </mat-toolbar>
       <ng-container matColumnDef="name">

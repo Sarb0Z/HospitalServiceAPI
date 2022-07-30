@@ -13,7 +13,6 @@ export class ShowDetailsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.patient.id);
   }
 
 }
