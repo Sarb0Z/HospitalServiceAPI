@@ -10,6 +10,8 @@ export class ShowDetailsComponent implements OnInit {
   @Output('closeClick') closeClick: EventEmitter<any> = new EventEmitter();
 
   id:number=0;
+
+  modalTitle:string="Patient Details"
   constructor() { }
 
   ngOnInit(): void {

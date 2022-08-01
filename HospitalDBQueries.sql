@@ -119,7 +119,7 @@ where p.id=di.patient_id and di.doctor=d.id
 
 create view [patient_prescription]
 as
-select p.cnic, p.patient_name, d.doctor_name, m.medicine_name, m.supplier_name, pr.recommendation, pr.intake_amount
+select pr.id, p.cnic, p.patient_name, d.doctor_name, m.medicine_name, m.supplier_name, pr.recommendation, pr.intake_amount
 from patient p, doctor d, medicines m, prescription pr
 where pr.patient_id=p.id and pr.medicine_id=m.id and pr.doctor_id=d.id
 

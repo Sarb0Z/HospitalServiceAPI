@@ -17,15 +17,23 @@ export class EditVisitComponent implements OnInit {
   patient_id: number = 0;
   purpose: string = '';
   timing: Date = new Date();
+  visitList: any;
+
+  modalTitle: string = 'Edit Visit';
 
   constructor(private visitService: VisitApiService) {}
 
   ngOnInit(): void {
-    this.id = this.visit.id;
-    this.doctor_id = this.visit.doctor_id;
-    this.patient_id = this.visit.patient_id;
-    this.timing = this.visit.timing;
-    this.purpose = this.visit.purpose;
+    this.visitService.getVisitList().subscribe((data) => {
+      this.visitList = data;
+      this.visitList = JSON.parse(this.visitList);
+      let obj = this.visitList.find((o: { id: any }) => o.id == this.visit.id);
+      this.id = this.visit.id;
+      this.doctor_id = obj.doctor_id;
+      this.patient_id = obj.patient_id;
+      this.timing = new Date(this.visit.timing);
+      this.purpose = this.visit.purpose;
+    });
   }
 
   updateVisit() {

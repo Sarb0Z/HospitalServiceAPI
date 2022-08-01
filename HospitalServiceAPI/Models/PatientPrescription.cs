@@ -2,6 +2,7 @@
 {
     public class PatientPrescription
     {
+        public int id { get; set; } 
         public string PatientName { get; set; } = string.Empty;
         public string DoctorName { get; set; } = string.Empty;
         public string MedicineName { get; set; } = string.Empty;

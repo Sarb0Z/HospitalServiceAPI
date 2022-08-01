@@ -1,71 +1,106 @@
 <div class="form-container">
   <h2>Enter Required Information</h2>
-<form (submit)="saveChanges()" [formGroup]="form">
-  <mat-form-field appearance="outline" required>
-    <mat-label>ID</mat-label>
-    <input matInput formControlName="id"/>
-    <mat-error>The is field is required</mat-error>
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>CNIC</mat-label>
-    <input matInput formControlName="cnic"/>
-    <mat-error>The id field is required</mat-error>
-  </mat-form-field>
-  <div>
-    <button mat-flat-button color="primary" [disabled]="form.invalid">Get Diagnosis</button>
-    <a mat-stroked-button >Cancel</a>
-  </div>
-</form>
-<app-add-diagnosis
-*ngIf="toggleAdd"
-[patientID]="patientID"
-(closeClick)="closeClick()"
-(saveChanges)="saveChanges()"
->
+  <form (submit)="saveChanges()" [formGroup]="form">
+    <mat-form-field appearance="outline" required>
+      <mat-label>ID</mat-label>
+      <input matInput formControlName="id" />
+      <mat-error>The is field is required</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>CNIC</mat-label>
+      <input matInput formControlName="cnic" />
+      <mat-error>The id field is required</mat-error>
+    </mat-form-field>
+    <div>
+      <button mat-flat-button color="primary" [disabled]="form.invalid">
+        Get Diagnosis
+      </button>
+      <a mat-stroked-button>Cancel</a>
+    </div>
+  </form>
+  <app-add-diagnosis
+    *ngIf="toggleAdd"
+    [patientID]="patientID"
+    (closeClick)="closeClick()"
+    (saveChanges)="saveChanges()"
+  >
+  </app-add-diagnosis>
 
-</app-add-diagnosis>
+  <mat-card class="card" style="width: 28rem">
+    <div class="card-body">
+      <mat-card-title class="card-title"> Report </mat-card-title>
+      <mat-divider></mat-divider>
+      <mat-grid-list
+        flex
+        cols="3"
+        rowHeight="170px"
+        gutterSize="4px"
+        class="gridList"
+      >
+        <mat-grid-tile colspan="1" class="gridTile">
+          <mat-grid-list
+            flex
+            cols="6"
+            gutterSize="4px"
+          >
+            <mat-grid-tile
+              colspan="1"
+              rowspan="1"
+              class="flexTile"
+            >
+              Tile
+            </mat-grid-tile>
+          </mat-grid-list>
+          <mat-grid-tile-footer><h3>Cluster name</h3></mat-grid-tile-footer>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </mat-card>
 
-<app-generic-list list="patientDiagnosisList" >
-  <ng-container content>
-    <div *ngFor="let patientDiagnosis of patientDiagnosisList">
-      <mat-card class="card" style="width: 18rem;">
-        <div class="card-body">
-        <mat-card-title class="card-title">
-          Report
-        </mat-card-title>
-        <mat-divider></mat-divider>
-        <h6 class="card-subtitle mb-2 text-muted">Patient's Date of Birth: {{patientDiagnosis.dob | date: 'dd-MM-yyyy'}}</h6>
-        <mat-card-content class="card-text">
-          <h5>Patient's Name: {{patientDiagnosis.patient_name}}</h5>
-          <h5>Doctor's Name: {{patientDiagnosis.doctor_name}}</h5>
-          <h5>Purpose of Visit: {{patientDiagnosis.purpose}}</h5>
-          <h5>Timing of Visit: {{patientDiagnosis.timing | date: 'dd-MM-yyyy'}}</h5>
-          <h5>Doctor's Diagnosis: {{patientDiagnosis.result}}</h5>
-        </mat-card-content>
-        <mat-card-footer>
-          <!-- <button 
+  <app-generic-list list="patientDiagnosisList">
+    <ng-container content>
+      <div *ngFor="let patientDiagnosis of patientDiagnosisList">
+        <mat-card class="card" style="width: 18rem">
+          <div class="card-body">
+            <mat-card-title class="card-title"> Report </mat-card-title>
+            <mat-divider></mat-divider>
+            <h6 class="card-subtitle mb-2 text-muted">
+              Patient's Date of Birth:
+              {{ patientDiagnosis.dob | date: "dd-MM-yyyy" }}
+            </h6>
+            <mat-card-content class="card-text">
+              <h5>Patient's Name: {{ patientDiagnosis.patient_name }}</h5>
+              <h5>Doctor's Name: {{ patientDiagnosis.doctor_name }}</h5>
+              <h5>Purpose of Visit: {{ patientDiagnosis.purpose }}</h5>
+              <h5>
+                Timing of Visit:
+                {{ patientDiagnosis.timing | date: "dd-MM-yyyy" }}
+              </h5>
+              <h5>Doctor's Diagnosis: {{ patientDiagnosis.result }}</h5>
+            </mat-card-content>
+            <mat-card-footer>
+              <!-- <button 
           mat-button
           type="button"
           data-bs-toggle="modal"
           data-bs-target="#editModal"
           (click)="EditDiagnosis(patientDiagnosis)">Edit Diagnosis</button> -->
-        </mat-card-footer>
+            </mat-card-footer>
+          </div>
+        </mat-card>
       </div>
-      </mat-card>
-    </div>
-  </ng-container>
-</app-generic-list>
-<button
-  *ngIf="toggleAdd"
-  mat-button
-  type="button"
-  data-bs-toggle="modal"
-  data-bs-target="#addModal"
-  (click)="AddDiagnosis()"
-  data-keyborad="false"
-  class="btn1"
->
-  Add Diagnosis
-</button>
-  
-  
+    </ng-container>
+  </app-generic-list>
+  <button
+    *ngIf="toggleAdd"
+    mat-button
+    type="button"
+    data-bs-toggle="modal"
+    data-bs-target="#addModal"
+    (click)="AddDiagnosis()"
+    data-keyborad="false"
+    class="btn1"
+  >
+    Add Diagnosis
+  </button>
+</div>

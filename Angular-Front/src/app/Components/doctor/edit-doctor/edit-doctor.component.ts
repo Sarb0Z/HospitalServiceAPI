@@ -16,7 +16,7 @@ export class EditDoctorComponent implements OnInit {
   doctor_name: string = '';
   title: string = '';
 
-  modalTitle:string="Edit Doctor"
+  modalTitle: string = 'Edit Doctor';
 
   constructor(private doctorService: DoctorApiService) {}
 

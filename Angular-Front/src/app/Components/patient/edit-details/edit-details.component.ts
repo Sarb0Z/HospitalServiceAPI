@@ -10,30 +10,26 @@ import { PatientApiService } from 'src/app/Services/patient-api.service';
 export class EditDetailsComponent implements OnInit {
   @Input() patient: any;
   id: number = 0;
-  patientDetail!: FormGroup;
+  blood_type: string = '';
+  bone_density: string = '';
 
-  modalTitle:string="Edit Details"
+  modalTitle: string = 'Edit Details';
 
   @Output('closeClick') closeClick: EventEmitter<any> = new EventEmitter();
 
-  constructor(
-    private patientService: PatientApiService,
-    private form: FormBuilder
-  ) {}
+  constructor(private patientService: PatientApiService) {}
 
   ngOnInit(): void {
-    this.form.group({
-      blood_type: this.patient.blood_type,
-      bone_density: this.patient.bone_density,
-    });
     this.id = this.patient.id;
+    this.blood_type = this.patient.blood_type;
+    this.bone_density = this.patient.bone_density;
   }
   updatePatientDetails() {
     var val = {
       details_id: this.patient.detailsID,
       patient_id: this.patient.id,
-      blood_type: this.patientDetail.value.blood_type,
-      bone_density: this.patientDetail.value.bone_density,
+      blood_type: this.blood_type,
+      bone_density: this.bone_density,
     };
     this.patientService.updatePatientDetails(val).subscribe((res) => {
       alert(res.toString());

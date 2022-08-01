@@ -12,9 +12,8 @@ export class ShowPrescriptionComponent implements OnInit {
 
   prescriptionData: any;
   patientList: any;
-  clicked: boolean = false;
 
-  prescription: string = 'Prescriptions';
+  modalTitle: string = 'Prescriptions';
 
   constructor(private prescriptionService: PrescriptionApiService) {}
 
@@ -22,11 +21,20 @@ export class ShowPrescriptionComponent implements OnInit {
     this.showPrescription();
   }
   showPrescription() {
-    this.clicked = !this.clicked;
     this.prescriptionService.getPrescription(this.cnic).subscribe((data) => {
       this.prescriptionData = data;
       this.prescriptionData = JSON.parse(this.prescriptionData);
     });
+  }
+  deletePrescription(id:number) {
+    if (confirm('Are you sure??')) {
+      this.prescriptionService
+        .deletePrescription(id)
+        .subscribe((res) => {
+          alert(res.toString());
+          this.showPrescription();
+        });
+    }
   }
   columnsToDisplay = [
     'doctor_name',

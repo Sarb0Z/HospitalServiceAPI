@@ -15,7 +15,7 @@ namespace HospitalServiceAPI.Controllers
         [HttpGet]
         public JsonResult Get(string cnic)
         {
-            string query = @"select cnic, patient_name, doctor_name, medicine_name, supplier_name, recommendation, intake_amount from dbo.patient_prescription where cnic = '" + cnic + "'";
+            string query = @"select id, cnic, patient_name, doctor_name, medicine_name, supplier_name, recommendation, intake_amount from dbo.patient_prescription where cnic = '" + cnic + "'";
             ServerConnect newCon = new ServerConnect(_configuration);
 
             return newCon.GetData(query);
