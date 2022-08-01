@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { VisitApiService } from 'src/app/Services/visit-api.service';
+import { VisitApiService } from 'src/app/Services/VisitApi/visit-api.service';
 
 @Component({
   selector: 'app-add-visit',

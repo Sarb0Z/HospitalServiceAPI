@@ -4,8 +4,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { PatientApiService } from 'src/app/Services/patient-api.service';
-import { PrescriptionApiService } from 'src/app/Services/prescription-api.service';
+import { PatientApiService } from 'src/app/Services/PatientApi/patient-api.service';
+import { PrescriptionApiService } from 'src/app/Services/PrescriptionApi/prescription-api.service';
 
 import { Component, OnInit } from '@angular/core';
 import { PatientFull } from '../../../Interfaces/patientFull';
@@ -84,10 +84,13 @@ export class PatientDetailsComponent implements OnInit {
           blood_type: this.patientDetails[0].blood_type,
           bone_density: this.patientDetails[0].bone_density,
         };
+        console.log(curPatient)
 
         this.patient.push(curPatient);
       }
+      console.log(this.patient);
     }
+
   }
 
   closeClick() {

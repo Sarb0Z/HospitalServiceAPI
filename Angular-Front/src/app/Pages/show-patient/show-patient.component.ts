@@ -2,7 +2,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import { PatientApiService } from 'src/app/Services/patient-api.service';
+import { PatientApiService } from 'src/app/Services/PatientApi/patient-api.service';
 
 @Component({
   selector: 'app-show-patient',
@@ -78,6 +78,8 @@ export class ShowPatientComponent implements OnInit, AfterViewInit {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
+
+
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches

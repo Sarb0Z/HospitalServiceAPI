@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { SharedService } from 'src/app/Services/shared.service';
-import { PrescriptionApiService } from 'src/app/Services/prescription-api.service';
+import { PrescriptionApiService } from 'src/app/Services/PrescriptionApi/prescription-api.service';
 
 @Component({
   selector: 'app-add-prescription',

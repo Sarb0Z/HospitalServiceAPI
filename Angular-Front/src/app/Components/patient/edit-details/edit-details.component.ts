@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { PatientApiService } from 'src/app/Services/patient-api.service';
+import { PatientApiService } from 'src/app/Services/PatientApi/patient-api.service';
 
 @Component({
   selector: 'app-edit-details',

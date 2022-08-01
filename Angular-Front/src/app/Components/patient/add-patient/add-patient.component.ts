@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { PatientApiService } from 'src/app/Services/patient-api.service';
+import { PatientApiService } from 'src/app/Services/PatientApi/patient-api.service';
 
 @Component({
   selector: 'app-add-patient',

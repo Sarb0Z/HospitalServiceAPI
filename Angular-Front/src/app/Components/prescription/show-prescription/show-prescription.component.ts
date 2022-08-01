@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { PrescriptionApiService } from 'src/app/Services/prescription-api.service';
+import { PrescriptionApiService } from 'src/app/Services/PrescriptionApi/prescription-api.service';
 
 @Component({
   selector: 'app-show-prescription',
