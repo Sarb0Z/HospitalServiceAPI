@@ -29,7 +29,7 @@ namespace HospitalServiceAPI.Controllers
             string query = @"exec GET_FROM_VISIT";
             ServerConnect newCon = new ServerConnect(_configuration);
 
-            return newCon.GetData(query);
+            return newCon.GetJsonData(query);
 
         }
 
@@ -42,7 +42,7 @@ namespace HospitalServiceAPI.Controllers
                 ('" + sqlFormattedDate + "','" + objVisit.purpose + "','" + objVisit.patient_id + "','" + objVisit.doctor_id + "')";
             ServerConnect newCon = new ServerConnect(_configuration);
 
-            newCon.GetData(query);
+            newCon.GetJsonData(query);
 
             return new JsonResult("Added Successfully");
         }
@@ -59,7 +59,7 @@ namespace HospitalServiceAPI.Controllers
                 doctor_id='" + objVisit.doctor_id + "' where id = " + objVisit.id;
             ServerConnect newCon = new ServerConnect(_configuration);
 
-            newCon.GetData(query);
+            newCon.GetJsonData(query);
 
             return new JsonResult("Updated Successfully");
         }
@@ -70,7 +70,7 @@ namespace HospitalServiceAPI.Controllers
             string query = @"Delete from dbo.Visit where id = " + id;
             ServerConnect newCon = new ServerConnect(_configuration);
 
-            newCon.GetData(query);
+            newCon.GetJsonData(query);
 
             return new JsonResult("Deleted Successfully");
         }

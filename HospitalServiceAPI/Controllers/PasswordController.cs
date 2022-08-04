@@ -28,15 +28,16 @@ namespace HospitalServiceAPI.Controllers
         [HttpGet]
         public JsonResult Get(int id)
         {
-            string query = @"Select _password from dbo._passwords where
+            string query = @"Select CONVERT(varchar, _password) as _password from dbo._passwords where
                 id = " + id;
             ServerConnect newCon = new ServerConnect(_configuration);
-            string data=JsonConvert.SerializeObject(newCon.GetData(query));
-            var result = JsonConvert.DeserializeObject<dynamic>(data);
+            DataTable dt = newCon.GetTableData(query);
+            string password = dt.Rows[0]["_password"].ToString();
+           
             Encryption _encryptor = new Encryption(_provider);
-            string DResult = _encryptor.DecryptPassword(result.Value._password);
-            return newCon.GetData(query);
+            string decryptedPassword = _encryptor.DecryptPassword(password);
 
+            return new JsonResult (dt);
             //query = @"exec ADD_ENCRYPTION";
             //newCon.GetData(query);
 
@@ -89,7 +90,7 @@ namespace HospitalServiceAPI.Controllers
 
 
             ServerConnect newCon = new ServerConnect(_configuration);
-            newCon.GetData(query);
+            newCon.GetJsonData(query);
 
             //query = @"exec ADD_ENCRYPTION";
             //newCon.GetData(query);

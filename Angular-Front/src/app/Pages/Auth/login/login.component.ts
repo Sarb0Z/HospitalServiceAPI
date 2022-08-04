@@ -30,12 +30,14 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    var val = {
-      email: this.form.value.email,
-      password: this.form.value.password,
-    };
-    this.authApi.verifyUser(val).subscribe((res) => {
-      alert(res.toString());
-    });
+    // var val = {
+    //   email: this.form.value.email,
+    //   password: this.form.value.password,
+    // };
+    // this.authApi.verifyUser(val).subscribe((res) => {
+    //   alert(res.toString());
+    // });
+    this.authApi.login();
+
   }
 }

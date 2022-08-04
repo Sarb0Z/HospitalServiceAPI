@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AuthApiService {
-
+  logInCom:boolean=false;
   constructor(private http: HttpClient) {}
   /*AUTH APIS*/
   addUser(val: any) {
@@ -13,5 +13,8 @@ export class AuthApiService {
   }
   verifyUser(val: any) {
     return this.http.put('/api/Auth', val);
+  }
+  login(){
+    this.logInCom=true;
   }
 }

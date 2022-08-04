@@ -21,7 +21,7 @@ namespace HospitalServiceAPI.Controllers
                 ('" + objPrescription.patient_id + "','" + objPrescription.medicine_id + "','" + objPrescription.recommendation + "','" + objPrescription.intake_amount + "','" + objPrescription.doctor_id + "')";
             ServerConnect newCon = new ServerConnect(_configuration);
 
-            newCon.GetData(query);
+            newCon.GetJsonData(query);
 
             return new JsonResult("Added Successfully");
         }
@@ -36,7 +36,7 @@ namespace HospitalServiceAPI.Controllers
                 intake_amount='" + objPrescription.intake_amount + "' where id = " + objPrescription.id;
             ServerConnect newCon = new ServerConnect(_configuration);
 
-            newCon.GetData(query);
+            newCon.GetJsonData(query);
 
             return new JsonResult("Updated Successfully");
         }
@@ -46,7 +46,7 @@ namespace HospitalServiceAPI.Controllers
             string query = @"Delete from dbo.prescription where id = " + id;
             ServerConnect newCon = new ServerConnect(_configuration);
 
-            newCon.GetData(query);
+            newCon.GetJsonData(query);
 
             return new JsonResult("Deleted Successfully");
         }

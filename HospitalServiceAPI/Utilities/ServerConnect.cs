@@ -17,7 +17,7 @@ namespace HospitalServiceAPI.Utilities
             sqlDataSource = _configuration.GetConnectionString("HospitalAppCon");
 
         }
-        public JsonResult GetData(string query)
+        public JsonResult GetJsonData(string query)
         {
             SqlDataReader myReader;
 
@@ -38,6 +38,29 @@ namespace HospitalServiceAPI.Utilities
             return new JsonResult(temp);
 
         }
+
+        public DataTable GetTableData(string query)
+        {
+            SqlDataReader myReader;
+
+            using (SqlConnection myCon = new SqlConnection(this.sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
+
+            return table;
+
+        }
+
+
 
         public JsonResult GetDataWithParam(string query, SqlParameter[] param)
         {

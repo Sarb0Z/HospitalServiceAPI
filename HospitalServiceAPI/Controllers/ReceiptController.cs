@@ -30,7 +30,7 @@ namespace HospitalServiceAPI.Controllers
             string query = @"Select id, details, amount from dbo.Receipt where id = " + id;
             ServerConnect newCon = new ServerConnect(_configuration);
 
-            return newCon.GetData(query);
+            return newCon.GetJsonData(query);
 
         }
     }

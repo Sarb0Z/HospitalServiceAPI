@@ -30,7 +30,7 @@ namespace HospitalServiceAPI.Controllers
             string query = @"exec GET_FROM_DOCTOR";
             ServerConnect newCon = new ServerConnect(_configuration);
 
-            return newCon.GetData(query);
+            return newCon.GetJsonData(query);
 
         }
 
@@ -42,7 +42,7 @@ namespace HospitalServiceAPI.Controllers
                 ('" + objDoctor.doctor_name + "','" + objDoctor.title + "')";
             ServerConnect newCon = new ServerConnect(_configuration);
 
-            newCon.GetData(query);
+            newCon.GetJsonData(query);
 
             return new JsonResult("Added Successfully");
         }
@@ -55,7 +55,7 @@ namespace HospitalServiceAPI.Controllers
                 title='" + objDoctor.title + "' where id = " + objDoctor.id;
             ServerConnect newCon = new ServerConnect(_configuration);
 
-            newCon.GetData(query);
+            newCon.GetJsonData(query);
 
             return new JsonResult("Updated Successfully");
         }
@@ -66,7 +66,7 @@ namespace HospitalServiceAPI.Controllers
             string query = @"Delete from dbo.Doctor where id = " + id;
             ServerConnect newCon = new ServerConnect(_configuration);
 
-            newCon.GetData(query);
+            newCon.GetJsonData(query);
 
             return new JsonResult("Deleted Successfully");
         }

@@ -29,7 +29,7 @@ namespace HospitalServiceAPI.Controllers
             string query = @"exec GET_FROM_LOGS";
             ServerConnect newCon = new ServerConnect(_configuration);
 
-            return newCon.GetData(query);
+            return newCon.GetJsonData(query);
 
         }
 
@@ -42,7 +42,7 @@ namespace HospitalServiceAPI.Controllers
                 ('" + objLog.log_text + "','" + sqlFormattedDate + "')";
             ServerConnect newCon = new ServerConnect(_configuration);
 
-            newCon.GetData(query);
+            newCon.GetJsonData(query);
 
             return new JsonResult("Added Successfully");
         }

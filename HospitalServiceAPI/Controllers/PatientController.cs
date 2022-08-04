@@ -29,7 +29,7 @@ namespace HospitalServiceAPI.Controllers
             string query = @"exec GET_FROM_PATIENT";
             ServerConnect newCon = new ServerConnect(_configuration);
 
-            return newCon.GetData(query);
+            return newCon.GetJsonData(query);
         }
         [HttpGet("{id}")]
         public JsonResult Get(int id)
@@ -129,7 +129,7 @@ namespace HospitalServiceAPI.Controllers
                 ('" + objPatient.patient_name + "','" + objPatient.cnic + "','" + sqlFormattedDate + "')";
             ServerConnect newCon = new ServerConnect(_configuration);
 
-            newCon.GetData(query);
+            newCon.GetJsonData(query);
 
             return new JsonResult("Added Successfully");
         }
@@ -144,7 +144,7 @@ namespace HospitalServiceAPI.Controllers
                 dob='" + sqlFormattedDate + "' where id = " + objPatient.id;
             ServerConnect newCon = new ServerConnect(_configuration);
 
-            newCon.GetData(query);
+            newCon.GetJsonData(query);
 
             return new JsonResult("Updated Successfully");
         }
@@ -155,7 +155,7 @@ namespace HospitalServiceAPI.Controllers
             string query = @"Delete from dbo.Patient where id = " + id;
             ServerConnect newCon = new ServerConnect(_configuration);
 
-            newCon.GetData(query);
+            newCon.GetJsonData(query);
 
             return new JsonResult("Deleted Successfully");
         }

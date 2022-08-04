@@ -28,7 +28,7 @@ namespace HospitalServiceAPI.Controllers
             string query = @"Select patient_name, cnic, dob, timing, purpose, result, doctor_name from dbo.patient_diagnosis where cnic = '" + cnic + "'";
             ServerConnect newCon = new ServerConnect(_configuration);
 
-            return newCon.GetData(query);
+            return newCon.GetJsonData(query);
 
         }
     }

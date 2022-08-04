@@ -29,7 +29,7 @@ namespace HospitalServiceAPI.Controllers
             string query = @"Select details_id, patient_id, blood_type, bone_density from dbo.patient_details where patient_id = " + id;
             ServerConnect newCon = new ServerConnect(_configuration);
 
-            return newCon.GetData(query);
+            return newCon.GetJsonData(query);
         }
 
         [HttpPost]
@@ -65,7 +65,7 @@ namespace HospitalServiceAPI.Controllers
                 bone_density='" + objPatientDetails.bone_density + "' where details_id = " + objPatientDetails.details_id;
             ServerConnect newCon = new ServerConnect(_configuration);
 
-            newCon.GetData(query);
+            newCon.GetJsonData(query);
 
             return new JsonResult("Updated Successfully");
         }
@@ -76,7 +76,7 @@ namespace HospitalServiceAPI.Controllers
             string query = @"Delete from dbo.patient_details where details_id = " + id;
             ServerConnect newCon = new ServerConnect(_configuration);
 
-            newCon.GetData(query);
+            newCon.GetJsonData(query);
 
             return new JsonResult("Deleted Successfully");
         }

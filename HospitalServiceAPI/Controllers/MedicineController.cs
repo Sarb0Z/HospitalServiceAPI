@@ -19,7 +19,7 @@ namespace HospitalServiceAPI.Controllers
             string query = @"exec GET_MEDICINE";
             ServerConnect newCon = new ServerConnect(_configuration);
 
-            return newCon.GetData(query);
+            return newCon.GetJsonData(query);
         }
     }
 }

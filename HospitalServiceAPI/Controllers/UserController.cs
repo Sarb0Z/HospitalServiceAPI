@@ -44,7 +44,7 @@ namespace HospitalServiceAPI.Controllers
                 ('" + objUser.user_name + "','" + objUser.email_id + "','" + objUser.cnic + "','" + sqlFormattedDate + "')";
             ServerConnect newCon = new ServerConnect(_configuration);
 
-            newCon.GetData(query);
+            newCon.GetJsonData(query);
 
             return new JsonResult("Added Successfully");
         }
@@ -59,7 +59,7 @@ namespace HospitalServiceAPI.Controllers
                 date_created='" + objUser.date_created + "' where id = " + objUser.id;
             ServerConnect newCon = new ServerConnect(_configuration);
 
-            newCon.GetData(query);
+            newCon.GetJsonData(query);
 
             return new JsonResult("Updated Successfully");
         }
@@ -70,7 +70,7 @@ namespace HospitalServiceAPI.Controllers
             string query = @"Delete from dbo._user where id = " + id;
             ServerConnect newCon = new ServerConnect(_configuration);
 
-            newCon.GetData(query);
+            newCon.GetJsonData(query);
 
             return new JsonResult("Deleted Successfully");
         }
