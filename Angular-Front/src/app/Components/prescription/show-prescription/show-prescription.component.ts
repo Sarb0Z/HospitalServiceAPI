@@ -42,7 +42,7 @@ export class ShowPrescriptionComponent implements OnInit {
     'supplier_name',
     'recommendation',
     'intake_amount',
-    'Action1',
+    // 'Action1',
     'Action2',
   ];
 }

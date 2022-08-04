@@ -9,6 +9,7 @@ import { PrescriptionApiService } from 'src/app/Services/PrescriptionApi/prescri
 
 import { Component, OnInit } from '@angular/core';
 import { PatientFull } from '../../../Interfaces/patientFull';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-patient-details',
@@ -20,12 +21,15 @@ export class PatientDetailsComponent implements OnInit {
   patientData: any;
   prescriptionData: any;
 
-
   patient: PatientFull[] = [];
   form: FormGroup = new FormGroup({
     name: new FormControl(''),
     cnic: new FormControl(''),
   });
+
+  toggleTable: boolean = false;
+  dataSource:any;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -40,10 +44,14 @@ export class PatientDetailsComponent implements OnInit {
     });
 
     this.initChanges();
-
   }
-  refreshList(){
-    this.saveChanges();
+  onClick() {
+    this.toggleTable = true;
+    if (this.form.value.cnic != '' || this.form.value.name != '') {
+      this.saveChanges();
+    } else {
+      this.initChanges();
+    }
   }
   initChanges() {
     this.patientService.getPatientList().subscribe((data) => {
@@ -54,18 +62,27 @@ export class PatientDetailsComponent implements OnInit {
           this.getPatientDetails(this.patientData[key].id);
           let curPatient: PatientFull = {
             id: this.patientData[key].id,
-            detailsID: this.patientDetails[0].details_id,
+            detailsID: this.patientDetails
+              ? this.patientDetails[0].details_id
+              : null,
             patient_name: this.patientData[key].patient_name,
             cnic: this.patientData[key].cnic,
             dob: this.patientData[key].dob,
-            blood_type: this.patientDetails[0].blood_type,
-            bone_density: this.patientDetails[0].bone_density,
+            blood_type: this.patientDetails
+              ? this.patientDetails[0].blood_type
+              : null,
+            bone_density: this.patientDetails
+              ? this.patientDetails[0].bone_density
+              : null,
           };
 
           this.patient.push(curPatient);
         }
+        this.dataSource = new MatTableDataSource(this.patient);
+
       }
     });
+    
   }
 
   saveChanges() {
@@ -77,25 +94,29 @@ export class PatientDetailsComponent implements OnInit {
         this.getPatientDetails(this.patientData[key].id);
         let curPatient: PatientFull = {
           id: this.patientData[key].id,
-          detailsID: this.patientDetails[0].details_id,
+          detailsID: this.patientDetails
+            ? this.patientDetails[0].details_id
+            : null,
           patient_name: this.patientData[key].patient_name,
           cnic: this.patientData[key].cnic,
           dob: this.patientData[key].dob,
-          blood_type: this.patientDetails[0].blood_type,
-          bone_density: this.patientDetails[0].bone_density,
+          blood_type: this.patientDetails
+            ? this.patientDetails[0].blood_type
+            : null,
+          bone_density: this.patientDetails
+            ? this.patientDetails[0].bone_density
+            : null,
         };
-        console.log(curPatient)
+        console.log(curPatient);
 
         this.patient.push(curPatient);
       }
       console.log(this.patient);
     }
-
   }
 
   closeClick() {
     this.saveChanges();
-
   }
 
   getPrescription(cnic: string) {
@@ -118,6 +139,12 @@ export class PatientDetailsComponent implements OnInit {
       this.patientData = data;
       this.patientData = JSON.parse(this.patientData);
     });
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
   }
 
   columnsToDisplay = ['name', 'dob', 'cnic', 'action1', 'action2'];

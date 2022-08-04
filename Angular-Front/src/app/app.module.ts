@@ -38,6 +38,8 @@ import { ShowDetailsComponent } from './Components/patient/show-details/show-det
 
 import { SharedService } from './Services/shared.service';
 import { GenericModalComponent } from './Utilities/generic-modal/generic-modal.component';
+import { LoginComponent } from './Pages/Auth/login/login.component';
+import { RegisterComponent } from './Pages/Auth/register/register.component';
 
 
 const routes: Routes = [
@@ -81,6 +83,8 @@ const routes: Routes = [
     AddDiagnosisComponent,
     ShowDetailsComponent,
     GenericModalComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule, BrowserAnimationsModule, MaterialModule, FormsModule, ReactiveFormsModule, FlexLayoutModule,

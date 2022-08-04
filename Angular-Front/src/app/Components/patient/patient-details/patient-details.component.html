@@ -5,7 +5,7 @@
 
 <div class="form-container">
   <h2>Enter Search Details</h2>
-  <form (ngSubmit)="refreshList()" [formGroup]="form">
+  <form (ngSubmit)="onClick()" [formGroup]="form">
     <mat-form-field appearance="outline">
       <mat-label>Name</mat-label>
       <input matInput formControlName="name" />
@@ -29,7 +29,7 @@
     </div>
   </form>
 </div>
-<ng-container content>
+<ng-container content *ngIf="toggleTable">
   <div class="table-container">
     <table mat-table [dataSource]="patient" class="mat-elevation-z8 table">
       <mat-toolbar color="primary"> Patient Details </mat-toolbar>

@@ -89,6 +89,26 @@ alter table prescription
 add constraint fk_prescription_medicine
 foreign key(medicine_id) references medicines(id)
 
+create table _user (
+id int primary key identity(1,1),
+username varchar(40) unique,
+email_id varchar(40) unique,
+date_created datetime not null default(GETDATE()),
+cnic varchar(15) unique
+)
+
+create table _logs(
+id int primary key identity(1,1),
+log_text text NOT NULL,
+log_datetime datetime not null default(GETDATE())
+)
+
+create table _passwords(
+id int primary key foreign key references _user(id),
+_password varbinary(160) not null,
+password_Encrypted varbinary(160)
+)
+
 
 insert into Patient values ('banker class', '12345-1234567-1', '1/1/2000')
 
@@ -122,6 +142,22 @@ as
 select pr.id, p.cnic, p.patient_name, d.doctor_name, m.medicine_name, m.supplier_name, pr.recommendation, pr.intake_amount
 from patient p, doctor d, medicines m, prescription pr
 where pr.patient_id=p.id and pr.medicine_id=m.id and pr.doctor_id=d.id
+
+
+--ENCRYPTION
+
+CREATE MASTER KEY ENCRYPTION BY   
+PASSWORD = '328bcadkJKD9899*&*()(*hdw29i12';  
+
+CREATE CERTIFICATE password_encrypt  
+   WITH SUBJECT = 'Login User Password';  
+GO  
+
+CREATE SYMMETRIC KEY passwords_key1  
+    WITH ALGORITHM = AES_256  
+    ENCRYPTION BY CERTIFICATE password_encrypt;  
+GO  
+
 
 --PROCEDURES
 
@@ -321,6 +357,52 @@ select cnic, patient_name, doctor_name, medicine_name, supplier_name, recommenda
 create procedure GET_VISIT_DETAILS_VIEW
 as
 Select id, doctor_name, patient_name, timing, purpose from dbo.visit_details
+
+--PASSWORD
+
+create procedure POST_TO_PASSWORD
+@id int, @password varchar(40)
+as
+insert into _passwords values (@id, CONVERT(varbinary, @password), null)
+
+--LOGS
+
+create procedure GET_FROM_LOGS
+as
+Select id, log_text, log_datetime from _logs
+
+--PASSWORD ENCRYPTION
+
+alter procedure ADD_ENCRYPTION
+as
+begin
+	begin
+	OPEN SYMMETRIC KEY passwords_key1  
+	   DECRYPTION BY CERTIFICATE password_encrypt;  
+
+	UPDATE _passwords
+	SET password_Encrypted = EncryptByKey(Key_GUID('passwords_key1')  
+		, _password, 1, HASHBYTES('SHA2_256', CONVERT( varbinary  
+		, id)));  
+	end
+	begin
+	OPEN SYMMETRIC KEY passwords_key1  
+	   DECRYPTION BY CERTIFICATE password_encrypt;  
+	end 
+	begin
+	SELECT _password, password_Encrypted   
+		AS 'Encrypted password', CONVERT(varchar,  
+		DecryptByKey(password_Encrypted, 1 ,   
+		HASHBYTES('SHA2_256', CONVERT(varbinary, id))))  
+		AS 'Decrypted password' FROM _passwords;  
+	end
+	begin
+		UPDATE _passwords
+		SET _password =CONVERT(varbinary, 'encrypted')
+	end
+end
+
+
 
 
 select * from doctor

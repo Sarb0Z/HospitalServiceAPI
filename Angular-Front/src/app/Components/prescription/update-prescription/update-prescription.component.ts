@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { SharedService } from 'src/app/Services/shared.service';
 import { PrescriptionApiService } from 'src/app/Services/PrescriptionApi/prescription-api.service';
@@ -11,6 +11,7 @@ import { PrescriptionApiService } from 'src/app/Services/PrescriptionApi/prescri
 export class UpdatePrescriptionComponent implements OnInit {
   @Input() prescriptionData: any;
   @Output('closeClick') closeClick: EventEmitter<any> = new EventEmitter();
+  @ViewChild('closeModal') closeModal!: ElementRef
 
   medicineList: any = [];
   testList: any = [];
@@ -27,6 +28,8 @@ export class UpdatePrescriptionComponent implements OnInit {
   testForm!: FormGroup;
 
   ngOnInit(): void {
+    this.closeModal.nativeElement.click() //<-- here
+
     this.patientDetail = this.form.group({
       doctor_id: this.prescriptionData.doctor_id,
       recommendation: this.prescriptionData.recommendation,
