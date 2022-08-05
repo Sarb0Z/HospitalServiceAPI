@@ -11,7 +11,7 @@ export class AppComponent {
   public forecasts?: WeatherForecast[];
   LogInCom: boolean = false;
 
-  constructor(http: HttpClient) {
+  constructor(http: HttpClient, private authService:AuthApiService) {
     http.get<WeatherForecast[]>('/weatherforecast').subscribe(
       (result) => {
         this.forecasts = result;
@@ -19,6 +19,11 @@ export class AppComponent {
       (error) => console.error(error)
     );
   }
+
+  
+
+
+
 
   title = 'Angular-Front';
 }

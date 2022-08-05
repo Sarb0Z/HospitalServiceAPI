@@ -91,8 +91,8 @@ foreign key(medicine_id) references medicines(id)
 
 create table _user (
 id int primary key identity(1,1),
-username varchar(40) unique,
-email_id varchar(40) unique,
+username varchar(40) NOT NULL unique,
+email_id varchar(40) NOT NULL unique,
 date_created datetime not null default(GETDATE()),
 cnic varchar(15) unique
 )

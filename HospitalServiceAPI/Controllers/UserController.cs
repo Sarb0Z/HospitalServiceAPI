@@ -24,15 +24,15 @@ namespace HospitalServiceAPI.Controllers
             _configuration = configuration;
         }
 
-        //[HttpGet]
-        //public JsonResult Get()
-        //{
-        //    string query = @"exec GET_FROM_DOCTOR";
-        //    ServerConnect newCon = new ServerConnect(_configuration);
+        [HttpGet]
+        public JsonResult Get(string email_id)
+        {
+            string query = @"Select id, username, email_id, cnic, date_created from dbo._user where email_id = '" + email_id + "'";
+            ServerConnect newCon = new ServerConnect(_configuration);
 
-        //    return newCon.GetData(query);
+            return newCon.GetJsonData(query);
 
-        //}
+        }
 
 
         [HttpPost]
@@ -41,7 +41,7 @@ namespace HospitalServiceAPI.Controllers
             string sqlFormattedDate = objUser.date_created.ToString("yyyy-MM-dd HH:mm:ss.fff");
 
             string query = @"Insert into dbo._user values
-                ('" + objUser.user_name + "','" + objUser.email_id + "','" + objUser.cnic + "','" + sqlFormattedDate + "')";
+                ('" + objUser.username + "','" + objUser.email_id + "','" + objUser.cnic + "','" + sqlFormattedDate + "')";
             ServerConnect newCon = new ServerConnect(_configuration);
 
             newCon.GetJsonData(query);
@@ -53,7 +53,7 @@ namespace HospitalServiceAPI.Controllers
         public JsonResult Put(User objUser)
         {
             string query = @"Update dbo._user set
-                user_name = '" + objUser.user_name + @"',
+                user_name = '" + objUser.username + @"',
                 email_id='" + objUser.email_id + @"',
                 cnic='" + objUser.cnic + @"',
                 date_created='" + objUser.date_created + "' where id = " + objUser.id;

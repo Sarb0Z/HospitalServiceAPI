@@ -30,16 +30,18 @@ namespace HospitalServiceAPI.Controllers
         {
             string query = @"Select CONVERT(varchar, _password) as _password from dbo._passwords where
                 id = " + id;
-            ServerConnect newCon = new ServerConnect(_configuration);
-            DataTable dt = newCon.GetTableData(query);
-            string password = dt.Rows[0]["_password"].ToString();
-           
-            Encryption _encryptor = new Encryption(_provider);
-            string decryptedPassword = _encryptor.DecryptPassword(password);
+            //ServerConnect newCon = new ServerConnect(_configuration);
+            //DataTable dt = newCon.GetTableData(query);
+            //string password = dt.Rows[0]["_password"].ToString();
 
-            return new JsonResult (dt);
+            //Encryption _encryptor = new Encryption(_provider);
+            //string decryptedPassword = _encryptor.DecryptPassword(password);
+
             //query = @"exec ADD_ENCRYPTION";
             //newCon.GetData(query);
+
+            ServerConnect newCon = new ServerConnect(_configuration);
+            return newCon.GetJsonData(query);
 
         }
 
@@ -50,9 +52,9 @@ namespace HospitalServiceAPI.Controllers
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("HospitalAppCon");
             SqlDataReader myReader;
-            Encryption _encryptor = new Encryption(_provider);
-            string password = objPassword._password;
-            password = _encryptor.EncryptPassword(password);
+            //Encryption _encryptor = new Encryption(_provider);
+            //string password = objPassword._password;
+            //password = _encryptor.EncryptPassword(password);
 
             using (SqlConnection myCon = new SqlConnection(sqlDataSource))
             {
@@ -64,7 +66,7 @@ namespace HospitalServiceAPI.Controllers
                     myCommand.Parameters["@id"].Value = objPassword.id;
  
                     myCommand.Parameters.Add("@password", SqlDbType.VarChar);
-                    myCommand.Parameters["@password"].Value = password;
+                    myCommand.Parameters["@password"].Value = objPassword._password;
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
 
@@ -86,7 +88,7 @@ namespace HospitalServiceAPI.Controllers
         public JsonResult Put(Passwords objPassword)
         {
             string query = @"Update dbo._passwords set
-                _password = '" + objPassword._password + "' where id = " + objPassword.id;
+                _password = CONVERT(varbinary, '" + objPassword._password + "') where id = " + objPassword.id;
 
 
             ServerConnect newCon = new ServerConnect(_configuration);
