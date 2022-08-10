@@ -1,17 +1,16 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Doctor } from 'src/app/Interfaces/doctor';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DoctorApiService {
-
   constructor(private http: HttpClient) {}
-   /*DOCTOR APIS*/
+  /*DOCTOR APIS*/
 
-   getDoctorList(): Observable<any[]> {
+  getDoctorList(): Observable<any[]> {
     return this.http.get<any>('/api/Doctor');
   }
   addDoctor(val: any) {
@@ -23,5 +22,4 @@ export class DoctorApiService {
   deleteDoctor(id: any) {
     return this.http.delete('/api/Doctor/' + id);
   }
-
 }

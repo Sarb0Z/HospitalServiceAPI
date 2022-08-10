@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MaterialModule } from './MaterialUI/material.module';
@@ -40,6 +40,7 @@ import { NavbarComponent } from './Menu/AuthMenu/navbar.component';
 
 
 import { SharedService } from './Services/shared.service';
+import { AuthInterceptorService } from './Services/AuthApi/auth-interceptor.service';
 
 
 const routes: Routes = [
@@ -97,7 +98,11 @@ const routes: Routes = [
     FlexLayoutModule,
     RouterModule.forRoot(routes),
   ],
-  providers: [SharedService],
+  providers: [SharedService, 
+    {
+    provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true
+    }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

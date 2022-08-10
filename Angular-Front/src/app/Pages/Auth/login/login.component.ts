@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   });
   user: any;
   password: any;
-  token:any;
+  token: any;
   constructor(
     private formBuilder: FormBuilder,
     private authApi: AuthApiService
@@ -49,22 +49,23 @@ export class LoginComponent implements OnInit {
     //     }
     //   });
     // });
-    var val={
-      email_id:this.form.value.email,
-      password:this.form.value.password
-    }
-    this.authApi.login(val).subscribe((token)=>{
-      if (token==null){
-        alert("Wrong email or password");
-      }
-      else {
-        console.log(token);
+    var val = {
+      email_id: this.form.value.email,
+      password: this.form.value.password,
+    };
+    this.authApi.login(val).subscribe((token) => {
+      if (token == null) {
+        alert('Wrong email or password');
+      } else {
+        //console.log(token);
         this.setSession(token);
+        //console.log(localStorage.getItem('id_token'));
       }
-    })
+    });
   }
   private setSession(authResult: any) {
-    localStorage.setItem('id_token', authResult.TokenStr);
-    localStorage.setItem("expires_at", authResult.expiry);
-  }    
+    localStorage.setItem('id_token', authResult.token);
+    localStorage.setItem('expires_at', authResult.expiry);
+
+  }
 }
