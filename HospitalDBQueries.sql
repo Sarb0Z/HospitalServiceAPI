@@ -108,7 +108,8 @@ create table _login(
 id int primary key foreign key references _user(id),
 email_id varchar(40) NOT NULL unique,
 _password varbinary(160) not null,
-password_Encrypted varbinary(160)
+password_Encrypted varbinary(160),
+date_modified datetime NOT NULL default(GETDATE())
 )
 
 
