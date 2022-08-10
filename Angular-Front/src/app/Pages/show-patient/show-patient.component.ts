@@ -2,6 +2,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+// import { Patient, PatientService } from 'src/app/api';
 import { PatientApiService } from 'src/app/Services/PatientApi/patient-api.service';
 
 @Component({
@@ -27,12 +28,15 @@ export class ShowPatientComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.refreshPatientList();
   }
-  refreshPatientList() {
+  async refreshPatientList() {
     this.patientService.getPatientList().subscribe((data) => {
       this.patientList = data;
       this.patientList = JSON.parse(this.patientList);
       this.dataSource = new MatTableDataSource(this.patientList);
     });
+    // this.patientList=await PatientService.getApiPatient();
+    // this.dataSource=new MatTableDataSource(this.patientList);
+
   }
 
   AddPatient() {

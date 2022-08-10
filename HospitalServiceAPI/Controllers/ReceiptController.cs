@@ -11,9 +11,11 @@ using HospitalServiceAPI.Models;
 using System.Text.Json;
 using Newtonsoft.Json;
 using HospitalServiceAPI.Utilities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HospitalServiceAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ReceiptController : ControllerBase

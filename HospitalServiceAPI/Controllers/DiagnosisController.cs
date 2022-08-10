@@ -9,13 +9,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using HospitalServiceAPI.Models;
 using Newtonsoft.Json;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace HospitalServiceAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-
     public class DiagnosisController: ControllerBase
     {
         private readonly IConfiguration _configuration;
@@ -23,7 +23,6 @@ namespace HospitalServiceAPI.Controllers
         {
             _configuration = configuration;
         }
-
         [HttpGet]
         public JsonResult Get()
         {
@@ -47,7 +46,6 @@ namespace HospitalServiceAPI.Controllers
 
             return new JsonResult(temp);
         }
-
 
         [HttpPost]
         public JsonResult Post(Diagnosis objDiagnosis)

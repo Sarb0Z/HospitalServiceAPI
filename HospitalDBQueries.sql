@@ -92,9 +92,10 @@ foreign key(medicine_id) references medicines(id)
 create table _user (
 id int primary key identity(1,1),
 username varchar(40) NOT NULL unique,
-email_id varchar(40) NOT NULL unique,
+--email_id varchar(40) NOT NULL unique,
 date_created datetime not null default(GETDATE()),
-cnic varchar(15) unique
+cnic varchar(15) unique,
+--rowguid uniqueidentifier ROWGUIDCOL NOT NULL
 )
 
 create table _logs(
@@ -103,11 +104,29 @@ log_text text NOT NULL,
 log_datetime datetime not null default(GETDATE())
 )
 
-create table _passwords(
+create table _login(
 id int primary key foreign key references _user(id),
+email_id varchar(40) NOT NULL unique,
 _password varbinary(160) not null,
 password_Encrypted varbinary(160)
 )
+
+
+--MAKE IT ONE--
+
+select * into _user_backup from _user
+
+select * into _passwords_backup from _passwords
+
+drop table _passwords
+
+drop table _user
+
+
+INSERT INTO _user ( username, email_id, date_created, cnic, _password)
+SELECT username, email_id, date_created, cnic, _password
+FROM _user_backup u
+INNER JOIN _passwords_backup p ON u.id = p.id
 
 
 insert into Patient values ('banker class', '12345-1234567-1', '1/1/2000')

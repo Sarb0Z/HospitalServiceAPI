@@ -10,9 +10,11 @@ using System.Threading.Tasks;
 using HospitalServiceAPI.Models;
 using Newtonsoft.Json;
 using HospitalServiceAPI.Utilities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HospitalServiceAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class VisitPageController: ControllerBase
