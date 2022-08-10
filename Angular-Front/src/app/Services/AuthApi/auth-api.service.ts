@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpClient
-} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthApiService {
-  logInCom: boolean = false;
+  private logInCom = new Subject<any>();
   token: string = '';
   constructor(private http: HttpClient) {}
-
 
   /*AUTH APIS*/
 
@@ -37,15 +34,22 @@ export class AuthApiService {
   // verifyUser(val: any) {
   //   return this.http.put('/api/Auth', val);
   // }
-  login(val: any) {
+  getToken(val: any) {
     return this.http.post('/api/Token', val);
-    
   }
 
   getLoginStatus() {
-    return this.logInCom;
+    return this.logInCom.asObservable();
   }
   setToken(token: string) {
     this.token = token;
+  }
+  logout() {
+    this.logInCom.next({ flag: false });
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('expires_at');
+  }
+  login() {
+    this.logInCom.next({ flag: true });
   }
 }

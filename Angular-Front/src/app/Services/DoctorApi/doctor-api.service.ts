@@ -10,7 +10,7 @@ export class DoctorApiService {
   constructor(private http: HttpClient) {}
   /*DOCTOR APIS*/
 
-  getDoctorList(): Observable<any[]> {
+  getDoctorList(): Observable<Doctor[]> {
     return this.http.get<any>('/api/Doctor');
   }
   addDoctor(val: any) {
@@ -19,7 +19,7 @@ export class DoctorApiService {
   updateDoctor(val: any) {
     return this.http.put('/api/Doctor', val);
   }
-  deleteDoctor(id: any) {
+  deleteDoctor(id: number) {
     return this.http.delete('/api/Doctor/' + id);
   }
 }

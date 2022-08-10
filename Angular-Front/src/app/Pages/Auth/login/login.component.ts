@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthApiService } from 'src/app/Services/AuthApi/auth-api.service';
 
 @Component({
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
   token: any;
   constructor(
     private formBuilder: FormBuilder,
-    private authApi: AuthApiService
+    private authApi: AuthApiService,
+    private router:Router
   ) {}
 
   ngOnInit(): void {
@@ -53,17 +55,21 @@ export class LoginComponent implements OnInit {
       email_id: this.form.value.email,
       password: this.form.value.password,
     };
-    this.authApi.login(val).subscribe((token) => {
+    this.authApi.getToken(val).subscribe((token) => {
       if (token == null) {
         alert('Wrong email or password');
       } else {
         //console.log(token);
         this.setSession(token);
+        this.authApi.login();
+        this.router.navigateByUrl("/");
+
         //console.log(localStorage.getItem('id_token'));
       }
     });
   }
   private setSession(authResult: any) {
+    
     localStorage.setItem('id_token', authResult.token);
     localStorage.setItem('expires_at', authResult.expiry);
 

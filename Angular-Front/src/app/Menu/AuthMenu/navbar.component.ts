@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AuthApiService } from 'src/app/Services/AuthApi/auth-api.service';
 
 @Component({
   selector: 'app-navbar',
@@ -6,9 +7,13 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  @Output('logIn') logIn: EventEmitter<any> = new EventEmitter();
+  logInStatus: any;
+  constructor(private authService: AuthApiService) {}
 
-  constructor() {}
-
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.refreshLogin();
+  }
+  refreshLogin() {
+    this.logInStatus = this.authService.getLoginStatus();
+  }
 }

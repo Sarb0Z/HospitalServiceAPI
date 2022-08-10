@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" *ngIf="logInStatus">
   <span>
     <a routerLink="" mat-button>
       <mat-icon> local_hospital</mat-icon> Hospital Portal
@@ -27,10 +27,8 @@
     <a mat-button routerLink="patient"> Patients </a>
   </div>
   <div>
-    <a mat-button routerLink="Login"> Sign In </a>
+    <button mat-button (click)="logOut()"> Log Out </button>
   </div>
 
-  <div>
-    <a mat-button routerLink="Register"> Sign Up </a>
-  </div>
+
 </mat-toolbar>
