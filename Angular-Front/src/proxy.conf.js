@@ -14,9 +14,10 @@ const PROXY_CONFIG = [
       "/api/Medicine",
       "/api/Test",
       "/api/PatientPrescription",
-      "/api/Password",
+      // "/api/Password",
       "/api/User",
-      "/api/Logging"
+      "/api/Logging",
+      "/api/Token"
 
     ],
     target: 'https://localhost:5000',

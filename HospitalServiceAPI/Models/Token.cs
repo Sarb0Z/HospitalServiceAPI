@@ -2,7 +2,9 @@
 {
     public class Token
     {
-        public string TokenStr { get; set; }
-        public string RefreshToken { get; set; }
+        public string token { get; set; }=String.Empty;
+        public DateTime expiry { get; set; }
+        public string userID { get; set; }=String.Empty;
+
     }
 }

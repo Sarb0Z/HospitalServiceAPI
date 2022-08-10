@@ -59,7 +59,7 @@ namespace HospitalServiceAPI.Repositories
 				claims,
 				expires: DateTime.UtcNow.AddMinutes(20),
 				signingCredentials: signIn);
-			return new Token { TokenStr = tokenHandler.WriteToken(token) };
+			return new Token { token = tokenHandler.WriteToken(token) };
 
 		}
 

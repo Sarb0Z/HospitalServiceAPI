@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   });
   user: any;
   password: any;
+  token:any;
   constructor(
     private formBuilder: FormBuilder,
     private authApi: AuthApiService
@@ -32,21 +33,38 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authApi.getUser(this.form.value.email).subscribe((data) => {
-      this.user = data;
-      this.user = JSON.parse(this.user);
-      //console.log(this.user);
-      this.authApi.getPassword(this.user[0].id).subscribe((data) => {
-        this.password = data;
-        this.password = JSON.parse(this.password);
-        //console.log(this.password);
-        if (this.form.value.password == this.password[0]._password) {
-          alert('Congratulations. Logged in.');
-          this.authApi.login();
-        } else {
-          alert('Wrong email or password.');
-        }
-      });
-    });
+    // this.authApi.getUser(this.form.value.email).subscribe((data) => {
+    //   this.user = data;
+    //   this.user = JSON.parse(this.user);
+    //   //console.log(this.user);
+    //   this.authApi.getPassword(this.user[0].id).subscribe((data) => {
+    //     this.password = data;
+    //     this.password = JSON.parse(this.password);
+    //     //console.log(this.password);
+    //     if (this.form.value.password == this.password[0]._password) {
+    //       alert('Congratulations. Logged in.');
+    //       this.authApi.login();
+    //     } else {
+    //       alert('Wrong email or password.');
+    //     }
+    //   });
+    // });
+    var val={
+      email_id:this.form.value.email,
+      password:this.form.value.password
+    }
+    this.authApi.login(val).subscribe((token)=>{
+      if (token==null){
+        alert("Wrong email or password");
+      }
+      else {
+        console.log(token);
+        this.setSession(token);
+      }
+    })
   }
+  private setSession(authResult: any) {
+    localStorage.setItem('id_token', authResult.TokenStr);
+    localStorage.setItem("expires_at", authResult.expiry);
+  }    
 }

@@ -26,13 +26,13 @@ namespace HospitalServiceAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Login _userData)
+        public async Task<Token> Post(Login _userData)
         {
             if (_userData != null && _userData.email_id != null && _userData.password != null)
             {
                 DataTable user = GetUser(_userData.email_id, _userData.password);
 
-                if (user != null)
+                if (user != null && user.Rows.Count > 0)
                 {
                     string userID = user.Rows[0]["id"].ToString();
                     //create claims details based on the user information
@@ -53,16 +53,22 @@ namespace HospitalServiceAPI.Controllers
                         expires: DateTime.UtcNow.AddMinutes(20),
                         signingCredentials: signIn);
 
-                    return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+                    return new Token { 
+                        token = new JwtSecurityTokenHandler().WriteToken(token),
+                        expiry= DateTime.UtcNow.AddMinutes(20),
+                        userID=userID
+                    };
                 }
                 else
                 {
-                    return BadRequest("Invalid credentials");
+                    //return BadRequest("Invalid credentials");
+                    return null;
                 }
             }
             else
             {
-                return BadRequest();
+                //return BadRequest();
+                return null;
             }
         }
 
