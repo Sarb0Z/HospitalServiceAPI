@@ -41,18 +41,21 @@ import { NavbarComponent } from './Menu/AuthMenu/navbar.component';
 
 import { SharedService } from './Services/shared.service';
 import { AuthInterceptorService } from './Services/AuthApi/auth-interceptor.service';
+import { AuthGuardService } from './Services/AuthApi/auth-guard.service';
 
 
 const routes: Routes = [
-  { path: 'home', component: AppComponent },
-  { path: 'doctor', component: ShowDoctorComponent },
-  { path: 'patient', component: ShowPatientComponent },
-  { path: 'visits', component: VisitsComponent },
-  { path: 'diagnosis', component: DiagnosisComponent },
-  { path: 'searchpatient', component: SearchPatientComponent },
-  { path: 'getpatientdetails', component: PatientDetailsComponent },
+  { path: '', component: AppComponent, canActivate: [AuthGuardService] },
+  { path: 'doctor', component: ShowDoctorComponent, canActivate: [AuthGuardService] },
+  { path: 'patient', component: ShowPatientComponent, canActivate: [AuthGuardService] },
+  { path: 'visits', component: VisitsComponent, canActivate: [AuthGuardService] },
+  { path: 'diagnosis', component: DiagnosisComponent, canActivate: [AuthGuardService] },
+  { path: 'searchpatient', component: SearchPatientComponent, canActivate: [AuthGuardService] },
+  { path: 'getpatientdetails', component: PatientDetailsComponent, canActivate: [AuthGuardService] },
   { path: 'Login', component: LoginComponent },
   { path: 'Register', component: RegisterComponent },
+  { path: '**', redirectTo: 'Login' }
+
 ];
 
 @NgModule({
@@ -96,7 +99,9 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, {
+      onSameUrlNavigation: 'reload'
+    }),
   ],
   providers: [SharedService, 
     {

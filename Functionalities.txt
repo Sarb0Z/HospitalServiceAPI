@@ -7,12 +7,14 @@ Functionalities:
 4)You can see a list of all patients in tabular form. You can their details, add more or delete them from the database.
 5)You can see a list of all doctors. You can edit their details, add more doctors or delete them from the database.
 
-Objectives:
+Objectives/Issues:
 
 (Current)
-1)Search for patients using name OR cnic and check their details.
+1)Search for patients using name OR cnic and check their details.(done)
 2)Same for diagnosis
-3)When querying table, row doesn't render at the top.{done}
+3)When querying table, row doesn't render at the top.(done)
+4)If you go to login from inside portal, it doesn't redirect you to main page when logged in.
+5)When searching for patient details using cnic or name, it takes two or three clicks.
 (Long term)
 1)Fetch data from database using stored procedures{--done for get}
 2)Add search and sort to tables
@@ -20,6 +22,7 @@ Objectives:
 
 Additional:
 
-1)Authentication
-2)Web tokens
+1)Authentication (done)
+2)Web tokens (done)
+3)Web sockets
 

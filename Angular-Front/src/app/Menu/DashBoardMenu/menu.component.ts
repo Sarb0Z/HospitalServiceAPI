@@ -15,7 +15,9 @@ export class MenuComponent implements OnInit {
     this.refreshLogin();
   }
   refreshLogin() {
-    this.logInStatus = this.authService.getLoginStatus();
+    this.authService.getLoginStatus().subscribe((data)=>{
+      this.logInStatus=data.flag;
+    });
   }
   logOut() {
     this.authService.logout();

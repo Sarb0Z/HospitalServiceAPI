@@ -49,8 +49,10 @@ export class RegisterComponent implements OnInit {
         //console.log(this.user);
         var obj = {
           id: this.user[0].id,
-          _password: this.form.value.password,
+          email_id:this.form.value.email,
+          password: this.form.value.password,
         };
+        console.log(obj);
         this.authApi.addPassword(obj).subscribe((newRes) => {
           alert(newRes.toString());
         });

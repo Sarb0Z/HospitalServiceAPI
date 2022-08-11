@@ -21,11 +21,11 @@ export class AuthApiService {
   updateUser(val: any) {
     return this.http.put('/api/User', val);
   }
-  getPassword(id: number) {
-    return this.http.get(`/api/Password?id=${id}`);
-  }
+  // getPassword(id: number) {
+  //   return this.http.get(`/api/Password?id=${id}`);
+  // }
   addPassword(val: any) {
-    return this.http.post('/api/Password', val);
+    return this.http.post('/api/Login', val);
   }
   updatePassword(val: any) {
     return this.http.put('/api/Password', val);

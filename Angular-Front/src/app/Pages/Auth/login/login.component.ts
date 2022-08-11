@@ -60,9 +60,9 @@ export class LoginComponent implements OnInit {
         alert('Wrong email or password');
       } else {
         //console.log(token);
-        this.setSession(token);
         this.authApi.login();
-        this.router.navigateByUrl("/");
+        this.setSession(token);
+        this.router.navigateByUrl("/doctor");
 
         //console.log(localStorage.getItem('id_token'));
       }

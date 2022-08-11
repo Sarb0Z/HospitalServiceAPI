@@ -11,9 +11,9 @@ export class NavbarComponent implements OnInit {
   constructor(private authService: AuthApiService) {}
 
   ngOnInit(): void {
-    this.refreshLogin();
+    // this.refreshLogin();
   }
-  refreshLogin() {
-    this.logInStatus = this.authService.getLoginStatus();
-  }
+  // refreshLogin() {
+  //   this.logInStatus = this.authService.getLoginStatus();
+  // }
 }

@@ -17,12 +17,12 @@ const PROXY_CONFIG = [
       // "/api/Password",
       "/api/User",
       "/api/Logging",
-      "/api/Token"
-
+      "/api/Token",
+      "/api/Login",
     ],
-    target: 'https://localhost:5000',
-    secure: false
-  }
-]
+    target: "https://localhost:5000",
+    secure: false,
+  },
+];
 
 module.exports = PROXY_CONFIG;
