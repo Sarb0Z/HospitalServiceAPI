@@ -6,7 +6,8 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthApiService {
-  private logInCom = new Subject<any>();
+  // private logInCom = new Subject<any>();
+  private logInCom:boolean=false;
   token: string = '';
   constructor(private http: HttpClient) {}
 
@@ -39,17 +40,19 @@ export class AuthApiService {
   }
 
   getLoginStatus() {
-    return this.logInCom.asObservable();
+    return this.logInCom;
   }
   setToken(token: string) {
     this.token = token;
   }
   logout() {
-    this.logInCom.next({ flag: false });
+    // this.logInCom.next({ flag: false });
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
+    this.logInCom=false;
   }
   login() {
-    this.logInCom.next({ flag: true });
+    // this.logInCom.next({ flag: true });
+    this.logInCom=true;
   }
 }

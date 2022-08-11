@@ -24,10 +24,13 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authApi: AuthApiService,
-    private router:Router
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    if (localStorage.getItem('id_token') !== null) {
+      this.router.navigateByUrl('/doctor');
+    }
     this.form = this.formBuilder.group({
       email: ['', Validators.email],
       password: ['', Validators.maxLength(40)],
@@ -60,18 +63,17 @@ export class LoginComponent implements OnInit {
         alert('Wrong email or password');
       } else {
         //console.log(token);
-        this.authApi.login();
         this.setSession(token);
-        this.router.navigateByUrl("/doctor");
+        this.authApi.login();
+        this.router.navigateByUrl('/');
 
         //console.log(localStorage.getItem('id_token'));
       }
     });
+    window.location.reload();
   }
   private setSession(authResult: any) {
-    
     localStorage.setItem('id_token', authResult.token);
     localStorage.setItem('expires_at', authResult.expiry);
-
   }
 }

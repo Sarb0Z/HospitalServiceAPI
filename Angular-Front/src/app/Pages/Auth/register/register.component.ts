@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthApiService } from 'src/app/Services/AuthApi/auth-api.service';
 
 @Component({
@@ -23,10 +24,14 @@ export class RegisterComponent implements OnInit {
   });
   constructor(
     private formBuilder: FormBuilder,
-    private authApi: AuthApiService
+    private authApi: AuthApiService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    if (localStorage.getItem('id_token') !== null) {
+      this.router.navigateByUrl('/doctor');
+    }
     this.form = this.formBuilder.group({
       fullname: ['', Validators.maxLength(40)],
       cnic: ['', Validators.maxLength(15)],
@@ -49,7 +54,7 @@ export class RegisterComponent implements OnInit {
         //console.log(this.user);
         var obj = {
           id: this.user[0].id,
-          email_id:this.form.value.email,
+          email_id: this.form.value.email,
           password: this.form.value.password,
         };
         console.log(obj);
