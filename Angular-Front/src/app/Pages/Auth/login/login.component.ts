@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthApiService } from 'src/app/Services/AuthApi/auth-api.service';
+import { AuthApiService } from 'src/app/Services/AuthApi/AuthService/auth-api.service';
 
 @Component({
   selector: 'app-login',
@@ -65,12 +65,14 @@ export class LoginComponent implements OnInit {
         //console.log(token);
         this.setSession(token);
         this.authApi.login();
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/doctor');
+        setTimeout(()=>window.location.reload());
+
 
         //console.log(localStorage.getItem('id_token'));
       }
     });
-    window.location.reload();
+    // setTimeout(()=>window.location.reload(), 3);
   }
   private setSession(authResult: any) {
     localStorage.setItem('id_token', authResult.token);

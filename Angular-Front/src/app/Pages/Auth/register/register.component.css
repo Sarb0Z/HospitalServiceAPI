@@ -1,0 +1,22 @@
+form {
+    max-width: 500px;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+button {
+    margin-top: rem;
+    margin-right: 1rem;
+}
+
+.form-container {
+    margin: auto;
+    width: 60%;
+}
+
+.card-container{
+    margin: auto;
+    width: 60%;
+}

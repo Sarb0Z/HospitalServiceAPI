@@ -36,12 +36,12 @@ import { ShowDetailsComponent } from './Components/patient/show-details/show-det
 import { GenericModalComponent } from './Utilities/generic-modal/generic-modal.component';
 import { LoginComponent } from './Pages/Auth/login/login.component';
 import { RegisterComponent } from './Pages/Auth/register/register.component';
-import { NavbarComponent } from './Menu/AuthMenu/navbar.component';
+// import { NavbarComponent } from './Menu/AuthMenu/navbar.component';
 
 
 import { SharedService } from './Services/shared.service';
-import { AuthInterceptorService } from './Services/AuthApi/auth-interceptor.service';
-import { AuthGuardService } from './Services/AuthApi/auth-guard.service';
+import { AuthInterceptorService } from './Services/AuthApi/AuthInterceptor/auth-interceptor.service';
+import { AuthGuardService } from './Services/AuthApi/AuthGuard/auth-guard.service';
 
 
 const routes: Routes = [
@@ -89,7 +89,7 @@ const routes: Routes = [
     GenericModalComponent,
     LoginComponent,
     RegisterComponent,
-    NavbarComponent,
+    // NavbarComponent,
   ],
   imports: [
     BrowserModule,

@@ -12,6 +12,7 @@ using System.Text.Json;
 using Newtonsoft.Json;
 using HospitalServiceAPI.Utilities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.DataProtection;
 
 namespace HospitalServiceAPI.Controllers
 {
@@ -20,14 +21,21 @@ namespace HospitalServiceAPI.Controllers
     public class LoginController: ControllerBase
     {
         private readonly IConfiguration _configuration;
-        public LoginController(IConfiguration configuration)
+        //private readonly IDataProtector _protector;
+
+        public LoginController(IConfiguration configuration/*, IDataProtectionProvider provider*/)
         {
             _configuration = configuration;
+            //_protector = provider.CreateProtector(GetType().FullName);
         }
 
         [HttpPost]
         public JsonResult Post(Login objLogin)
         {
+            //Encryption encryptor = new Encryption(_protector);
+            //string encrypted_password = encryptor.EncryptPassword(objLogin.password);
+
+            //string decrypted_password = encryptor.DecryptPassword(ecrypted_password);
 
             string query = @"Insert into dbo._login values
                 (" + objLogin.id + ",'" + objLogin.email_id + "',CONVERT(varbinary,'" + objLogin.password + "'), null, GETDATE())";
@@ -57,6 +65,9 @@ namespace HospitalServiceAPI.Controllers
         [HttpPut]
         public JsonResult Put(Login objLogin)
         {
+            //Encryption encryptor = new Encryption(_protector);
+            //string encrypted_password = encryptor.EncryptPassword(objLogin.password);
+
             string query = @"Update dbo._login set
                 email_id = '" + objLogin.email_id + @"',
                 _password='" + objLogin.password + "' where id = ''" + objLogin.id + "'";
@@ -70,7 +81,7 @@ namespace HospitalServiceAPI.Controllers
         [HttpDelete("{id}")]
         public JsonResult Delete(int id)
         {
-            string query = @"Delete from dbo.Doctor where id = " + id;
+            string query = @"Delete from dbo._login where id = " + id;
             ServerConnect newCon = new ServerConnect(_configuration);
 
             newCon.GetJsonData(query);

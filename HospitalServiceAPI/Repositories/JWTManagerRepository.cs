@@ -21,7 +21,7 @@ namespace HospitalServiceAPI.Repositories
 			string query = @"Select id, email_id, _password, date_modified from dbo._login where email_id = '" + userData.email_id + "' and _password = '" + userData.password + "'";
 			ServerConnect newCon = new ServerConnect(_configuration);
 			DataTable user = newCon.GetTableData(query);
-			string userID = user.Rows[0]["id"].ToString();
+			string? userID = user.Rows[0]["id"].ToString();
 
 
 			// Else we generate JSON Web Token

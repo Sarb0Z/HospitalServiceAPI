@@ -1,6 +1,7 @@
 ﻿using HospitalServiceAPI.Models;
 using HospitalServiceAPI.Repositories;
 using HospitalServiceAPI.Utilities;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,11 +19,15 @@ namespace HospitalServiceAPI.Controllers
     public class TokenController : ControllerBase
     {
         private readonly IConfiguration _configuration;
+        //private readonly IDataProtector _protector;
+
         //private readonly JWTManagerRepository _jWTManager;
-        public TokenController(IConfiguration configuration)
+        public TokenController(IConfiguration configuration, IDataProtectionProvider provider)
         {
             _configuration = configuration;
             //_jWTManager = jWTManager;
+            //_protector = provider.CreateProtector(GetType().FullName);
+
         }
 
         [HttpPost]
@@ -34,7 +39,7 @@ namespace HospitalServiceAPI.Controllers
 
                 if (user != null && user.Rows.Count > 0)
                 {
-                    string userID = user.Rows[0]["id"].ToString();
+                    string? userID = user.Rows[0]["id"].ToString();
                     //create claims details based on the user information
                     var claims = new[] {
                         new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
@@ -74,6 +79,8 @@ namespace HospitalServiceAPI.Controllers
 
         private DataTable GetUser(string email_id, string password)
         {
+            //Encryption encryptor = new Encryption(_protector);
+            //string decrypted_password = encryptor.DecryptPassword(password);
             string query = @"Select id, email_id, _password, date_modified from dbo._login where email_id = '" + email_id + "' and _password = '" + password + "'";
             ServerConnect newCon = new ServerConnect(_configuration);
 

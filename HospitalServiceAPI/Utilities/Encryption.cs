@@ -7,9 +7,9 @@ namespace HospitalServiceAPI.Utilities
     {
         private readonly IDataProtector _protector;
 
-        public Encryption(IDataProtectionProvider provider)
+        public Encryption(IDataProtector protector)
         {
-            _protector = provider.CreateProtector("sdkjfnlkfnladk");
+            _protector = protector;
         }
         public string EncryptPassword(string result)
         {

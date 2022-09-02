@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthApiService } from 'src/app/Services/AuthApi/auth-api.service';
+import { AuthApiService } from 'src/app/Services/AuthApi/AuthService/auth-api.service';
 
 @Component({
   selector: 'app-register',
