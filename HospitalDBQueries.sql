@@ -50,11 +50,8 @@ create table receipt (
 id int foreign key references Visit(id),
 details varchar(100),
 amount float NOT NULL,
-visit int foreign key references Visit(id)
 )
 
-alter table receipt drop constraint FK__receipt__visit__44FF419A
-alter table receipt drop column visit
 
 create table tests (
 id int primary key identity(1,1),
@@ -88,6 +85,9 @@ foreign key(patient_id) references patient(id)
 alter table prescription
 add constraint fk_prescription_medicine
 foreign key(medicine_id) references medicines(id)
+
+alter table prescription
+add test_id int foreign key references tests(id)
 
 create table _user (
 id int primary key identity(1,1),

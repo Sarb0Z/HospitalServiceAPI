@@ -79,16 +79,22 @@ export class AddPrescriptionComponent implements OnInit {
     this.testNames.removeAt(index);
   }
   AddPrescription() {
-    let obj = this.medicineList.find(
+    let objMed = this.medicineList.find(
       (o: { medicine_name: any }) =>
         o.medicine_name === this.patientDetail.value.medicine
     );
+    let objTest = this.testList.find(
+      (o: { test_name: any }) =>
+        o.test_name === this.patientDetail.value.test
+    );
 
-    var med_id = obj.id;
+    var med_id = objMed.id;
+    var test_id=objTest.id;
     var val = {
       patient_id: this.patientID,
       doctor_id: this.patientDetail.value.doctor_id,
       medicine_id: med_id,
+      test_id: test_id,
       recommendation: this.patientDetail.value.recommendation,
       intake_amount: this.patientDetail.value.intake_amount,
     };
