@@ -39,8 +39,8 @@ add constraint fk_diagnosis_patient_id
 foreign key(patient_id) references Patient(id)
 
 create table patient_details (
+details_id int identity(1,1) primary key,
 patient_id int foreign key references Patient(id),
-doctor_id int foreign key references doctor(id),
 blood_type varchar(3),
 bone_density float,
 no_of_visits int
